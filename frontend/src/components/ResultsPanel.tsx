@@ -11,6 +11,7 @@ import type { CsvDelimiter } from '../lib/csv';
 import { ChevronDownIcon, DownloadIcon, TableIcon } from '../icons';
 import { Highlight } from './Highlight';
 import { RowDrawer } from './RowDrawer';
+import { t, tn } from '../i18n/index.ts';
 
 const MAX_COLUMNS = 10;
 const CELL_PREVIEW_CHARS = 300;
@@ -58,9 +59,10 @@ function cellText(value: unknown): string {
 interface ResultsPanelProps {
   state: SearchState;
   connectionLabel: string;
+  onOpenTable: (table: string) => void;
 }
 
-export function ResultsPanel({ state, connectionLabel }: ResultsPanelProps) {
+export function ResultsPanel({ state, connectionLabel, onOpenTable }: ResultsPanelProps) {
   const toast = useToast();
   const params = state.params;
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
@@ -78,7 +80,7 @@ export function ResultsPanel({ state, connectionLabel }: ResultsPanelProps) {
     if (!group) return;
     const csv = buildCsv(group.hits[0].cols, group.hits.map((h) => h.row), delimiter);
     downloadText(`${safeFilename(...fileBase, group.table)}.csv`, csv);
-    toast({ title: `Exported ${group.hits.length} rows from ${group.table}`, status: 'success', duration: 2500 });
+    toast({ title: tn(group.hits.length, 'Exported {n} row from {table}', 'Exported {n} rows from {table}', { table: group.table }), status: 'success', duration: 2500 });
   };
 
   const exportAll = (delimiter: CsvDelimiter) => {
@@ -94,7 +96,7 @@ export function ResultsPanel({ state, connectionLabel }: ResultsPanelProps) {
     }
     const rows = state.results.map((h) => ({ ...h.row, _table: h.table, _matched: h.matched_columns.join(', ') }));
     downloadText(`${safeFilename(...fileBase)}.csv`, buildCsv(header, rows, delimiter));
-    toast({ title: `Exported ${rows.length} rows from ${groups.length} tables`, status: 'success', duration: 2500 });
+    toast({ title: t('Exported {rows} from {tables}', { rows: tn(rows.length, '{n} row', '{n} rows'), tables: tn(groups.length, '{n} table', '{n} tables') }), status: 'success', duration: 2500 });
   };
 
   return (
@@ -102,60 +104,58 @@ export function ResultsPanel({ state, connectionLabel }: ResultsPanelProps) {
       <Flex justify="space-between" align="center" gap={3} wrap="wrap">
         <Box>
           <Text fontSize="xl" fontWeight={650}>
-            {state.results.length} match{state.results.length === 1 ? '' : 'es'} in {groups.length} table
-            {groups.length === 1 ? '' : 's'}
+            {tn(state.results.length, '{n} match', '{n} matches')} {tn(groups.length, 'in {n} table', 'in {n} tables')}
           </Text>
           <Text fontSize="sm" color="mutedText">
-            Scanned {state.progress.processed} of {state.progress.total} tables
-            {state.elapsedSec !== null && ` in ${state.elapsedSec.toFixed(1)}s`} · “{phrase}”
+            {t('Scanned {processed} of {total} tables', { processed: state.progress.processed, total: state.progress.total })}
+            {state.elapsedSec !== null && t(' in {s}s', { s: state.elapsedSec.toFixed(1) })} · “{phrase}”
           </Text>
         </Box>
         {groups.length > 0 && (
           <Menu placement="bottom-end">
             <MenuButton as={Button} variant="subtle" leftIcon={<DownloadIcon boxSize={4} />} rightIcon={<ChevronDownIcon boxSize={4} />}>
-              Export CSV
+              {t('Export CSV')}
             </MenuButton>
             <MenuList minW="260px">
               <Text px={3} pb={1} fontSize="xs" color="faintText" fontWeight={600}>
-                THIS TABLE ({group?.table})
+                {t('THIS TABLE ({table})', { table: group?.table })}
               </Text>
-              <MenuItem onClick={() => exportTable(';')}>For Excel (semicolon)</MenuItem>
-              <MenuItem onClick={() => exportTable(',')}>Standard (comma)</MenuItem>
+              <MenuItem onClick={() => exportTable(';')}>{t('For Excel (semicolon)')}</MenuItem>
+              <MenuItem onClick={() => exportTable(',')}>{t('Standard (comma)')}</MenuItem>
               <MenuDivider />
               <Text px={3} pb={1} fontSize="xs" color="faintText" fontWeight={600}>
-                ALL RESULTS ({state.results.length} rows)
+                {tn(state.results.length, 'ALL RESULTS ({n} row)', 'ALL RESULTS ({n} rows)')}
               </Text>
-              <MenuItem onClick={() => exportAll(';')}>For Excel (semicolon)</MenuItem>
-              <MenuItem onClick={() => exportAll(',')}>Standard (comma)</MenuItem>
+              <MenuItem onClick={() => exportAll(';')}>{t('For Excel (semicolon)')}</MenuItem>
+              <MenuItem onClick={() => exportAll(',')}>{t('Standard (comma)')}</MenuItem>
             </MenuList>
           </Menu>
         )}
       </Flex>
 
       {state.status === 'cancelled' && (
-        <Notice status="warning">The search was stopped. These are the results found before that.</Notice>
+        <Notice status="warning">{t('The search was stopped. These are the results found before that.')}</Notice>
       )}
-      {state.status === 'error' && <Notice status="error">The search failed{state.message ? `: ${state.message}` : '.'}</Notice>}
+      {state.status === 'error' && <Notice status="error">{state.message ? t('The search failed: {message}', { message: state.message }) : t('The search failed.')}</Notice>}
       {state.errors.length > 0 && (
         <Notice status="error">
-          {state.errors.length} table{state.errors.length === 1 ? '' : 's'} could not be searched, so results may be
-          incomplete.
+          {tn(state.errors.length, '{n} table could not be searched, so results may be incomplete.', '{n} tables could not be searched, so results may be incomplete.')}
           <Box mt={1} fontSize="xs">
             {state.errors.slice(0, 4).map((e) => (
               <Text key={e.table}>
                 <b>{e.table}</b>: {e.error}
               </Text>
             ))}
-            {state.errors.length > 4 && <Text>…and {state.errors.length - 4} more</Text>}
+            {state.errors.length > 4 && <Text>{t('…and {n} more', { n: state.errors.length - 4 })}</Text>}
           </Box>
         </Notice>
       )}
       {(state.truncatedTables.length > 0 || state.resultsCapped) && (
         <Notice status="info">
-          {state.resultsCapped && 'The overall result limit was reached. '}
+          {state.resultsCapped && t('The overall result limit was reached. ')}
           {state.truncatedTables.length > 0 &&
-            `${state.truncatedTables.length} table${state.truncatedTables.length === 1 ? ' has' : 's have'} more matches than shown (${params.rowLimit} per table). `}
-          Narrow the phrase or the tables, or raise “rows / table”.
+            tn(state.truncatedTables.length, '{n} table has more matches than shown ({limit} per table). ', '{n} tables have more matches than shown ({limit} per table). ', { limit: params.rowLimit })}
+          {t('Narrow the phrase or the tables, or raise “rows / table”.')}
         </Notice>
       )}
 
@@ -212,13 +212,18 @@ export function ResultsPanel({ state, connectionLabel }: ResultsPanelProps) {
                   {group.table}
                 </Text>
                 <Text fontSize="xs" color="mutedText" whiteSpace="nowrap">
-                  {group.hits.length} row{group.hits.length === 1 ? '' : 's'}
-                  {columns.hidden > 0 && ` · ${columns.hidden} more column${columns.hidden === 1 ? '' : 's'} in the record view`}
+                  {tn(group.hits.length, '{n} row', '{n} rows')}
+                  {columns.hidden > 0 && tn(columns.hidden, ' · {n} more column in the record view', ' · {n} more columns in the record view')}
                 </Text>
               </HStack>
-              <Text fontSize="xs" color="faintText" display={{ base: 'none', md: 'block' }}>
-                Click a row to open the full record
-              </Text>
+              <HStack spacing={3}>
+                <Text fontSize="xs" color="faintText" display={{ base: 'none', xl: 'block' }}>
+                  {t('Click a row to open the full record')}
+                </Text>
+                <Button size="xs" variant="subtle" onClick={() => onOpenTable(group.table)}>
+                  {state.truncatedTables.includes(group.table) ? t('See all matches →') : t('Open in table view →')}
+                </Button>
+              </HStack>
             </Flex>
             <Box overflow="auto" maxH="580px">
               <Table size="sm" variant="simple">

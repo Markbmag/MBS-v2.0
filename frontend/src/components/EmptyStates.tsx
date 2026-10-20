@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Box, Button, Flex, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { DatabaseIcon, PlusIcon, SearchIcon, SparklesIcon, TableIcon } from '../icons';
+import { t } from '../i18n/index.ts';
 
 interface FrameProps {
   icon: ReactNode;
@@ -56,18 +57,18 @@ export function NoConnectionsState({ isAdmin, onAdd }: NoConnectionsProps) {
   return (
     <Frame
       icon={<DatabaseIcon boxSize={7} />}
-      title={isAdmin ? 'Connect your first database' : 'No databases available yet'}
+      title={isAdmin ? t('Connect your first database') : t('No databases available yet')}
       action={
         isAdmin ? (
           <Button leftIcon={<PlusIcon />} onClick={onAdd} size="lg">
-            Add a database
+            {t('Add a database')}
           </Button>
         ) : undefined
       }
     >
       {isAdmin
-        ? 'Pick MySQL, PostgreSQL, SQL Server, MariaDB or SQLite, enter the connection details and start searching in under a minute. No code needed.'
-        : 'Ask an administrator to connect a database or to give you access to an existing one.'}
+        ? t('Pick MySQL, PostgreSQL, SQL Server, MariaDB or SQLite, enter the connection details and start searching in under a minute. No code needed.')
+        : t('Ask an administrator to connect a database or to give you access to an existing one.')}
     </Frame>
   );
 }
@@ -81,22 +82,22 @@ export function ReadyState({ connectionLabel, scopeLabel }: ReadyProps) {
   const tips = [
     {
       icon: <SearchIcon boxSize={4} />,
-      title: 'Search everywhere at once',
-      text: 'Every text column of every table is checked. Names, codes, VINs, emails — just type it.',
+      title: t('Search everywhere at once'),
+      text: t('Every text column of every table is checked. Names, codes, VINs, emails — just type it.'),
     },
     {
       icon: <TableIcon boxSize={4} />,
-      title: 'Narrow it down',
-      text: `Currently searching: ${scopeLabel}. Use the scope button to pick tables or skip noisy ones.`,
+      title: t('Narrow it down'),
+      text: t('Currently searching: {scope}. Use the scope button to pick tables or skip noisy ones.', { scope: scopeLabel }),
     },
     {
       icon: <SparklesIcon boxSize={4} />,
-      title: 'Export what you find',
-      text: 'Download any result table as CSV that opens correctly in Excel.',
+      title: t('Export what you find'),
+      text: t('Download any result table as CSV that opens correctly in Excel.'),
     },
   ];
   return (
-    <Frame icon={<SearchIcon boxSize={7} />} title={`Find anything in ${connectionLabel}`}>
+    <Frame icon={<SearchIcon boxSize={7} />} title={t('Find anything in {name}', { name: connectionLabel })}>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} mt={2} textAlign="left" w="100%" maxW="860px">
         {tips.map((tip) => (
           <VStack
@@ -135,15 +136,15 @@ interface NoResultsProps {
 
 export function NoResultsState({ phrase, matchMode, caseSensitive, includeNumbers, tablesSearched }: NoResultsProps) {
   const ideas: string[] = [];
-  if (matchMode !== 'contains') ideas.push('Switch the match to “Contains”.');
-  if (caseSensitive) ideas.push('Turn off “Match case”.');
-  if (!includeNumbers) ideas.push('Turn on “Numbers & dates” if you are looking for a number.');
-  ideas.push('Check that the right tables are selected in the scope.');
-  ideas.push('Try a shorter part of the phrase.');
+  if (matchMode !== 'contains') ideas.push(t('Switch the match to “Contains”.'));
+  if (caseSensitive) ideas.push(t('Turn off “Match case”.'));
+  if (!includeNumbers) ideas.push(t('Turn on “Numbers & dates” if you are looking for a number.'));
+  ideas.push(t('Check that the right tables are selected in the scope.'));
+  ideas.push(t('Try a shorter part of the phrase.'));
   return (
-    <Frame icon={<SearchIcon boxSize={7} />} title={`Nothing found for “${phrase}”`}>
+    <Frame icon={<SearchIcon boxSize={7} />} title={t('Nothing found for “{phrase}”', { phrase })}>
       <Text mb={3}>
-        {tablesSearched > 0 ? `${tablesSearched} tables were searched.` : 'No table had searchable columns.'} Things to try:
+        {tablesSearched > 0 ? t('{n} tables were searched.', { n: tablesSearched }) : t('No table had searchable columns.')} {t('Things to try:')}
       </Text>
       <VStack align="flex-start" spacing={1} display="inline-flex" textAlign="left">
         {ideas.map((idea) => (

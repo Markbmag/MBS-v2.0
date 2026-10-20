@@ -13,6 +13,13 @@
     DELETE /api/connections/{key}       (admin)
     POST   /api/connections/{key}/test
     GET    /api/connections/{key}/tables?refresh=false
+    GET    /api/connections/{key}/schema?refresh=false   tables, typed columns, keys, relationships
+    GET    /api/connections/{key}/browse?table=...   paged rows, optional filter (q, mode ...)
+    GET    /api/connections/{key}/structure?table=...
+    GET    /api/connections/{key}/export?table=...   CSV stream (all rows or only matches)
+    GET    /api/limits
+    POST   /api/query, /api/query/compile, /api/query/sql, /api/query/sql/check, /api/query/tasks/{id}
+                                        questions and SQL mode, see app/query/routes.py
     POST   /api/search                  -> {"task_id": ...}
     GET    /api/search/{task_id}        -> progress (+ results when finished)
     DELETE /api/search/{task_id}        -> cancel
@@ -30,10 +37,12 @@ import re
 import time
 from contextlib import asynccontextmanager
 from dataclasses import replace
+from typing import Any
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
 
@@ -41,7 +50,27 @@ from .appdb import ANONYMOUS, AppDB, User
 from .config import ENGINES, ConnectionConfig, Settings, driver_available, normalize_engine
 from .crypto import CipherError
 from .db import ConnectionRegistry, describe_error, probe
-from .models import ConnectionDetails, ConnectionInfo, ConnectionPayload, EngineOption, SearchRequest
+from .explore import browse_table, csv_stream, table_structure
+from .content.routes import register_content_routes
+from .query.routes import register_query_routes
+from .analysis.routes import register_analysis_routes
+from .automation.engine import Engine as AutomationEngine
+from .automation.routes import register_automation_routes
+from .automation.scheduler import Scheduler
+from .automation.settings import SettingsStore
+from .automation.store import SubscriptionStore
+from .sharing.routes import register_sharing_routes
+from .usage import register_usage_routes
+from .admin_routes import register_admin_routes
+from .backup import AutoBackup
+from .metrics import Metrics
+from .ops_routes import register_ops_routes
+from .semantic.routes import register_semantic_routes, schema_extras
+from .semantic.store import SemanticStore
+from .query.runner import QueryRunner
+from .rowsec import RowRules, RowSecurityError
+from .schema_graph import describe_schema
+from .models import ConnectionDetails, ConnectionInfo, ConnectionPayload, EngineOption, MatchMode, SearchRequest
 from .search import SearchOptions, classify_type, start_search_thread
 from .security import LoginThrottle, hash_password, hash_token, new_token, verify_password
 from .tasks import SearchTask, TaskStore
@@ -65,7 +94,23 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             continue
         registry.set_config(stored)
     store = TaskStore(ttl_sec=settings.task_ttl_sec)
+    runner = QueryRunner(
+        workers=settings.query_workers,
+        timeout_sec=settings.statement_timeout_sec,
+        cache_ttl_sec=settings.query_cache_ttl_sec,
+    )
     throttle = LoginThrottle(settings.login_max_failures, settings.login_lock_sec)
+    semantic = SemanticStore(app_db.engine)
+    rowsec = RowRules(app_db.engine)
+    settings_store = SettingsStore(app_db.engine, app_db.cipher)
+    subscriptions = SubscriptionStore(app_db.engine)
+    automation = AutomationEngine(
+        app_db=app_db, settings_store=settings_store, subs=subscriptions, runner=runner,
+        content=lambda: app.state.content, statement_timeout_sec=settings.statement_timeout_sec,
+    )
+    scheduler = Scheduler(automation, subscriptions, interval_sec=settings.scheduler_interval_sec, workers=settings.scheduler_workers)
+    scheduler.chores.append(AutoBackup(app_db.path, settings.backup_hour, settings.backup_keep).tick)
+    metrics = Metrics()
     bearer = HTTPBearer(auto_error=False)
 
     @asynccontextmanager
@@ -76,7 +121,11 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             logger.warning(
                 "No users exist yet. Create the first admin with:  python -m app.manage create-user <name> --admin"
             )
+        if settings.scheduler_enabled:
+            scheduler.start()
         yield
+        scheduler.stop()
+        runner.shutdown()
         registry.dispose_all()
         app_db.dispose()
 
@@ -85,10 +134,23 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
         CORSMiddleware,
         allow_origins=list(settings.cors_origins),
         allow_credentials=False,
-        allow_methods=["GET", "POST", "DELETE"],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
         allow_headers=["*"],
         expose_headers=["Retry-After"],  # lets the login screen show the lockout countdown
     )
+
+    @app.middleware("http")
+    async def count_requests(request: Request, call_next):
+        started = time.perf_counter()
+        response = await call_next(request)
+        route = request.scope.get("route")
+        path = getattr(route, "path", None) or "unmatched"  # the template (/api/questions/{qid}), never ids
+        if path.startswith("/api") or path == "/metrics":
+            labels = {"method": request.method, "route": path, "status": f"{response.status_code // 100}xx"}
+            metrics.counter("ncode_http_requests_total", "HTTP requests", **labels)
+            metrics.observe("ncode_http_request_seconds", "HTTP request duration", time.perf_counter() - started,
+                            method=request.method, route=path)
+        return response
 
     # ------------------------------------------------------------------
     # auth helpers
@@ -99,6 +161,9 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
         if not token:
             return None
         return app_db.user_for_token(hash_token(token))
+
+    def current_user_optional(creds: HTTPAuthorizationCredentials | None = Depends(bearer)) -> User | None:
+        return user_from_token(creds.credentials if creds else None)
 
     def current_user(creds: HTTPAuthorizationCredentials | None = Depends(bearer)) -> User:
         user = user_from_token(creds.credentials if creds else None)
@@ -113,6 +178,12 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
 
     def can_access_task(user: User, task: SearchTask) -> bool:
         return user.is_admin or task.owner == user.username
+
+    def rows_for(user: User, key: str, table: str, columns: list) -> Any:
+        try:
+            return rowsec.where(user, key, table, columns)
+        except RowSecurityError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
 
     def get_task_or_404(task_id: str, user: User) -> SearchTask:
         task = store.get(task_id)
@@ -143,6 +214,7 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             raise HTTPException(status_code=401, detail="Invalid username or password")
 
         throttle.success(throttle_key)
+        app_db.update_user(user.username, last_login_at=time.time())
         token = new_token()
         expires_at = app_db.create_session(user.id, hash_token(token), settings.session_ttl_hours * 3600)
         app_db.audit(user.username, "login", status="ok")
@@ -160,14 +232,14 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
 
     @app.get("/api/auth/me")
     def me(user: User = Depends(current_user)):
-        return {"username": user.username, "role": user.role}
+        return {"username": user.username, "role": user.role, "email": user.email}
 
     # ------------------------------------------------------------------
     # connections
     # ------------------------------------------------------------------
     def require_admin(user: User = Depends(current_user)) -> User:
         if not user.is_admin:
-            raise HTTPException(status_code=403, detail="Only an administrator can manage connections")
+            raise HTTPException(status_code=403, detail="Only an administrator can do this")
         return user
 
     def details_of(cfg: ConnectionConfig, user: User) -> ConnectionDetails:
@@ -353,6 +425,7 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
         if not found:
             raise HTTPException(status_code=404, detail=f"Unknown connection {key!r}")
         registry.set_config(cfg)
+        runner.cache.drop_connection(key)
         app_db.audit(admin.username, "connection_edit", connection=key, status="ok")
         return details_of(cfg, admin)
 
@@ -361,6 +434,7 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
         get_ui_connection(key)
         app_db.delete_connection(key)
         registry.remove(key)
+        runner.cache.drop_connection(key)
         app_db.audit(admin.username, "connection_delete", connection=key, status="ok")
         return {"ok": True}
 
@@ -393,6 +467,153 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             ]
         }
 
+    @app.get("/api/connections/{key}/schema")
+    def schema_v2(key: str, refresh: bool = Query(False), user: User = Depends(current_user)):
+        """Schema v2: every table with typed columns, primary keys, foreign keys and relationships."""
+        require_connection(key, user)
+        try:
+            columns = registry.get_schema(key, refresh=refresh)
+            primary, foreign = registry.get_keys(key, refresh=refresh)
+        except Exception as exc:
+            detail = describe_error(exc, registry.get_config(key).engine)
+            raise HTTPException(status_code=502, detail=f"Could not read the database structure: {detail}") from exc
+        return {"connection": key, **describe_schema(columns, primary, foreign, **schema_extras(semantic, key))}
+
+    # ------------------------------------------------------------------
+    # explorer: browse one table, see its structure, export it
+    # ------------------------------------------------------------------
+    def resolve_table(key: str, table: str) -> tuple[str, list]:
+        """Map the requested name to a real table (from the cached schema, never raw input)."""
+        try:
+            schema_map = registry.get_schema(key)
+        except Exception as exc:
+            detail = describe_error(exc, registry.get_config(key).engine)
+            raise HTTPException(status_code=502, detail=f"Could not read the database structure: {detail}") from exc
+        if table in schema_map:
+            return table, schema_map[table]
+        lowered = {name.lower(): name for name in schema_map}
+        real = lowered.get(table.lower())
+        if real is None:
+            raise HTTPException(status_code=404, detail=f"Unknown table {table!r}")
+        return real, schema_map[real]
+
+    def filter_options(q: str | None, mode: str, case_sensitive: bool, include_numeric: bool) -> SearchOptions | None:
+        phrase = (q or "").strip()
+        if not phrase:
+            return None
+        return SearchOptions(
+            phrase=phrase,
+            match_mode=mode,
+            case_sensitive=case_sensitive,
+            include_numeric=include_numeric,
+            include_dates=include_numeric,
+        )
+
+    @app.get("/api/limits")
+    def limits(_user: User = Depends(current_user)):
+        return {
+            "max_row_limit": settings.max_row_limit,
+            "max_export_rows": settings.max_export_rows,
+            "query_default_rows": settings.query_default_rows,
+            "query_max_rows": settings.query_max_rows,
+            "max_concurrent_queries": settings.max_concurrent_queries,  # dashboards queue their cards below it
+            "federation_source_rows": settings.federation_source_rows,
+            "uploads_enabled": settings.uploads_enabled,
+            "dataset_max_mb": settings.dataset_max_mb,
+            "dataset_max_rows": settings.dataset_max_rows,
+        }
+
+    @app.get("/api/connections/{key}/browse")
+    def browse(
+        key: str,
+        table: str = Query(..., min_length=1),
+        limit: int = Query(50, ge=1),
+        offset: int = Query(0, ge=0, le=10_000_000),
+        sort: str | None = Query(None),
+        desc: bool = Query(False),
+        q: str | None = Query(None, max_length=200),
+        mode: MatchMode = Query("contains"),
+        case_sensitive: bool = Query(False),
+        include_numeric: bool = Query(False),
+        user: User = Depends(current_user),
+    ):
+        require_connection(key, user)
+        name, columns = resolve_table(key, table)
+        search = filter_options(q, mode, case_sensitive, include_numeric)
+        row_filter = rows_for(user, key, name, columns)
+        try:
+            data = browse_table(
+                registry.get_engine(key),
+                registry.get_config(key),
+                name,
+                columns,
+                limit=min(limit, settings.max_row_limit),
+                offset=offset,
+                sort=sort,
+                descending=desc,
+                search=search,
+                row_filter=row_filter,
+            )
+        except Exception as exc:
+            detail = describe_error(exc, registry.get_config(key).engine)
+            raise HTTPException(status_code=502, detail=f"The query failed: {detail}") from exc
+        if offset == 0:  # log "opened the table" once, not every page
+            app_db.audit(
+                user.username, "browse", connection=key, phrase=name + (f" ~ {search.phrase}" if search else ""), status="ok"
+            )
+        return data
+
+    @app.get("/api/connections/{key}/structure")
+    def structure(key: str, table: str = Query(..., min_length=1), user: User = Depends(current_user)):
+        require_connection(key, user)
+        name, columns = resolve_table(key, table)
+        try:
+            cols = table_structure(registry.get_engine(key), registry.get_config(key), name, columns)
+        except Exception as exc:
+            detail = describe_error(exc, registry.get_config(key).engine)
+            raise HTTPException(status_code=502, detail=f"Could not read the table: {detail}") from exc
+        return {"table": name, "columns": cols}
+
+    @app.get("/api/connections/{key}/export")
+    def export_table(
+        key: str,
+        table: str = Query(..., min_length=1),
+        delimiter: str = Query(";", pattern="^[;,]$"),
+        sort: str | None = Query(None),
+        desc: bool = Query(False),
+        q: str | None = Query(None, max_length=200),
+        mode: MatchMode = Query("contains"),
+        case_sensitive: bool = Query(False),
+        include_numeric: bool = Query(False),
+        user: User = Depends(current_user),
+    ):
+        """Streams the table (or only the rows matching `q`) as CSV, up to NCODE_MAX_EXPORT_ROWS rows."""
+        require_connection(key, user)
+        name, columns = resolve_table(key, table)
+        search = filter_options(q, mode, case_sensitive, include_numeric)
+        row_filter = rows_for(user, key, name, columns)
+        engine, cfg = registry.get_engine(key), registry.get_config(key)
+        try:  # fail now with a clear error instead of sending a half-empty file
+            browse_table(engine, cfg, name, columns, limit=1, offset=0, sort=sort, descending=desc, search=search,
+                         row_filter=row_filter)
+        except Exception as exc:
+            detail = describe_error(exc, cfg.engine)
+            raise HTTPException(status_code=502, detail=f"The export failed: {detail}") from exc
+        app_db.audit(
+            user.username, "export", connection=key, phrase=name + (f" ~ {search.phrase}" if search else ""), status="ok"
+        )
+        stream = csv_stream(
+            engine, cfg, name, columns,
+            delimiter=delimiter, max_rows=settings.max_export_rows, sort=sort, descending=desc, search=search,
+            row_filter=row_filter,
+        )
+        filename = re.sub(r"[^A-Za-z0-9._-]+", "_", name).strip("_") or "export"
+        return StreamingResponse(
+            stream,
+            media_type="text/csv; charset=utf-8",
+            headers={"Content-Disposition": f'attachment; filename="{filename}.csv"'},
+        )
+
     # ------------------------------------------------------------------
     # search
     # ------------------------------------------------------------------
@@ -419,6 +640,8 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             exclude_tables=payload.exclude_tables,
             schema=payload.schema_name,
             refresh_schema=payload.refresh_schema,
+            # tables with row-level rules for this user are not searched (row by row, every column)
+            denied_tables=frozenset(rowsec.for_user(user, payload.connection)),
         )
         task = store.create(payload.connection, payload.phrase, settings.max_total_results, owner=user.username)
 
@@ -508,4 +731,48 @@ def create_app(settings: Settings, connections: dict[str, ConnectionConfig], app
             except RuntimeError:
                 pass  # already closed
 
+    queries = register_query_routes(
+        app,
+        registry=registry,
+        settings=settings,
+        app_db=app_db,
+        runner=runner,
+        current_user=current_user,
+        require_connection=require_connection,
+        semantic=semantic,
+        rowsec=rowsec,
+    )
+    register_semantic_routes(
+        app, semantic=semantic, registry=registry, queries=queries, current_user=current_user,
+        require_admin=require_admin, require_connection=require_connection,
+    )
+    content = register_content_routes(
+        app, app_db=app_db, settings=settings, queries=queries, current_user=current_user,
+        require_connection=require_connection,
+    )
+    register_analysis_routes(
+        app, registry=registry, settings=settings, runner=runner, queries=queries, content=content, semantic=semantic,
+        current_user=current_user, require_connection=require_connection,
+    )
+    app.state.scheduler = scheduler
+    register_automation_routes(
+        app, app_db=app_db, settings_store=settings_store, subs=subscriptions, engine=automation,
+        scheduler=scheduler, current_user=current_user, require_admin=require_admin,
+    )
+    register_sharing_routes(
+        app, app_db=app_db, settings=settings, settings_store=settings_store, runner=runner,
+        current_user=current_user, require_admin=require_admin,
+    )
+    register_usage_routes(app, app_db=app_db, settings=settings, require_admin=require_admin)
+    metrics.gauge("ncode_queries_running", "Questions and SQL queries running now", runner.running_total)
+    metrics.gauge("ncode_scheduler_up", "1 when the subscription scheduler runs", lambda: 1.0 if scheduler.alive() else 0.0)
+    app.state.metrics = metrics
+    register_ops_routes(
+        app, app_db=app_db, metrics=metrics, metrics_token=settings.metrics_token, scheduler=scheduler,
+        current_user_optional=current_user_optional, require_admin=require_admin,
+    )
+    register_admin_routes(
+        app, app_db=app_db, registry=registry, rowsec=rowsec, session_ttl_hours=settings.session_ttl_hours,
+        current_user=current_user, require_admin=require_admin,
+    )
     return app

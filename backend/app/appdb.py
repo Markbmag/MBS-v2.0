@@ -1,4 +1,4 @@
-"""Ncode's own small database (SQLite): users, login sessions and the audit log.
+"""Ncode's own small database (SQLite): users, login sessions, the audit log and (app/content) the library.
 
 This is NOT one of the databases you search; it only stores who may use Ncode
 and who searched for what.
@@ -21,9 +21,12 @@ from sqlalchemy.exc import IntegrityError
 
 from .config import ConnectionConfig
 from .crypto import Cipher, CipherError
+from .migrate import upgrade
 
 logger = logging.getLogger(__name__)
 
+# Mirrors the latest migration (app/migrations/versions); the queries below use it.
+# Schema changes go into a new migration first, then here.
 metadata = MetaData()
 
 users_table = Table(
@@ -36,6 +39,38 @@ users_table = Table(
     Column("is_active", Boolean, nullable=False, default=True),
     Column("allowed_connections", String(500), nullable=False, default="*"),  # "*" or "mes,les"
     Column("created_at", Float, nullable=False),
+    Column("email", String(254)),                                          # subscriptions (M8)
+    Column("last_login_at", Float),                                        # M9
+)
+
+groups_table = Table(
+    "groups",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("name", String(64), nullable=False, unique=True),
+    Column("description", Text),
+    Column("connections", String(500), nullable=False, default=""),       # "", "*" or "mes,les"
+    Column("created_at", Float, nullable=False),
+)
+
+group_members_table = Table(
+    "group_members",
+    metadata,
+    Column("group_id", Integer, primary_key=True),
+    Column("user_id", Integer, primary_key=True, index=True),
+)
+
+row_rules_table = Table(
+    "row_rules",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("group_id", Integer, nullable=False, index=True),
+    Column("connection", String(64), nullable=False),
+    Column("table_name", String(255), nullable=False),
+    Column("column_name", String(255), nullable=False),
+    Column("values", Text, nullable=False),
+    Column("created_at", Float, nullable=False),
+    Column("created_by", String(64)),
 )
 
 sessions_table = Table(
@@ -92,13 +127,20 @@ class User:
     # None = every connection; otherwise only these connection keys
     allowed_connections: tuple[str, ...] | None = None
     password_hash: str = field(default="", repr=False)
+    email: str | None = None
+    last_login_at: float | None = None
+    # groups (M9): their ids, and the connections they add (None = all)
+    group_ids: tuple[int, ...] = ()
+    group_connections: tuple[str, ...] | None = ()
 
     @property
     def is_admin(self) -> bool:
         return self.role == "admin"
 
     def can_use(self, connection_key: str) -> bool:
-        return self.is_admin or self.allowed_connections is None or connection_key in self.allowed_connections
+        if self.is_admin or self.allowed_connections is None or connection_key in self.allowed_connections:
+            return True
+        return self.group_connections is None or connection_key in self.group_connections
 
 
 def resolve_app_db_path(configured: str) -> Path:
@@ -130,6 +172,8 @@ def _to_user(row: Any) -> User:
         is_active=bool(row.is_active),
         allowed_connections=parse_allowed(row.allowed_connections),
         password_hash=row.password_hash,
+        email=row.email,
+        last_login_at=row.last_login_at,
     )
 
 
@@ -142,7 +186,7 @@ class AppDB:
         self.engine = create_engine(
             URL.create("sqlite", database=str(path)), connect_args={"timeout": 15}
         )
-        metadata.create_all(self.engine)
+        upgrade(self.engine)  # creates or migrates the tables (app/migrations)
 
     def dispose(self) -> None:
         self.engine.dispose()
@@ -173,15 +217,49 @@ class AppDB:
         assert user is not None
         return user
 
+    def _with_groups(self, users: list[User]) -> list[User]:
+        """Adds each user's groups and the connections those groups give."""
+        if not users:
+            return users
+        with self.engine.connect() as conn:
+            rows = conn.execute(
+                select(group_members_table.c.user_id, groups_table.c.id, groups_table.c.connections)
+                .join(groups_table, groups_table.c.id == group_members_table.c.group_id)
+                .where(group_members_table.c.user_id.in_([u.id for u in users]))
+            ).all()
+        by_user: dict[int, list[Any]] = {}
+        for r in rows:
+            by_user.setdefault(r.user_id, []).append(r)
+        out = []
+        for u in users:
+            mine = by_user.get(u.id, [])
+            conns: set[str] | None = set()
+            for r in mine:
+                allowed = parse_allowed(r.connections or "")
+                if allowed is None:
+                    conns = None
+                    break
+                conns.update(allowed)
+            out.append(replace(
+                u, group_ids=tuple(sorted(r.id for r in mine)),
+                group_connections=None if conns is None else tuple(sorted(conns)),
+            ))
+        return out
+
     def get_user_by_name(self, username: str) -> User | None:
         with self.engine.connect() as conn:
             row = conn.execute(select(users_table).where(users_table.c.username == username)).first()
-        return _to_user(row) if row else None
+        return self._with_groups([_to_user(row)])[0] if row else None
+
+    def get_user(self, user_id: int) -> User | None:
+        with self.engine.connect() as conn:
+            row = conn.execute(select(users_table).where(users_table.c.id == user_id)).first()
+        return self._with_groups([_to_user(row)])[0] if row else None
 
     def list_users(self) -> list[User]:
         with self.engine.connect() as conn:
             rows = conn.execute(select(users_table).order_by(users_table.c.username)).all()
-        return [_to_user(r) for r in rows]
+        return self._with_groups([_to_user(r) for r in rows])
 
     def update_user(self, username: str, **values: Any) -> bool:
         """Update columns of a user. Returns False if the user doesn't exist."""
@@ -201,8 +279,73 @@ class AppDB:
             if uid is None:
                 return False
             conn.execute(delete(sessions_table).where(sessions_table.c.user_id == uid))
+            conn.execute(delete(group_members_table).where(group_members_table.c.user_id == uid))
             conn.execute(delete(users_table).where(users_table.c.id == uid))
+            from .content.store import forget_user  # the library imports this module
+
+            forget_user(conn, uid, username)
         return True
+
+    # -- groups (M9) ---------------------------------------------------------
+    def list_groups(self) -> list[dict[str, Any]]:
+        with self.engine.connect() as conn:
+            groups = conn.execute(select(groups_table).order_by(groups_table.c.name)).all()
+            members = conn.execute(
+                select(group_members_table.c.group_id, users_table.c.username)
+                .join(users_table, users_table.c.id == group_members_table.c.user_id)
+                .order_by(users_table.c.username)
+            ).all()
+        names: dict[int, list[str]] = {}
+        for m in members:
+            names.setdefault(m.group_id, []).append(m.username)
+        return [
+            {"id": g.id, "name": g.name, "description": g.description, "connections": format_allowed(parse_allowed(g.connections or "")),
+             "members": names.get(g.id, []), "created_at": g.created_at}
+            for g in groups
+        ]
+
+    def get_group(self, gid: int) -> dict[str, Any] | None:
+        return next((g for g in self.list_groups() if g["id"] == gid), None)
+
+    def save_group(self, gid: int | None, name: str, description: str | None, connections: tuple[str, ...] | None) -> int:
+        values = {"name": name, "description": description, "connections": format_allowed(connections)}
+        try:
+            with self.engine.begin() as conn:
+                clash = conn.execute(select(groups_table.c.id).where(
+                    func.lower(groups_table.c.name) == name.lower(), groups_table.c.id != (gid or 0)
+                )).first()
+                if clash is not None:
+                    raise IntegrityError("name", {}, Exception("unique"))
+                if gid is None:
+                    return int(conn.execute(insert(groups_table).values(created_at=time.time(), **values)).inserted_primary_key[0])
+                if conn.execute(update(groups_table).where(groups_table.c.id == gid).values(**values)).rowcount == 0:
+                    raise KeyError(gid)
+                return gid
+        except IntegrityError:
+            raise ValueError(f"A group named {name!r} already exists") from None
+
+    def delete_group(self, gid: int) -> bool:
+        from .content.tables import permissions_table  # the library imports this module
+
+        with self.engine.begin() as conn:
+            if conn.execute(delete(groups_table).where(groups_table.c.id == gid)).rowcount == 0:
+                return False
+            conn.execute(delete(group_members_table).where(group_members_table.c.group_id == gid))
+            conn.execute(delete(row_rules_table).where(row_rules_table.c.group_id == gid))
+            conn.execute(delete(permissions_table).where(permissions_table.c.group_id == gid))
+        return True
+
+    def set_group_members(self, gid: int, user_ids: list[int]) -> None:
+        with self.engine.begin() as conn:
+            conn.execute(delete(group_members_table).where(group_members_table.c.group_id == gid))
+            for uid in sorted(set(user_ids)):
+                conn.execute(insert(group_members_table).values(group_id=gid, user_id=uid))
+
+    def set_user_groups(self, user_id: int, group_ids: list[int]) -> None:
+        with self.engine.begin() as conn:
+            conn.execute(delete(group_members_table).where(group_members_table.c.user_id == user_id))
+            for gid in sorted(set(group_ids)):
+                conn.execute(insert(group_members_table).values(group_id=gid, user_id=user_id))
 
     # -- sessions ------------------------------------------------------------
     def create_session(self, user_id: int, token_hash: str, ttl_sec: int) -> float:
@@ -229,7 +372,7 @@ class AppDB:
         )
         with self.engine.connect() as conn:
             row = conn.execute(stmt).first()
-        return _to_user(row) if row else None
+        return self._with_groups([_to_user(row)])[0] if row else None
 
     def delete_session(self, token_hash: str) -> None:
         with self.engine.begin() as conn:
@@ -267,6 +410,11 @@ class AppDB:
             except CipherError as exc:
                 logger.error("Connection %r skipped: %s", row.slug, exc)
         return configs
+
+    def connection_engines(self) -> dict[str, str]:
+        """key -> engine of the UI-created connections, without decrypting anything."""
+        with self.engine.connect() as conn:
+            return {r.slug: r.engine for r in conn.execute(select(connections_table.c.slug, connections_table.c.engine))}
 
     def get_connection(self, slug: str) -> ConnectionConfig | None:
         with self.engine.connect() as conn:

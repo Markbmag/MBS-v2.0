@@ -110,6 +110,7 @@ class Settings:
     default_row_limit: int = 10          # rows returned per table
     max_row_limit: int = 200
     max_total_results: int = 1000        # cap on rows kept per search task
+    max_export_rows: int = 50_000        # cap on rows in one CSV export
     task_ttl_sec: int = 3600             # finished tasks are forgotten after this
     schema_cache_ttl_sec: int = 600      # table/column metadata cache
     read_only_sessions: bool = True      # ask the DB to refuse writes (best effort)
@@ -120,6 +121,30 @@ class Settings:
     max_concurrent_searches: int = 3     # running searches per user
     login_max_failures: int = 5          # failed logins before a temporary lock
     login_lock_sec: int = 300
+    # --- questions and SQL mode (query engine) ---
+    query_default_rows: int = 2000       # rows returned when a question does not say
+    query_max_rows: int = 10000          # hard cap per question / SQL query
+    query_cache_ttl_sec: int = 60        # identical questions within this time reuse the result; 0 = off
+    max_concurrent_queries: int = 3      # running questions per user
+    query_workers: int = 8               # questions running at once on this server
+    # --- federation and uploaded datasets (M6) ---
+    federation_source_rows: int = 100_000  # rows read from each source of a multi-source question
+    federation_memory_mb: int = 512      # DuckDB memory per multi-source run
+    federation_threads: int = 2          # DuckDB threads per multi-source run
+    uploads_enabled: bool = True         # users may upload CSV / Excel / Parquet files
+    dataset_max_mb: int = 100            # largest file that can be uploaded
+    dataset_max_rows: int = 1_000_000    # rows kept per uploaded file
+    profile_sample_rows: int = 20_000    # rows read to profile / X-ray a table (M7)
+    # --- automation and sharing (M8) ---
+    scheduler_enabled: bool = True       # send subscriptions and alerts on schedule
+    scheduler_interval_sec: int = 30     # how often due subscriptions are looked for
+    scheduler_workers: int = 2           # subscriptions sent at the same time
+    slow_query_sec: int = 5              # queries slower than this show in Admin → Usage → Slow queries
+    public_rate_per_min: int = 120       # requests per minute per visitor on public links and embeds
+    # --- operations (M9) ---
+    backup_hour: int = 2                 # automatic daily backup at this hour (server time); -1 = off
+    backup_keep: int = 7                 # automatic backups kept
+    metrics_token: str = field(default="", repr=False)  # lets Prometheus read /metrics without signing in
     # Encrypts passwords of connections created in the UI. Empty = auto-generated key file.
     secret_key: str = field(default="", repr=False)
 
@@ -155,6 +180,7 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
         default_row_limit=max(1, _int(env, "NCODE_DEFAULT_ROW_LIMIT", defaults.default_row_limit)),
         max_row_limit=max(1, _int(env, "NCODE_MAX_ROW_LIMIT", defaults.max_row_limit)),
         max_total_results=max(1, _int(env, "NCODE_MAX_TOTAL_RESULTS", defaults.max_total_results)),
+        max_export_rows=max(1, _int(env, "NCODE_MAX_EXPORT_ROWS", defaults.max_export_rows)),
         task_ttl_sec=max(60, _int(env, "NCODE_TASK_TTL_SEC", defaults.task_ttl_sec)),
         schema_cache_ttl_sec=max(0, _int(env, "NCODE_SCHEMA_CACHE_TTL_SEC", defaults.schema_cache_ttl_sec)),
         read_only_sessions=_bool(env, "NCODE_READ_ONLY_SESSIONS", defaults.read_only_sessions),
@@ -165,6 +191,26 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
         login_max_failures=max(1, _int(env, "NCODE_LOGIN_MAX_FAILURES", defaults.login_max_failures)),
         login_lock_sec=max(1, _int(env, "NCODE_LOGIN_LOCK_SEC", defaults.login_lock_sec)),
         secret_key=(env.get("NCODE_SECRET_KEY") or "").strip(),
+        query_default_rows=max(1, _int(env, "NCODE_QUERY_DEFAULT_ROWS", defaults.query_default_rows)),
+        query_max_rows=max(1, _int(env, "NCODE_QUERY_MAX_ROWS", defaults.query_max_rows)),
+        query_cache_ttl_sec=max(0, _int(env, "NCODE_QUERY_CACHE_TTL_SEC", defaults.query_cache_ttl_sec)),
+        max_concurrent_queries=max(1, _int(env, "NCODE_MAX_CONCURRENT_QUERIES", defaults.max_concurrent_queries)),
+        query_workers=max(1, _int(env, "NCODE_QUERY_WORKERS", defaults.query_workers)),
+        federation_source_rows=max(1, _int(env, "NCODE_FEDERATION_SOURCE_ROWS", defaults.federation_source_rows)),
+        federation_memory_mb=max(64, _int(env, "NCODE_FEDERATION_MEMORY_MB", defaults.federation_memory_mb)),
+        federation_threads=max(1, _int(env, "NCODE_FEDERATION_THREADS", defaults.federation_threads)),
+        uploads_enabled=_bool(env, "NCODE_UPLOADS_ENABLED", defaults.uploads_enabled),
+        dataset_max_mb=max(1, _int(env, "NCODE_DATASET_MAX_MB", defaults.dataset_max_mb)),
+        dataset_max_rows=max(1, _int(env, "NCODE_DATASET_MAX_ROWS", defaults.dataset_max_rows)),
+        profile_sample_rows=max(100, _int(env, "NCODE_PROFILE_SAMPLE_ROWS", defaults.profile_sample_rows)),
+        scheduler_enabled=_bool(env, "NCODE_SCHEDULER_ENABLED", defaults.scheduler_enabled),
+        scheduler_interval_sec=max(5, _int(env, "NCODE_SCHEDULER_INTERVAL_SEC", defaults.scheduler_interval_sec)),
+        scheduler_workers=max(1, _int(env, "NCODE_SCHEDULER_WORKERS", defaults.scheduler_workers)),
+        slow_query_sec=max(1, _int(env, "NCODE_SLOW_QUERY_SEC", defaults.slow_query_sec)),
+        public_rate_per_min=max(10, _int(env, "NCODE_PUBLIC_RATE_PER_MIN", defaults.public_rate_per_min)),
+        backup_hour=min(23, max(-1, _int(env, "NCODE_BACKUP_HOUR", defaults.backup_hour))),
+        backup_keep=max(1, _int(env, "NCODE_BACKUP_KEEP", defaults.backup_keep)),
+        metrics_token=(env.get("NCODE_METRICS_TOKEN") or "").strip(),
     )
 
 

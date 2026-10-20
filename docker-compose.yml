@@ -1,0 +1,44 @@
+# Ncode with Docker:  docker compose up -d --build   (see "Running with Docker" in the README)
+#
+# Put the settings in backend/.env (database connections, NCODE_SECRET_KEY ...) and, for this file,
+# NCODE_SITE / NCODE_TLS / NCODE_EMBED_ORIGINS in a .env file next to it (or the shell).
+
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - path: backend/.env
+        required: false
+    environment:
+      NCODE_HOST: 0.0.0.0
+      NCODE_APP_DB: /app/data/ncode.sqlite
+    volumes:
+      - ncode-data:/app/data
+      # SQLite databases you connect to must be visible inside the container, e.g.:
+      # - /srv/shop.db:/databases/shop.db:ro
+    expose:
+      - "8000"
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NCODE_SITE: ${NCODE_SITE:-localhost}
+      NCODE_TLS: ${NCODE_TLS:-internal}
+      NCODE_EMBED_ORIGINS: ${NCODE_EMBED_ORIGINS:-}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  ncode-data:
+  caddy-data:
+  caddy-config:

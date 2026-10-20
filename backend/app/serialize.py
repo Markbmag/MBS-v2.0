@@ -10,7 +10,7 @@ from typing import Any
 MAX_VALUE_CHARS = 10_000  # protects the WebSocket payload from giant TEXT columns
 
 
-def serialize_value(value: Any) -> Any:
+def serialize_value(value: Any, clip: bool = True) -> Any:
     if value is None or isinstance(value, (bool, int, float)):
         return value
     if isinstance(value, Decimal):
@@ -27,12 +27,10 @@ def serialize_value(value: Any) -> Any:
             text = raw.decode("utf-8")
         except UnicodeDecodeError:
             text = "0x" + raw.hex()
-        return _clip(text)
+        return _clip(text) if clip else text
     if isinstance(value, str):
-        return _clip(value)
-    if isinstance(value, (dict, list, tuple, set)):
-        return _clip(str(value))
-    return _clip(str(value))
+        return _clip(value) if clip else value
+    return _clip(str(value)) if clip else str(value)
 
 
 def _clip(text: str) -> str:

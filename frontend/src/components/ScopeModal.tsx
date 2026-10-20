@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import type { TableInfo } from '../api';
 import { SearchIcon } from '../icons';
+import { t, tn } from '../i18n/index.ts';
 
 const MAX_SHOWN = 300;
 
@@ -66,7 +67,7 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
   return (
     <>
       <ModalHeader pb={1}>
-        Where to search
+        {t('Where to search')}
         <Text fontSize="sm" fontWeight={400} color="mutedText">
           {connectionLabel}
         </Text>
@@ -75,11 +76,11 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
       <ModalBody>
         <VStack align="stretch" spacing={4}>
           <HStack spacing={3}>
-            <ModeCard active={mode === 'all'} title="All tables" detail={tables ? `${total} tables` : ''} onClick={() => setMode('all')} />
+            <ModeCard active={mode === 'all'} title={t('All tables')} detail={tables ? tn(total, '{n} table', '{n} tables') : ''} onClick={() => setMode('all')} />
             <ModeCard
               active={mode === 'custom'}
-              title="Choose tables"
-              detail={mode === 'custom' ? `${picked.size} selected` : 'Pick exactly which ones'}
+              title={t('Choose tables')}
+              detail={mode === 'custom' ? t('{n} selected', { n: picked.size }) : t('Pick exactly which ones')}
               onClick={() => setMode('custom')}
             />
           </HStack>
@@ -92,7 +93,7 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
                   <Box flex={1}>
                     <Text fontSize="sm">{loadError}</Text>
                     <Button size="xs" mt={2} variant="subtle" onClick={onReload}>
-                      Try again
+                      {t('Try again')}
                     </Button>
                   </Box>
                 </Alert>
@@ -107,13 +108,13 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
                       <InputLeftElement pointerEvents="none" color="faintText">
                         <SearchIcon boxSize={4} />
                       </InputLeftElement>
-                      <Input placeholder="Filter tables…" value={filter} onChange={(e) => setFilter(e.target.value)} />
+                      <Input placeholder={t('Filter tables…')} value={filter} onChange={(e) => setFilter(e.target.value)} />
                     </InputGroup>
                     <Button size="sm" variant="subtle" onClick={selectVisible} isDisabled={visible.length === 0}>
-                      Select {filter ? 'matching' : 'all'}
+                      {filter ? t('Select matching') : t('Select all')}
                     </Button>
                     <Button size="sm" variant="subtle" onClick={() => setPicked(new Set())} isDisabled={picked.size === 0}>
-                      Clear
+                      {t('Clear')}
                     </Button>
                   </HStack>
 
@@ -127,7 +128,7 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
                   >
                     {visible.length === 0 && (
                       <Text p={4} fontSize="sm" color="mutedText">
-                        No table matches “{filter}”.
+                        {t('No table matches “{filter}”.', { filter })}
                       </Text>
                     )}
                     {visible.slice(0, MAX_SHOWN).map((table) => (
@@ -154,11 +155,11 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
                         </Text>
                         {table.searchable === 0 ? (
                           <Badge bg="chipBg" color="faintText" fontSize="2xs">
-                            no text columns
+                            {t('no text columns')}
                           </Badge>
                         ) : (
                           <Badge bg="chipBg" color="mutedText" fontSize="2xs">
-                            {table.searchable}/{table.columns} cols
+                            {t('{searchable}/{columns} cols', { searchable: table.searchable, columns: table.columns })}
                           </Badge>
                         )}
                       </Flex>
@@ -166,7 +167,7 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
                   </Box>
                   {visible.length > MAX_SHOWN && (
                     <Text mt={2} fontSize="xs" color="faintText">
-                      Showing the first {MAX_SHOWN} of {visible.length}. Type in the filter to narrow the list.
+                      {t('Showing the first {shown} of {total}. Type in the filter to narrow the list.', { shown: MAX_SHOWN, total: visible.length })}
                     </Text>
                   )}
                 </>
@@ -175,7 +176,7 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
           )}
 
           <FormControl>
-            <FormLabel fontSize="sm">Always skip these tables (optional)</FormLabel>
+            <FormLabel fontSize="sm">{t('Always skip these tables (optional)')}</FormLabel>
             <Input
               size="sm"
               placeholder="log_*, tmp_*, *_backup"
@@ -184,17 +185,17 @@ function ScopeBody({ onClose, connectionLabel, tables, loadError, selected, excl
               fontFamily="mono"
             />
             <FormHelperText fontSize="xs">
-              Comma-separated patterns. <b>*</b> matches any characters. Applies on top of the selection above.
+              {t('Comma-separated patterns.')} <b>*</b> {t('matches any characters. Applies on top of the selection above.')}
             </FormHelperText>
           </FormControl>
         </VStack>
       </ModalBody>
       <ModalFooter gap={3}>
         <Button variant="subtle" onClick={onClose}>
-          Cancel
+          {t('Cancel')}
         </Button>
         <Button onClick={apply} isDisabled={!canApply}>
-          Apply
+          {t('Apply')}
         </Button>
       </ModalFooter>
     </>

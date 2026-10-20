@@ -12,6 +12,7 @@ import { engineMeta } from '../lib/engines';
 import { parseConnectionString } from '../lib/dburl';
 import { CheckIcon, ChevronDownIcon, TrashIcon } from '../icons';
 import { EngineBadge } from './EngineBadge';
+import { t, tn } from '../i18n/index.ts';
 
 interface FormState {
   engine: string;
@@ -108,7 +109,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
       })
       .catch((err: unknown) => {
         if (cancelled) return;
-        setLoadError(apiErrorMessage(err, 'Could not load this connection'));
+        setLoadError(apiErrorMessage(err, t('Could not load this connection')));
         setLoading(false);
       });
     return () => {
@@ -145,7 +146,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
   const applyConnectionString = () => {
     const parsed = parseConnectionString(pasteText);
     if (!parsed) {
-      setPasteError('Could not read this. Expected something like mysql://user:password@host:3306/database');
+      setPasteError(t('Could not read this. Expected something like {example}', { example: 'mysql://user:password@host:3306/database' }));
       return;
     }
     const option = engines.find((e) => e.name === parsed.engine);
@@ -189,7 +190,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
       const res = await http.post<DraftTestResult>('/api/connections/test-draft', buildPayload());
       setTestResult(res.data);
     } catch (err) {
-      setTestResult({ ok: false, error: apiErrorMessage(err, 'The check failed') });
+      setTestResult({ ok: false, error: apiErrorMessage(err, t('The check failed')) });
     } finally {
       setTesting(false);
     }
@@ -203,11 +204,11 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
       const res = editKey
         ? await http.put<ConnectionDetails>(`/api/connections/${editKey}`, payload)
         : await http.post<ConnectionDetails>('/api/connections', payload);
-      toast({ title: editKey ? 'Connection updated' : 'Database connected', status: 'success', duration: 3000 });
+      toast({ title: editKey ? t('Connection updated') : t('Database connected'), status: 'success', duration: 3000 });
       onSaved(res.data);
       onClose();
     } catch (err) {
-      setSaveError(apiErrorMessage(err, 'Could not save the connection'));
+      setSaveError(apiErrorMessage(err, t('Could not save the connection')));
     } finally {
       setSaving(false);
     }
@@ -218,13 +219,13 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
     setDeleting(true);
     try {
       await http.delete(`/api/connections/${editKey}`);
-      toast({ title: 'Connection removed', status: 'info', duration: 3000 });
+      toast({ title: t('Connection removed'), status: 'info', duration: 3000 });
       confirm.onClose();
       onDeleted(editKey);
       onClose();
     } catch (err) {
       confirm.onClose();
-      setSaveError(apiErrorMessage(err, 'Could not remove the connection'));
+      setSaveError(apiErrorMessage(err, t('Could not remove the connection')));
     } finally {
       setDeleting(false);
     }
@@ -258,9 +259,9 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
     return (
       <>
         <ModalHeader pb={1}>
-          Add a database
+          {t('Add a database')}
           <Text fontSize="sm" fontWeight={400} color="mutedText">
-            What kind of database do you want to search?
+            {t('What kind of database do you want to search?')}
           </Text>
         </ModalHeader>
         <ModalCloseButton />
@@ -291,7 +292,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
                       <Text fontWeight={600}>{meta.label}</Text>
                       {!option.available && (
                         <Badge colorScheme="orange" fontSize="2xs">
-                          driver missing
+                          {t('driver missing')}
                         </Badge>
                       )}
                     </HStack>
@@ -306,10 +307,10 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
 
           <Box mt={6} p={4} borderRadius="xl" bg="chipBg" border="1px solid" borderColor="lineColor">
             <Text fontSize="sm" fontWeight={600} mb={1}>
-              Already have a connection string?
+              {t('Already have a connection string?')}
             </Text>
             <Text fontSize="xs" color="mutedText" mb={3}>
-              Paste it and the form will be filled in for you. It is only read in your browser until you save.
+              {t('Paste it and the form will be filled in for you. It is only read in your browser until you save.')}
             </Text>
             <HStack>
               <Input
@@ -325,7 +326,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
                 autoComplete="off"
               />
               <Button size="sm" onClick={applyConnectionString} isDisabled={!pasteText.trim()}>
-                Fill in
+                {t('Fill in')}
               </Button>
             </HStack>
             {pasteError && (
@@ -346,10 +347,10 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
         <HStack spacing={3}>
           <EngineBadge engine={form.engine} size={38} />
           <Box>
-            <Text>{editKey ? 'Edit connection' : `Connect ${meta.label}`}</Text>
+            <Text>{editKey ? t('Edit connection') : t('Connect {engine}', { engine: meta.label })}</Text>
             {!editKey && (
               <Button variant="link" size="xs" fontWeight={500} color="brand.300" onClick={() => setStep('engine')}>
-                Choose a different type
+                {t('Choose a different type')}
               </Button>
             )}
           </Box>
@@ -362,66 +363,66 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
             <Alert status="warning" borderRadius="lg" alignItems="flex-start">
               <AlertIcon />
               <AlertDescription fontSize="sm">
-                The Python driver for {engine.label} is not installed on the server. Run{' '}
-                <Code>pip install {engine.pip}</Code> in the backend environment, restart the backend and reopen this
-                window.
+                {t('The Python driver for {engine} is not installed on the server. Run', { engine: engine.label })}{' '}
+                <Code>pip install {engine.pip}</Code>{' '}
+                {t('in the backend environment, restart the backend and reopen this window.')}
               </AlertDescription>
             </Alert>
           )}
 
           <FormControl isRequired>
-            <FormLabel fontSize="sm">Name</FormLabel>
-            <Input value={form.label} onChange={edit('label')} placeholder="e.g. Production orders" autoFocus />
-            <FormHelperText fontSize="xs">How this database appears in the sidebar.</FormHelperText>
+            <FormLabel fontSize="sm">{t('Name')}</FormLabel>
+            <Input value={form.label} onChange={edit('label')} placeholder={t('e.g. Production orders')} autoFocus />
+            <FormHelperText fontSize="xs">{t('How this database appears in the sidebar.')}</FormHelperText>
           </FormControl>
 
           {fileBased ? (
             <FormControl isRequired>
-              <FormLabel fontSize="sm">Path to the database file</FormLabel>
+              <FormLabel fontSize="sm">{t('Path to the database file')}</FormLabel>
               <Input
                 value={form.database}
                 onChange={edit('database')}
-                placeholder="C:\data\catalog.sqlite  or  /var/data/catalog.db"
+                placeholder={t('{a}  or  {b}', { a: 'C:\\data\\catalog.sqlite', b: '/var/data/catalog.db' })}
                 fontFamily="mono"
               />
               <FormHelperText fontSize="xs">
-                The path is on the machine where the Ncode backend runs. The file is opened read-only.
+                {t('The path is on the machine where the Ncode backend runs. The file is opened read-only.')}
               </FormHelperText>
             </FormControl>
           ) : (
             <>
               <Flex gap={3}>
                 <FormControl isRequired flex={3}>
-                  <FormLabel fontSize="sm">Server address</FormLabel>
-                  <Input value={form.host} onChange={edit('host')} placeholder="db.company.local or 10.0.0.5" />
+                  <FormLabel fontSize="sm">{t('Server address')}</FormLabel>
+                  <Input value={form.host} onChange={edit('host')} placeholder={t('{a} or {b}', { a: 'db.company.local', b: '10.0.0.5' })} />
                 </FormControl>
                 <FormControl flex={1} isInvalid={portInvalid}>
-                  <FormLabel fontSize="sm">Port</FormLabel>
+                  <FormLabel fontSize="sm">{t('Port')}</FormLabel>
                   <Input value={form.port} onChange={edit('port')} inputMode="numeric" />
                 </FormControl>
               </Flex>
               <FormControl isRequired>
-                <FormLabel fontSize="sm">Database name</FormLabel>
-                <Input value={form.database} onChange={edit('database')} placeholder="e.g. shop" />
+                <FormLabel fontSize="sm">{t('Database name')}</FormLabel>
+                <Input value={form.database} onChange={edit('database')} placeholder={t('e.g. {example}', { example: 'shop' })} />
               </FormControl>
               <Flex gap={3} direction={{ base: 'column', sm: 'row' }}>
                 <FormControl>
-                  <FormLabel fontSize="sm">Username</FormLabel>
+                  <FormLabel fontSize="sm">{t('Username')}</FormLabel>
                   <Input value={form.username} onChange={edit('username')} autoComplete="off" />
                 </FormControl>
                 <FormControl>
-                  <FormLabel fontSize="sm">Password</FormLabel>
+                  <FormLabel fontSize="sm">{t('Password')}</FormLabel>
                   <Input
                     type="password"
                     value={form.password}
                     onChange={edit('password')}
                     autoComplete="new-password"
-                    placeholder={editKey && hasPassword ? 'Saved — leave empty to keep' : ''}
+                    placeholder={editKey && hasPassword ? t('Saved — leave empty to keep') : ''}
                   />
                 </FormControl>
               </Flex>
               <Text fontSize="xs" color="faintText" mt={-2}>
-                Tip: use an account that can only read data (SELECT). The password is stored encrypted.
+                {t('Tip: use an account that can only read data (SELECT). The password is stored encrypted.')}
               </Text>
             </>
           )}
@@ -440,22 +441,21 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
               }
               onClick={() => setShowAdvanced((v) => !v)}
             >
-              Advanced
+              {t('Advanced')}
             </Button>
             <Collapse in={showAdvanced} animateOpacity>
               <VStack spacing={4} align="stretch" pt={3}>
                 {!fileBased && (
                   <FormControl>
-                    <FormLabel fontSize="sm">Schema</FormLabel>
-                    <Input value={form.schema} onChange={edit('schema')} placeholder="public, dbo … (leave empty for default)" />
+                    <FormLabel fontSize="sm">{t('Schema')}</FormLabel>
+                    <Input value={form.schema} onChange={edit('schema')} placeholder={t('public, dbo … (leave empty for default)')} />
                   </FormControl>
                 )}
                 <FormControl>
-                  <FormLabel fontSize="sm">Record identifier columns</FormLabel>
+                  <FormLabel fontSize="sm">{t('Record identifier columns')}</FormLabel>
                   <Input value={form.idHints} onChange={edit('idHints')} placeholder="vin, serial, order_no" />
                   <FormHelperText fontSize="xs">
-                    Columns whose name contains one of these words are shown as a badge on each result, so records are
-                    easy to recognise.
+                    {t('Columns whose name contains one of these words are shown as a badge on each result, so records are easy to recognise.')}
                   </FormHelperText>
                 </FormControl>
               </VStack>
@@ -467,7 +467,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
               <AlertIcon />
               <AlertDescription fontSize="sm" wordBreak="break-word">
                 {testResult.ok
-                  ? `Connected. ${testResult.tables ?? 0} table${testResult.tables === 1 ? '' : 's'} found.`
+                  ? tn(testResult.tables ?? 0, 'Connected. {n} table found.', 'Connected. {n} tables found.')
                   : testResult.error}
               </AlertDescription>
             </Alert>
@@ -487,13 +487,13 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
         <Box>
           {editKey && (
             <Button variant="subtle" colorScheme="red" leftIcon={<TrashIcon boxSize={4} />} onClick={confirm.onOpen}>
-              Remove
+              {t('Remove')}
             </Button>
           )}
         </Box>
         <HStack spacing={3}>
-          <Button variant="subtle" onClick={runTest} isLoading={testing} loadingText="Checking" isDisabled={!canSubmit}>
-            Check connection
+          <Button variant="subtle" onClick={runTest} isLoading={testing} loadingText={t('Checking')} isDisabled={!canSubmit}>
+            {t('Check connection')}
           </Button>
           <Button
             leftIcon={testResult?.ok ? <CheckIcon boxSize={4} /> : undefined}
@@ -501,7 +501,7 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
             isLoading={saving}
             isDisabled={!canSubmit}
           >
-            {editKey ? 'Save changes' : 'Save'}
+            {editKey ? t('Save changes') : t('Save')}
           </Button>
         </HStack>
       </ModalFooter>
@@ -509,16 +509,16 @@ function ConnectionBody({ onClose, engines, editKey, onSaved, onDeleted }: Conne
       <AlertDialog isOpen={confirm.isOpen} leastDestructiveRef={cancelRef as never /* Chakra types expect a non-null ref */} onClose={confirm.onClose} isCentered>
         <AlertDialogOverlay>
           <AlertDialogContent bg="panelBg" borderRadius="2xl">
-            <AlertDialogHeader>Remove “{form.label}”?</AlertDialogHeader>
+            <AlertDialogHeader>{t('Remove “{name}”?', { name: form.label })}</AlertDialogHeader>
             <AlertDialogBody fontSize="sm" color="mutedText">
-              Ncode will forget this connection and its saved password. Your database itself is not touched.
+              {t('Ncode will forget this connection and its saved password. Your database itself is not touched.')}
             </AlertDialogBody>
             <AlertDialogFooter gap={3}>
               <Button ref={cancelRef} variant="subtle" onClick={confirm.onClose}>
-                Keep it
+                {t('Keep it')}
               </Button>
               <Button colorScheme="red" bg="red.500" _hover={{ bg: 'red.600' }} onClick={remove} isLoading={deleting}>
-                Remove
+                {t('Remove')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -4,13 +4,14 @@ import {
 } from '@chakra-ui/react';
 import type { MatchMode } from '../api';
 import { SearchIcon, TableIcon } from '../icons';
+import { t } from '../i18n/index.ts';
 
-export const ROW_LIMITS = [10, 25, 50, 100, 200];
+const ROW_LIMITS = [10, 25, 50, 100, 200];
 
 const MODES: { value: MatchMode; label: string; hint: string }[] = [
-  { value: 'contains', label: 'Contains', hint: 'The phrase appears anywhere in the value' },
-  { value: 'starts_with', label: 'Starts with', hint: 'The value begins with the phrase' },
-  { value: 'exact', label: 'Exact', hint: 'The whole value equals the phrase' },
+  { value: 'contains', label: t('Contains'), hint: t('The phrase appears anywhere in the value') },
+  { value: 'starts_with', label: t('Starts with'), hint: t('The value begins with the phrase') },
+  { value: 'exact', label: t('Exact'), hint: t('The whole value equals the phrase') },
 ];
 
 interface SearchBarProps {
@@ -34,7 +35,7 @@ interface SearchBarProps {
   onOpenScope: () => void;
 }
 
-export function SearchBar(props: SearchBarProps) {
+export function SearchBar({ inputRef, ...props }: SearchBarProps) {
   const { running, disabled } = props;
   return (
     <Flex
@@ -53,11 +54,11 @@ export function SearchBar(props: SearchBarProps) {
             <SearchIcon boxSize={5} />
           </InputLeftElement>
           <Input
-            ref={props.inputRef}
+            ref={inputRef}
             h="56px"
             pl="52px"
             fontSize="md"
-            placeholder={disabled ? 'Add a database to start searching' : 'Search for a name, code, VIN, email…   (press / to focus)'}
+            placeholder={disabled ? t('Add a database to start searching') : t('Search for a name, code, VIN, email…   (press / to focus)')}
             value={props.phrase}
             onChange={(e) => props.onPhraseChange(e.target.value)}
             onKeyDown={(e) => {
@@ -70,18 +71,18 @@ export function SearchBar(props: SearchBarProps) {
         </InputGroup>
         {running ? (
           <Button h="56px" px={8} variant="subtle" colorScheme="red" onClick={props.onCancel}>
-            Stop
+            {t('Stop')}
           </Button>
         ) : (
           <Button h="56px" px={10} onClick={props.onSubmit} isDisabled={disabled || !props.phrase.trim()}>
-            Search
+            {t('Search')}
           </Button>
         )}
       </Flex>
 
       <Wrap spacing={3} align="center">
         <WrapItem>
-          <Tooltip label="Choose which tables are searched" hasArrow>
+          <Tooltip label={t('Choose which tables are searched')} hasArrow>
             <Button
               size="sm"
               variant={props.scopeCustom ? 'brand' : 'subtle'}
@@ -111,7 +112,7 @@ export function SearchBar(props: SearchBarProps) {
         </WrapItem>
 
         <WrapItem>
-          <Tooltip label="Treat “VIN” and “vin” as different" hasArrow>
+          <Tooltip label={t('Treat “VIN” and “vin” as different')} hasArrow>
             <HStack spacing={2}>
               <Switch
                 size="sm"
@@ -121,14 +122,14 @@ export function SearchBar(props: SearchBarProps) {
                 isDisabled={disabled}
               />
               <Text fontSize="sm" color="mutedText">
-                Match case
+                {t('Match case')}
               </Text>
             </HStack>
           </Tooltip>
         </WrapItem>
 
         <WrapItem>
-          <Tooltip label="Also look inside number and date columns (when the phrase looks like one)" hasArrow>
+          <Tooltip label={t('Also look inside number and date columns (when the phrase looks like one)')} hasArrow>
             <HStack spacing={2}>
               <Switch
                 size="sm"
@@ -138,14 +139,14 @@ export function SearchBar(props: SearchBarProps) {
                 isDisabled={disabled}
               />
               <Text fontSize="sm" color="mutedText">
-                Numbers & dates
+                {t('Numbers & dates')}
               </Text>
             </HStack>
           </Tooltip>
         </WrapItem>
 
         <WrapItem>
-          <Tooltip label="Maximum rows shown per table" hasArrow>
+          <Tooltip label={t('Maximum rows shown per table')} hasArrow>
             <Select
               size="sm"
               w="auto"
@@ -155,7 +156,7 @@ export function SearchBar(props: SearchBarProps) {
             >
               {ROW_LIMITS.map((n) => (
                 <option key={n} value={n}>
-                  {n} rows / table
+                  {t('{n} rows / table', { n })}
                 </option>
               ))}
             </Select>

@@ -49,7 +49,7 @@ def test_login_success_and_me(env):
     body = res.json()
     assert body["user"] == {"username": "alice", "role": "user"}
     me = client.get("/api/auth/me", headers={"Authorization": f"Bearer {body['token']}"})
-    assert me.json() == {"username": "alice", "role": "user"}
+    assert me.json() == {"username": "alice", "role": "user", "email": None}
 
 
 def test_wrong_password_and_unknown_user_look_the_same(env):

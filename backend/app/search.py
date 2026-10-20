@@ -44,6 +44,7 @@ class SearchOptions:
     exclude_tables: list[str] = field(default_factory=list)  # glob patterns
     schema: str | None = None
     refresh_schema: bool = False
+    denied_tables: frozenset[str] = frozenset()  # lower-case names never searched (row-level security, M9)
 
 
 @dataclass
@@ -99,7 +100,7 @@ def filter_tables(names: list[str], opts: SearchOptions) -> list[str]:
     exact = {t.lower() for t in opts.tables}
     selected = [n for n in names if not exact or n.lower() in exact]
     selected = [n for n in selected if not opts.include_tables or hit(n, opts.include_tables)]
-    return [n for n in selected if not hit(n, opts.exclude_tables)]
+    return [n for n in selected if not hit(n, opts.exclude_tables) and n.lower() not in opts.denied_tables]
 
 
 def _predicate(expr: Any, opts: SearchOptions) -> Any:
@@ -123,6 +124,15 @@ def _searchable_columns(columns: list[dict[str, Any]], opts: SearchOptions) -> l
         if kind == "text" or (kind == "numeric" and numeric_ok) or (kind == "date" and date_ok):
             result.append((col["name"], kind))
     return result
+
+
+def build_conditions(columns: list[dict[str, Any]], opts: SearchOptions) -> list[Any]:
+    """One LIKE/equality condition per searchable column (to be OR-ed together)."""
+    conditions = []
+    for name, kind in _searchable_columns(columns, opts):
+        expr = column(name, String()) if kind == "text" else cast(column(name), String())
+        conditions.append(_predicate(expr, opts))
+    return conditions
 
 
 def _pick_id_column(row: dict[str, Any], cfg: ConnectionConfig) -> str | None:
@@ -154,10 +164,7 @@ def search_table(
         selected_names = [c["name"] for c in columns if classify_type(c["type"]) != "binary"]
         tbl = sa_table(table_name, *[column(n) for n in selected_names], schema=opts.schema or cfg.schema)
 
-        conditions = []
-        for name, kind in searchable:
-            expr = column(name, String()) if kind == "text" else cast(column(name), String())
-            conditions.append(_predicate(expr, opts))
+        conditions = build_conditions(columns, opts)
 
         # Fetch one extra row so we can tell the user the result was cut off.
         stmt = select(*[tbl.c[n] for n in selected_names]).where(or_(*conditions)).limit(opts.row_limit + 1)

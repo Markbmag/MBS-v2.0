@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Badge, Box, HStack, Progress, Text, VStack } from '@chakra-ui/react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import animationUrl from '../assets/Loading Animation Bored Hand.json?url';
+import { t } from '../i18n/index.ts';
 
 interface SearchProgressProps {
   phrase: string;
@@ -30,10 +31,10 @@ export function SearchProgress({ phrase, processed, total, found, starting }: Se
         </Box>
         <VStack spacing={1}>
           <Text fontSize="lg" fontWeight={600} textAlign="center" wordBreak="break-word">
-            Searching for “{phrase}”
+            {t('Searching for “{phrase}”', { phrase })}
           </Text>
           <Text fontSize="sm" color="mutedText">
-            {indeterminate ? 'Reading the database structure…' : `Scanned ${processed} of ${total} tables`}
+            {indeterminate ? t('Reading the database structure…') : t('Scanned {processed} of {total} tables', { processed, total })}
           </Text>
         </VStack>
         <Progress
@@ -49,10 +50,10 @@ export function SearchProgress({ phrase, processed, total, found, starting }: Se
         />
         <HStack spacing={3}>
           <Badge colorScheme="brand" borderRadius="full" px={3} py={1} fontSize="xs">
-            {found} found
+            {t('{n} found', { n: found })}
           </Badge>
           <Badge borderRadius="full" px={3} py={1} fontSize="xs" bg="chipBg" color="mutedText">
-            {seconds}s
+            {t('{n}s', { n: seconds })}
           </Badge>
           {!indeterminate && (
             <Badge borderRadius="full" px={3} py={1} fontSize="xs" bg="chipBg" color="mutedText">

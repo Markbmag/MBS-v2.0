@@ -5,6 +5,7 @@ import {
 import type { MatchMode, SearchHit } from '../api';
 import { CopyIcon } from '../icons';
 import { Highlight } from './Highlight';
+import { t } from '../i18n/index.ts';
 
 interface RowDrawerProps {
   hit: SearchHit | null;
@@ -22,12 +23,12 @@ function asText(value: unknown): string {
 export function RowDrawer({ hit, onClose, phrase, matchMode, caseSensitive }: RowDrawerProps) {
   const toast = useToast();
 
-  const copy = async (text: string, what: string) => {
+  const copy = async (text: string, done: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast({ title: `${what} copied`, status: 'success', duration: 1800 });
+      toast({ title: done, status: 'success', duration: 1800 });
     } catch {
-      toast({ title: 'Copy is not available in this browser context', status: 'warning', duration: 2500 });
+      toast({ title: t('Copy is not available in this browser context'), status: 'warning', duration: 2500 });
     }
   };
 
@@ -40,7 +41,7 @@ export function RowDrawer({ hit, onClose, phrase, matchMode, caseSensitive }: Ro
           <>
             <DrawerHeader borderBottom="1px solid" borderColor="lineColor" pr={12}>
               <Text fontSize="xs" color="mutedText" fontWeight={500}>
-                Record from table
+                {t('Record from table')}
               </Text>
               <HStack spacing={3} mt={1} flexWrap="wrap">
                 <Text fontFamily="mono" fontSize="lg">
@@ -52,15 +53,15 @@ export function RowDrawer({ hit, onClose, phrase, matchMode, caseSensitive }: Ro
                   </Badge>
                 )}
               </HStack>
-              <Tooltip label="Copy the whole record as JSON" hasArrow>
+              <Tooltip label={t('Copy the whole record as JSON')} hasArrow>
                 <IconButton
-                  aria-label="Copy as JSON"
+                  aria-label={t('Copy as JSON')}
                   size="xs"
                   icon={<CopyIcon boxSize={3.5} />}
                   position="absolute"
                   right={14}
                   top={4}
-                  onClick={() => copy(JSON.stringify(hit.row, null, 2), 'Record')}
+                  onClick={() => copy(JSON.stringify(hit.row, null, 2), t('Record copied'))}
                 />
               </Tooltip>
             </DrawerHeader>
@@ -85,18 +86,18 @@ export function RowDrawer({ hit, onClose, phrase, matchMode, caseSensitive }: Ro
                       <HStack justify="space-between">
                         <Text fontFamily="mono" fontSize="xs" color={isMatch ? 'brand.300' : 'mutedText'}>
                           {column}
-                          {isMatch && ' · match'}
+                          {isMatch && t(' · match')}
                         </Text>
                         {value !== null && value !== undefined && (
                           <IconButton
-                            aria-label={`Copy ${column}`}
+                            aria-label={t('Copy {name}', { name: column })}
                             size="xs"
                             variant="ghost"
                             icon={<CopyIcon boxSize={3} />}
                             opacity={0}
                             _groupHover={{ opacity: 1 }}
                             _focus={{ opacity: 1 }}
-                            onClick={() => copy(text, column)}
+                            onClick={() => copy(text, t('{name} copied', { name: column }))}
                           />
                         )}
                       </HStack>

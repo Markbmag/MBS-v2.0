@@ -4,6 +4,12 @@ sqlalchemy>=2.0.30
 python-dotenv>=1.0
 cryptography>=43   # encrypts database passwords saved from the UI
 pydantic>=2.7
+alembic>=1.13      # migrations of Ncode's own database
+sqlglot>=30.19,<31  # parses SQL typed by users (read-only guard); major versions change the syntax tree
+xlsxwriter>=3.2     # Excel export of results (streams rows, constant memory)
+duckdb>=1.5.5,<1.6  # multi-source questions and uploaded files run in an in-process DuckDB
+openpyxl>=3.1       # reads uploaded Excel files
+tzdata>=2025.2      # time zones for schedules (Windows has no time zone database of its own)
 
 # Database drivers - keep only the ones you need
 pymysql>=1.1            # MySQL / MariaDB

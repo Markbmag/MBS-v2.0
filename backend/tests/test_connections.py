@@ -12,8 +12,8 @@ from app.security import hash_password
 from .helpers import auth, wait_finished
 
 
-def make_app(tmp_path, sample_db, app_db=None):
-    settings = Settings(search_workers=2)
+def make_app(tmp_path, sample_db, app_db=None, settings=None):
+    settings = settings or Settings(search_workers=2)
     env_connections = load_connections(
         {
             "NCODE_CONN_ENVDB_ENGINE": "sqlite",

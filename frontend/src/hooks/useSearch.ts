@@ -3,6 +3,7 @@ import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { apiErrorMessage, getToken, http, WS_URL } from '../api';
 import type { MatchMode, Progress, SearchHit, TableError, TaskMessage } from '../api';
+import { t } from '../i18n/index.ts';
 
 export interface SearchParams {
   connection: string;
@@ -103,7 +104,7 @@ export function useSearch(onUnauthorized: () => void) {
             finished = true;
             socket.close();
             setState((prev) => ({ ...prev, phase: 'idle', status: '' }));
-            toast({ title: 'This search no longer exists', status: 'error' });
+            toast({ title: t('This search no longer exists'), status: 'error' });
             return;
           }
           if (FINAL_STATUSES.includes(data.status)) {
@@ -128,7 +129,7 @@ export function useSearch(onUnauthorized: () => void) {
               message: data.message ?? null,
             }));
             if (data.status === 'error') {
-              toast({ title: 'Search failed', description: data.message ?? undefined, status: 'error' });
+              toast({ title: t('Search failed'), description: data.message ?? undefined, status: 'error' });
             }
             return;
           }
@@ -145,7 +146,7 @@ export function useSearch(onUnauthorized: () => void) {
         };
 
         socket.onerror = () => {
-          if (wsRef.current === socket) toast({ title: 'Connection to the server was lost', status: 'error' });
+          if (wsRef.current === socket) toast({ title: t('Connection to the server was lost'), status: 'error' });
         };
 
         socket.onclose = () => {
@@ -157,10 +158,10 @@ export function useSearch(onUnauthorized: () => void) {
       } catch (error) {
         const tooMany = axios.isAxiosError(error) && error.response?.status === 429;
         toast({
-          title: tooMany ? 'Too many searches at once' : 'Could not start the search',
+          title: tooMany ? t('Too many searches at once') : t('Could not start the search'),
           description: tooMany
-            ? 'Wait for a running search to finish or cancel it.'
-            : apiErrorMessage(error, 'Unexpected error'),
+            ? t('Wait for a running search to finish or cancel it.')
+            : apiErrorMessage(error, t('Unexpected error')),
           status: tooMany ? 'warning' : 'error',
         });
         setState((prev) => ({ ...prev, phase: 'idle', status: '' }));

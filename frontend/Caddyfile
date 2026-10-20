@@ -1,0 +1,48 @@
+# Caddy in front of Ncode: HTTPS, the web app, and /api + /ws forwarded to the backend.
+#
+#   NCODE_SITE   the address people use: ncode.company.local, ncode.example.com, or localhost
+#   NCODE_TLS    "internal" (default): Caddy's own certificate authority - for a LAN; browsers warn
+#                until Caddy's root certificate is trusted (see the README);
+#                an email address: a real Let's Encrypt certificate (needs a public DNS name and port 80/443 open)
+#   NCODE_EMBED_ORIGINS  websites allowed to show Ncode embeds in an iframe, e.g. https://portal.example.com
+
+{
+	admin off
+}
+
+{$NCODE_SITE:localhost} {
+	tls {$NCODE_TLS:internal}
+	encode zstd gzip
+
+	@api path /api/* /ws/*
+	handle @api {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	# only embeds may be shown inside other websites' pages
+	@embed path /embed/*
+	header @embed Content-Security-Policy "frame-ancestors 'self' {$NCODE_EMBED_ORIGINS:}"
+	@notembed not path /embed/*
+	header @notembed Content-Security-Policy "frame-ancestors 'self'"
+	header @notembed X-Frame-Options "SAMEORIGIN"
+
+	# the built files have hashed names: cache them; index.html never
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+	@index path / /index.html
+	header @index Cache-Control "no-cache"
+}
