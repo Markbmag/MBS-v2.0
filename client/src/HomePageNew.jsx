@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { recentPages } from './recentPages';
 import tablePreview from './assets/table-preview.png';
 import dailyTopPreview from './assets/daily-top-preview.png';
 import modelStatusPreview from './assets/123.png';
@@ -36,8 +37,10 @@ import repelecPreview from './assets/repelec.png';
 import drrElectronicsPreview from './assets/dshelec.png';
 
 // Новая главная страница (предпросмотр по адресу /home-new; текущая главная не меняется).
-// Тот же стиль и те же разделы, плюс: DRR последней смены по чекпоинтам, состояние системы,
-// компактные карточки, работа на телефоне. Избранное общее с прежней главной.
+// Тот же стиль и те же разделы, плюс: «Недавно открытые» (для этого компьютера), поиск
+// по-русски и по-английски с ключевыми словами (Enter — открыть первый результат),
+// русские названия на карточках, состояние системы, компактные карточки, работа на телефоне.
+// Избранное общее с прежней главной.
 
 const API_BASE = '';
 const FAVORITES_KEY = 'home_favorites';
@@ -85,6 +88,69 @@ const SERVICE_CARDS = [
   { to: '/defect-capture', favKey: 'http://10.27.195.25:30000/defect-capture', img: defectCapturePreview, caption: 'Defect Capture', accent: '#10B981' },
   { to: '/line-defects-archive', favKey: 'http://10.27.195.25:30000/line-defects-archive', img: lineDefectsArchivePreview, caption: 'Line Defects Archive', accent: '#10B981' },
 ];
+// Русское название (видно на карточке) и слова для поиска.
+const INFO = {
+  '/drr-cp5': ['DRR CP5 — кузов', 'чекпоинт cp5 дашборд кузов'],
+  '/drr-cp6': ['DRR CP6 — покраска', 'чекпоинт cp6 дашборд покраска psin psout транзит буфер'],
+  '/drr-cp7-dashboard': ['DRR CP7 — сборка', 'чекпоинт cp7 дашборд сборка'],
+  '/drr-cp7-tup': ['DRR CP7 — подкраска (Touch Up)', 'чекпоинт cp7 tup подкраска touch up'],
+  '/drr-tl-dashboard': ['DRR ADAS — тестовая линия', 'чекпоинт adas tladas тест линия testline'],
+  '/drr-pip-dashboard': ['DRR PIP', 'чекпоинт pip дашборд'],
+  '/drr-wt-portal': ['DRR CPFinal — финальный контроль', 'чекпоинт cpfinal финал tltt wt'],
+  '/drr-electronics-dashboard': ['DRR электроника (BMS)', 'электроника bms прошивка дашборд'],
+  '/all-drr-dashboard': ['Все DRR на одном экране', 'сводный все чекпоинты'],
+  '/drr-shift-dashboard': ['DRR по сменам', 'смена смены фото отметки неделя'],
+  '/vehicle-on-wheels': ['Ремонты после CP72', 'ремонт ремзона cp72 cpa repairs колёса'],
+  '/report': ['Контроль качества — доска DRR', 'топ доска дефекты дпу dpu'],
+  '/daily-top': ['Топ дефектов за сегодня', 'сегодня день топ дефекты cp7 cp8 контроль качества'],
+  '/model-status': ['Статус по моделям', 'модели модель комплектации dpu drr рассылка pdf'],
+  '/mpp-weekly-top': ['Топ дефектов по DRR', 'неделя топ mpp дефекты cp7 cp8'],
+  '/drr-report': ['Отчёт DRR — выход годных', 'выход годной продукции первого предъявления динамика'],
+  '/daily-dashboard': ['Ежедневный отчёт качества', 'daily report день ежедневный топ'],
+  '/tl-map': ['Тестовая линия — посты и время', 'testline тест линия посты время парето история vin'],
+  '/drr-cp7-history': ['История DRR CP7', 'история динамика cp7 снимки'],
+  '/defect-electronics-top': ['Топ дефектов электроники', 'электроника дефекты динамика'],
+  '/remzone-work-status': ['Статус работ ремзоны', 'ремзона ремонт работы статус'],
+  '/repps-report': ['Спот и перекрас (REPPS)', 'спот перекрас покраска repps'],
+  '/voltage-spc': ['Напряжение — SPC', 'напряжение вольтаж spc контрольная карта'],
+  '/repelec-report': ['Ремонт электроники (REPELEC)', 'ремонт электроника repelec bms смены'],
+  '/sgp-audit': ['Аудит СГП', 'сгп склад готовой продукции аудит sgp'],
+  '/sgp-management': ['Управление СГП', 'сгп склад готовой продукции sgp управление причины'],
+  '/part-defect-search': ['Поиск по детали, дефекту, VIN', 'поиск деталь дефект vin найти'],
+  'http://10.27.195.25:5174/time-at-points': ['Прохождение точек', 'время точки прохождение местоположение машина checkpoint'],
+  '/warranty': ['Гарантия', 'гарантия рекламации претензии warranty'],
+  '/holds-sgp': ['Холды СГП', 'холд холды задержка блокировка сгп'],
+  'http://10.27.195.16/reports/024': ['DRR по заводу (внешний отчёт)', 'завод drr внешний'],
+  '/brigade-report': ['Бригадный отчёт', 'бригады бригада владельцы дефектов справочник'],
+  '/vrt-report': ['Отчёт VRT', 'vrt владельцы дефектов зоны справочник'],
+  '/defect-capture': ['Фото дефекта на линии', 'фото фотография фиксация дефект линия телефон'],
+  '/line-defects-archive': ['Архив фото дефектов', 'архив фото дефекты линия'],
+};
+[DRR_CARDS, REPORT_CARDS, SERVICE_CARDS].forEach((list) => list.forEach((c) => {
+  const [ru, keywords] = INFO[c.to] || ['', ''];
+  c.ru = ru;
+  c.search = `${c.caption} ${ru} ${keywords}`.toLowerCase();
+}));
+const ALL_CARDS = [...DRR_CARDS, ...REPORT_CARDS, ...SERVICE_CARDS];
+
+// Поиск: каждое слово запроса должно найтись; выше — совпадения в названии.
+function searchScore(card, words) {
+  if (!words.length) return 1;
+  if (!words.every((w) => card.search.includes(w))) return 0;
+  const names = `${card.caption} ${card.ru}`.toLowerCase();
+  return words.reduce((sum, w) => sum + (names.startsWith(w) ? 4 : names.includes(w) ? 2 : 1), 0);
+}
+
+function timeAgo(ms) {
+  const min = Math.round((Date.now() - ms) / 60000);
+  if (min < 1) return 'только что';
+  if (min < 60) return `${min} мин назад`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `${h} ч назад`;
+  const d = Math.round(h / 24);
+  return d === 1 ? 'вчера' : `${d} дн назад`;
+}
+
 const SECTIONS = [
   { id: 'drr', title: 'Отчеты DRR', icon: '⚙️', iconBg: '#E0F2FE', cards: DRR_CARDS },
   { id: 'reports', title: 'Отчёты', icon: '📊', iconBg: '#EEF2FF', cards: REPORT_CARDS },
@@ -97,58 +163,9 @@ const TABS = [
   { id: 'drr', label: '⚙️ Отчеты DRR' },
 ];
 
-// DRR по чекпоинтам (по снимкам смен из своей БД — не нагружает заводские БД).
-const DRR_TILES = [
-  { name: 'CP5', to: '/drr-cp5', api: null },
-  { name: 'CP6', to: '/drr-cp6', api: '/api/drr-cp6-snapshots?days=3' },
-  { name: 'CP7', to: '/drr-cp7-dashboard', api: '/api/drr-cp7-snapshots?days=3&filter=all' },
-  { name: 'CP7 TUP', to: '/drr-cp7-tup', api: '/api/drr-cp7-tup-snapshots?days=3&filter=all' },
-  { name: 'ADAS', to: '/drr-tl-dashboard', api: '/api/drr-tl-snapshots?days=3' },
-  { name: 'PIP', to: '/drr-pip-dashboard', api: '/api/drr-pip-snapshots?days=3' },
-  { name: 'CPFinal', to: '/drr-wt-portal', api: '/api/drr-cpfinal-snapshots?days=3' },
-  { name: 'Электроника', to: '/drr-electronics-dashboard', api: '/api/drr-electronics-snapshots?days=3' },
-];
-const SHIFT_NAMES = { day: 'день', evening: 'вечер', night: 'ночь' };
-
 const favKeyOf = (c) => c.favKey || c.to;
-const fmtDate = (s) => (s ? `${s.slice(8, 10)}.${s.slice(5, 7)}` : '');
 
 // ---------------------------------------------------------------- данные
-function useDrrStrip() {
-  const [tiles, setTiles] = useState(() => DRR_TILES.map((t) => ({ ...t, loading: Boolean(t.api) })));
-  useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      const result = await Promise.all(DRR_TILES.map(async (t) => {
-        if (!t.api) return { ...t, loading: false };
-        try {
-          const res = await fetch(API_BASE + t.api);
-          if (!res.ok) throw new Error(String(res.status));
-          const rows = await res.json();
-          const shifts = (Array.isArray(rows) ? rows : []).filter((r) => r && r.shift && r.shift !== 'all' && Number.isFinite(Number(r.drrPercent)));
-          const last = shifts[0];
-          const prev = shifts[1];
-          if (!last) return { ...t, loading: false, empty: true };
-          return {
-            ...t, loading: false,
-            drr: Number(last.drrPercent),
-            delta: prev ? Number(last.drrPercent) - Number(prev.drrPercent) : null,
-            shiftLabel: `${last.shiftLetter ? `${last.shiftLetter} · ` : ''}${SHIFT_NAMES[last.shift] || last.shift} · ${fmtDate(last.shiftDate)}`,
-            nok: last.nokVins, total: last.totalVins,
-          };
-        } catch {
-          return { ...t, loading: false, error: true };
-        }
-      }));
-      if (!cancelled) setTiles(result);
-    };
-    load();
-    const timer = setInterval(load, 5 * 60 * 1000);
-    return () => { cancelled = true; clearInterval(timer); };
-  }, []);
-  return tiles;
-}
-
 function useHealth() {
   const [health, setHealth] = useState(null);
   useEffect(() => {
@@ -199,14 +216,14 @@ const CSS = `
 .hn-h2 .ic { padding: 6px 10px; border-radius: 8px; font-size: 16px; }
 .hn-h2 .cnt { color: #9CA3AF; font-weight: 600; font-size: 15px; }
 .hn-h2 .hint { margin-left: auto; color: #9CA3AF; font-size: 13px; font-weight: 500; }
-.hn-tiles { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; }
-.hn-tile { display: block; text-decoration: none; color: inherit; border: 1px solid #EEF0F4; border-radius: 14px; padding: 12px 14px; background: #FAFBFC; transition: border-color .2s, transform .2s, box-shadow .2s; min-width: 0; }
-.hn-tile:hover { border-color: #93C5FD; transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(0,0,0,0.15); }
-.hn-tile .nm { font-size: 13px; font-weight: 700; color: #6B7280; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hn-tile .val { font-size: 28px; font-weight: 800; margin-top: 4px; line-height: 1.1; }
-.hn-tile .dl { font-size: 13px; font-weight: 700; margin-left: 6px; }
-.hn-tile .meta { font-size: 12px; color: #6B7280; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hn-skel { display: inline-block; width: 64px; height: 26px; border-radius: 6px; background: linear-gradient(90deg,#EEF0F4,#F7F8FA,#EEF0F4); }
+.hn-recent { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.hn-rc { display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: inherit; border: 1px solid #EEF0F4; border-radius: 12px; padding: 8px; background: #FAFBFC; transition: border-color .2s, transform .2s; }
+.hn-rc:hover { border-color: var(--accent); transform: translateY(-2px); }
+.hn-rc img { width: 52px; height: 38px; object-fit: cover; object-position: top; border-radius: 6px; flex: none; border: 1px solid #EEF0F4; }
+.hn-rc .tx { min-width: 0; }
+.hn-rc .nm { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hn-rc .ago { font-size: 12px; color: #9CA3AF; }
+@media (max-width: 1200px) { .hn-recent { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .hn-controls { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; }
 .hn-tabs { display: flex; gap: 6px; background: #E5E7EB; border-radius: 14px; padding: 6px; overflow-x: auto; max-width: 100%; }
 .hn-tab { padding: 9px 22px; border-radius: 10px; border: none; font-weight: 600; font-size: 15px; cursor: pointer; white-space: nowrap; background: transparent; color: #6B7280; transition: all .25s; }
@@ -223,7 +240,9 @@ const CSS = `
 .hn-thumb { height: 108px; background: #F9FAFB; overflow: hidden; }
 .hn-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .4s; display: block; }
 .hn-card:hover .hn-thumb img { transform: scale(1.04); }
-.hn-cap { background: #35384F; color: #FFFFFF; font-weight: 600; font-size: 13.5px; padding: 10px 12px; display: flex; align-items: center; gap: 6px; border-top: 3px solid var(--accent); }
+.hn-cap { background: #35384F; color: #FFFFFF; font-weight: 600; font-size: 13.5px; padding: 9px 12px 8px; border-top: 3px solid var(--accent); }
+.hn-cap .row { display: flex; align-items: center; gap: 6px; }
+.hn-cap .ru { font-size: 12px; font-weight: 500; opacity: .72; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hn-cap .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hn-ext { flex: none; }
 .hn-ext { opacity: .7; font-size: 12px; flex: none; }
@@ -231,12 +250,11 @@ const CSS = `
 .hn-card:hover .hn-star, .hn-star.on { opacity: 1; }
 .hn-star.on { color: #F59E0B; }
 .hn-empty { color: #6B7280; text-align: center; padding: 30px 0; }
-@media (max-width: 1200px) { .hn-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 700px) {
   .hn { padding: 16px 12px 32px; }
   .hn-title { font-size: 21px; }
   .hn-panel { padding: 16px 14px; border-radius: 16px; }
-  .hn-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hn-recent { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .hn-thumb { height: 84px; }
   .hn-search .key { display: none; }
@@ -247,26 +265,25 @@ const CSS = `
 `;
 
 // ---------------------------------------------------------------- части страницы
+// Показывается только при неполадках (объясняет, почему часть данных может отсутствовать).
+// Когда всё работает — ничего не показывает.
 function StatusPill({ health }) {
   const [open, setOpen] = useState(false);
   const problems = healthProblems(health);
-  let color = '#9CA3AF'; let text = 'Проверка…';
-  if (health) {
-    if (health.status === 'ok') { color = '#10B981'; text = 'Система работает'; }
-    else if (health.status === 'degraded') { color = '#F59E0B'; text = `Есть неполадки: ${problems.length}`; }
-    else { color = '#EF4444'; text = health.status === 'unreachable' ? 'Сервер не отвечает' : 'Сбой основной БД'; }
-  }
+  if (!health || health.status === 'ok') return null;
+  const critical = health.status !== 'degraded';
+  const color = critical ? '#EF4444' : '#F59E0B';
+  const text = health.status === 'unreachable' ? 'Сервер не отвечает'
+    : critical ? 'Данные недоступны' : 'Часть данных может быть недоступна';
   return (
     <div className="hn-status">
-      <button className="hn-pill" onClick={() => setOpen((o) => !o)} title="Состояние системы">
+      <button className="hn-pill" onClick={() => setOpen((o) => !o)} title="Нажмите, чтобы увидеть подробности">
         <span className="hn-dot" style={{ background: color, boxShadow: `0 0 0 4px ${color}22` }} />
         {text}
       </button>
       {open && (
         <div className="hn-pop" onMouseLeave={() => setOpen(false)}>
-          {problems.length === 0
-            ? <div>Все базы данных, связь с ПЛК и снимки DRR работают.</div>
-            : <ul style={{ margin: 0, paddingLeft: 18 }}>{problems.map((p) => <li key={p}>{p}</li>)}</ul>}
+          <ul style={{ margin: 0, paddingLeft: 18 }}>{problems.map((p) => <li key={p}>{p}</li>)}</ul>
           {health && health.time && (
             <div style={{ color: '#9CA3AF', fontSize: 12, marginTop: 10 }}>
               Проверено {new Date(health.time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
@@ -278,39 +295,27 @@ function StatusPill({ health }) {
   );
 }
 
-function DrrStrip({ tiles }) {
+function RecentBlock() {
+  const items = useMemo(() => recentPages()
+    .map((r) => ({ ...r, card: ALL_CARDS.find((c) => c.to === r.path) }))
+    .filter((r) => r.card)
+    .slice(0, 6), []);
+  if (!items.length) return null;
   return (
     <section className="hn-panel">
       <h2 className="hn-h2">
-        <span className="ic" style={{ background: '#E0F2FE' }}>⚙️</span>
-        DRR — последняя завершённая смена
-        <span className="hint">по снимкам смен · нажмите, чтобы открыть дашборд</span>
+        <span className="ic" style={{ background: '#F3F4F6' }}>🕘</span>
+        Недавно открытые
+        <span className="hint">на этом компьютере</span>
       </h2>
-      <div className="hn-tiles">
-        {tiles.map((t) => (
-          <Link key={t.name} to={t.to} className="hn-tile">
-            <div className="nm">{t.name}</div>
-            {t.loading && <div className="val"><span className="hn-skel" /></div>}
-            {!t.loading && t.drr != null && (
-              <>
-                <div className="val">
-                  {t.drr.toFixed(1)}%
-                  {t.delta != null && Math.abs(t.delta) >= 0.05 && (
-                    <span className="dl" style={{ color: t.delta > 0 ? '#059669' : '#DC2626' }}>
-                      {t.delta > 0 ? '▲' : '▼'}{Math.abs(t.delta).toFixed(1)}
-                    </span>
-                  )}
-                </div>
-                <div className="meta" title={t.shiftLabel}>{t.shiftLabel}</div>
-                <div className="meta">NOK {t.nok ?? '—'} из {t.total ?? '—'}</div>
-              </>
-            )}
-            {!t.loading && t.drr == null && (
-              <>
-                <div className="val" style={{ color: '#9CA3AF', fontSize: 22 }}>—</div>
-                <div className="meta">{t.api ? (t.error ? 'нет связи' : 'нет снимков') : 'онлайн-дашборд'}</div>
-              </>
-            )}
+      <div className="hn-recent">
+        {items.map(({ card, at }) => (
+          <Link key={card.to} to={card.to} className="hn-rc" style={{ '--accent': card.accent }} title={card.ru || card.caption}>
+            <img src={card.img} alt="" loading="lazy" />
+            <div className="tx">
+              <div className="nm">{card.caption}</div>
+              <div className="ago">{timeAgo(at)}</div>
+            </div>
           </Link>
         ))}
       </div>
@@ -328,7 +333,10 @@ function Card({ card, isFavorite, onToggleFavorite }) {
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleFavorite(favKeyOf(card)); }}
       >★</button>
       <div className="hn-thumb"><img src={card.img} alt="" loading="lazy" /></div>
-      <div className="hn-cap"><span className="t" title={card.caption}>{card.caption}</span>{external && <span className="hn-ext" title="Открывается в новой вкладке">↗</span>}</div>
+      <div className="hn-cap" title={card.ru ? `${card.caption} — ${card.ru}` : card.caption}>
+        <div className="row"><span className="t">{card.caption}</span>{external && <span className="hn-ext" title="Открывается в новой вкладке">↗</span>}</div>
+        {card.ru && <div className="ru">{card.ru}</div>}
+      </div>
     </>
   );
   const style = { '--accent': card.accent };
@@ -337,10 +345,10 @@ function Card({ card, isFavorite, onToggleFavorite }) {
     : <Link to={card.to} className="hn-card" style={style}>{inner}</Link>;
 }
 
-function Section({ title, icon, iconBg, cards, favorites, onToggleFavorite }) {
+function Section({ title, icon, iconBg, cards, favorites, onToggleFavorite, hint }) {
   return (
     <section className="hn-panel">
-      <h2 className="hn-h2"><span className="ic" style={{ background: iconBg }}>{icon}</span>{title}<span className="cnt">{cards.length}</span></h2>
+      <h2 className="hn-h2"><span className="ic" style={{ background: iconBg }}>{icon}</span>{title}{!hint && <span className="cnt">{cards.length}</span>}{hint && <span className="hint">{hint}</span>}</h2>
       <div className="hn-grid">
         {cards.map((c) => <Card key={c.to} card={c} isFavorite={favorites.includes(favKeyOf(c))} onToggleFavorite={onToggleFavorite} />)}
       </div>
@@ -356,7 +364,7 @@ export default function HomePageNew() {
     try { return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]'); } catch { return []; }
   });
   const searchRef = useRef(null);
-  const tiles = useDrrStrip();
+  const navigate = useNavigate();
   const health = useHealth();
 
   useEffect(() => {
@@ -379,17 +387,23 @@ export default function HomePageNew() {
   }, []);
 
   const q = search.trim().toLowerCase();
-  const match = (c) => !q || c.caption.toLowerCase().includes(q);
+  const words = q.split(/\s+/).filter(Boolean);
   const visibleSections = useMemo(
-    () => SECTIONS.filter((s) => tab === 'all' || tab === s.id).map((s) => ({ ...s, cards: s.cards.filter(match) })).filter((s) => s.cards.length > 0),
+    () => SECTIONS.filter((s) => tab === 'all' || tab === s.id).map((s) => ({ ...s, cards: s.cards.filter((c) => searchScore(c, words) > 0) })).filter((s) => s.cards.length > 0),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [tab, q],
   );
-  const favoriteCards = useMemo(
-    () => SECTIONS.flatMap((s) => s.cards).filter((c) => favorites.includes(favKeyOf(c)) && match(c)),
+  // При поиске — один общий список, лучшие совпадения первыми.
+  const searchResults = useMemo(
+    () => (words.length ? ALL_CARDS.map((c) => ({ c, s: searchScore(c, words) })).filter((x) => x.s > 0).sort((a, b) => b.s - a.s).map((x) => x.c) : []),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [favorites, q],
+    [q],
   );
+  const favoriteCards = useMemo(
+    () => ALL_CARDS.filter((c) => favorites.includes(favKeyOf(c))),
+    [favorites],
+  );
+  const openCard = (c) => { if (c.to.startsWith('http')) window.open(c.to, '_blank', 'noopener'); else navigate(c.to); };
 
   return (
     <div className="hn">
@@ -397,12 +411,12 @@ export default function HomePageNew() {
       <div className="hn-top">
         <div>
           <h1 className="hn-title">Панель качества</h1>
-          <div className="hn-sub">Отчёты, DRR-дашборды и сервисы MBS Quality</div>
+          <div className="hn-sub">Отчёты, дашборды и сервисы MBS Quality</div>
         </div>
         <StatusPill health={health} />
       </div>
 
-      {!q && (tab === 'all' || tab === 'drr') && <DrrStrip tiles={tiles} />}
+      {!q && <RecentBlock />}
 
       <div className="hn-controls">
         <div className="hn-tabs">
@@ -412,18 +426,29 @@ export default function HomePageNew() {
         </div>
         <div className="hn-search">
           <span className="lens">🔍</span>
-          <input ref={searchRef} type="text" placeholder="Поиск отчёта или сервиса..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input
+            ref={searchRef} type="text" placeholder="Поиск: по-русски или по-английски, например «гарантия»" value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter' && searchResults[0]) openCard(searchResults[0]); }}
+          />
           {search ? <button className="clr" onClick={() => setSearch('')} title="Очистить">✕</button> : <span className="key" title="Нажмите / для поиска">/</span>}
         </div>
       </div>
 
-      {favoriteCards.length > 0 && (
-        <Section title="Избранное" icon="⭐" iconBg="#FEF3C7" cards={favoriteCards} favorites={favorites} onToggleFavorite={toggleFavorite} />
+      {words.length > 0 ? (
+        searchResults.length > 0
+          ? <Section title={`Найдено: ${searchResults.length}`} icon="🔍" iconBg="#EEF2FF" cards={searchResults} favorites={favorites} onToggleFavorite={toggleFavorite} hint="Enter — открыть первый" />
+          : <div className="hn-panel hn-empty">Ничего не найдено по запросу «{search}»</div>
+      ) : (
+        <>
+          {favoriteCards.length > 0 && (
+            <Section title="Избранное" icon="⭐" iconBg="#FEF3C7" cards={favoriteCards} favorites={favorites} onToggleFavorite={toggleFavorite} />
+          )}
+          {visibleSections.map((s) => (
+            <Section key={s.id} {...s} favorites={favorites} onToggleFavorite={toggleFavorite} />
+          ))}
+        </>
       )}
-      {visibleSections.map((s) => (
-        <Section key={s.id} {...s} favorites={favorites} onToggleFavorite={toggleFavorite} />
-      ))}
-      {visibleSections.length === 0 && <div className="hn-panel hn-empty">Ничего не найдено по запросу «{search}»</div>}
     </div>
   );
 }

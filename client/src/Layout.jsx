@@ -3,6 +3,7 @@ import { Outlet, useLocation, Link } from 'react-router-dom';
 import logo from './assets/logo.png';
 import homeIcon from './assets/home.png';
 import PageErrorBoundary from './PageErrorBoundary';
+import { rememberPage } from './recentPages';
 
 const headerStyle = {
   backgroundColor: '#35384F',
@@ -78,6 +79,9 @@ function useIsMobile() {
 export default function Layout() {
   const location = useLocation();
   const isMobile = useIsMobile();
+
+  // Запоминает открытые страницы для блока «Недавно открытые» на главной (только в этом браузере).
+  useEffect(() => { rememberPage(location.pathname); }, [location.pathname]);
   const isCapturePage = location.pathname === '/defect-capture';
 
   const isFullScreen =
