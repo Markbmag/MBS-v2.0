@@ -1,572 +1,244 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import tablePreview from './assets/table-preview.png';
-import dailyTopPreview from './assets/daily-top-preview.png';
-import modelStatusPreview from './assets/123.png';
-import checkpointMapPreview from './assets/321.png';
-import sgpAuditPreview from './assets/sgp.png';
-import mppWeeklyPreview from './assets/mppweek.png';
-import partDefectPreview from './assets/search.png';
-import externalReportPreview from './assets/kulik.png';
-import drrReportPreview from './assets/drrall.png';
-import dailyDashboardPreview from './assets/dailyq.png';
-import externalDReportPreview from './assets/dim.png';
-import warrantyPreview from './assets/waran.png';
-import tlMapPreview from './assets/tlmap.png';
-import HoldsSgpPage from './assets/hold.png';
-import sgpManagementPreview from './assets/cp8.png';
-import DrrCp7DashboardPage from './assets/cp7drr.png';
-import cp7historyPreview from './assets/cp7hist.png';
-import DrrCp8DashboardPage from './assets/cp8drr.png';
-import drrTestlinePreview from './assets/tldrr.png';
-import DrrPIPDashboardPage from './assets/drrpip.png';
-import electronicsPreview from './assets/elec.png';
-import brigPreview from './assets/briga.png';
-import RemPreview from './assets/remzs.png';
-import VehPreview from './assets/repai.png';
-import drrWtPortalPreview from './assets/cp8drr.png';
-import drrCp6Preview from './assets/drrcp6.png';
-import drrCp5Preview from './assets/drrcp5.png';
-import allDrrPreview from './assets/alldrrcomp.png';
-import vrtPreview from './assets/vrt.png';
-import drrShiftPreview from './assets/drrshift.png';
-import defectCapturePreview from './assets/defph.png';
-import lineDefectsArchivePreview from './assets/archph.png';
-import reppsPreview from './assets/repps.png';
-import voltageSpcPreview from './assets/volt.png';
-import repelecPreview from './assets/repelec.png'; 
-import drrElectronicsPreview from './assets/dshelec.png';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { recentPages } from './recentPages';
+import { ALL_CARDS, SECTIONS, favKeyOf, searchScore } from './pagesCatalog';
 
-// ====== СТИЛИ ======
-const sectionStyle = {
-  backgroundColor: '#FFFFFF',
-  borderRadius: 20,
-  padding: 32,
-  marginBottom: 32,
-  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02)',
-  border: '1px solid #F0F0F5',
-  transition: 'opacity 0.4s ease, transform 0.4s ease, max-height 0.5s ease, margin-bottom 0.4s ease, padding 0.4s ease',
-  overflow: 'hidden',
-};
+// Главная страница: «Недавно открытые» (для этого компьютера), поиск по-русски и
+// по-английски с ключевыми словами (Enter — открыть первый результат), избранное,
+// разделы с карточками страниц. Каталог страниц — в pagesCatalog.js.
 
-const headingStyle = {
-  color: '#1F2937',
-  fontSize: 24,
-  fontWeight: 700,
-  marginBottom: 28,
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12,
-};
+const FAVORITES_KEY = 'home_favorites';
 
-const gridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: 24,
-};
+function timeAgo(ms) {
+  const min = Math.round((Date.now() - ms) / 60000);
+  if (min < 1) return 'только что';
+  if (min < 60) return `${min} мин назад`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `${h} ч назад`;
+  const d = Math.round(h / 24);
+  return d === 1 ? 'вчера' : `${d} дн назад`;
+}
 
-const tabBarStyle = {
-  display: 'flex',
-  gap: 6,
-  marginBottom: 24,
-  backgroundColor: '#E5E7EB',
-  borderRadius: 14,
-  padding: 6,
-  width: 'fit-content',
-};
+const TABS = [
+  { id: 'all', label: 'Все' },
+  { id: 'reports', label: '📊 Отчеты' },
+  { id: 'services', label: '🛠️ Сервисы' },
+  { id: 'drr', label: '⚙️ Отчеты DRR' },
+];
 
-const tabStyle = (active) => ({
-  padding: '10px 28px',
-  borderRadius: 10,
-  border: 'none',
-  fontWeight: 600,
-  fontSize: 15,
-  background: active ? '#FFFFFF' : 'transparent',
-  color: active ? '#111827' : '#6B7280',
-  cursor: 'pointer',
-  boxShadow: active ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  whiteSpace: 'nowrap',
-});
+// ---------------------------------------------------------------- данные
+// ---------------------------------------------------------------- стили
+const CSS = `
+.hn { max-width: 1440px; margin: 0 auto; padding: 28px 32px 48px; font-family: Inter, 'Segoe UI', Arial, sans-serif; color: #1F2937; }
+.hn-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.hn-title { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -0.01em; }
+.hn-sub { color: #6B7280; font-size: 14px; margin-top: 4px; }
+.hn-panel { background: #FFFFFF; border: 1px solid #F0F0F5; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.04); padding: 22px 24px; margin-bottom: 24px; }
+.hn-h2 { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 700; margin: 0 0 16px; }
+.hn-h2 .ic { padding: 6px 10px; border-radius: 8px; font-size: 16px; }
+.hn-h2 .cnt { color: #9CA3AF; font-weight: 600; font-size: 15px; }
+.hn-h2 .hint { margin-left: auto; color: #9CA3AF; font-size: 13px; font-weight: 500; }
+.hn-recent { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.hn-rc { display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: inherit; border: 1px solid #EEF0F4; border-radius: 12px; padding: 8px; background: #FAFBFC; transition: border-color .2s, transform .2s; }
+.hn-rc:hover { border-color: var(--accent); transform: translateY(-2px); }
+.hn-rc img { width: 52px; height: 38px; object-fit: cover; object-position: top; border-radius: 6px; flex: none; border: 1px solid #EEF0F4; }
+.hn-rc .tx { min-width: 0; }
+.hn-rc .nm { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hn-rc .ago { font-size: 12px; color: #9CA3AF; }
+@media (max-width: 1200px) { .hn-recent { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.hn-controls { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; }
+.hn-tabs { display: flex; gap: 6px; background: #E5E7EB; border-radius: 14px; padding: 6px; overflow-x: auto; max-width: 100%; }
+.hn-tab { padding: 9px 22px; border-radius: 10px; border: none; font-weight: 600; font-size: 15px; cursor: pointer; white-space: nowrap; background: transparent; color: #6B7280; transition: all .25s; }
+.hn-tab.on { background: #FFFFFF; color: #111827; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.hn-search { position: relative; flex: 1; min-width: 220px; max-width: 520px; }
+.hn-search input { width: 100%; box-sizing: border-box; padding: 12px 40px 12px 44px; border-radius: 14px; border: 1px solid #E5E7EB; font-size: 15px; background: #FFFFFF; outline: none; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+.hn-search input:focus { border-color: #93C5FD; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+.hn-search .lens { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9CA3AF; pointer-events: none; }
+.hn-search .key { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid #E5E7EB; border-radius: 6px; padding: 1px 7px; font-size: 12px; color: #9CA3AF; background: #F9FAFB; }
+.hn-search .clr { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: none; background: transparent; color: #9CA3AF; font-size: 16px; cursor: pointer; padding: 4px 8px; }
+.hn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.hn-card { position: relative; display: block; text-decoration: none; color: inherit; border-radius: 14px; overflow: hidden; background: #FFFFFF; border: 1px solid #F3F4F6; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: transform .25s cubic-bezier(.25,.8,.25,1.2), box-shadow .25s, border-color .25s; }
+.hn-card:hover { transform: translateY(-4px); box-shadow: 0 16px 26px -10px rgba(0,0,0,0.14); border-color: var(--accent); }
+.hn-thumb { height: 108px; background: #F9FAFB; overflow: hidden; }
+.hn-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .4s; display: block; }
+.hn-card:hover .hn-thumb img { transform: scale(1.04); }
+.hn-cap { background: #35384F; color: #FFFFFF; font-weight: 600; font-size: 13.5px; padding: 9px 12px 8px; border-top: 3px solid var(--accent); }
+.hn-cap .row { display: flex; align-items: center; gap: 6px; }
+.hn-cap .ru { font-size: 12px; font-weight: 500; opacity: .72; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hn-cap .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hn-ext { flex: none; }
+.hn-ext { opacity: .7; font-size: 12px; flex: none; }
+.hn-star { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-size: 16px; line-height: 30px; background: rgba(255,255,255,0.92); color: #D1D5DB; box-shadow: 0 2px 6px rgba(0,0,0,0.12); opacity: 0; transition: opacity .2s, color .2s; }
+.hn-card:hover .hn-star, .hn-star.on { opacity: 1; }
+.hn-star.on { color: #F59E0B; }
+.hn-empty { color: #6B7280; text-align: center; padding: 30px 0; }
+@media (max-width: 700px) {
+  .hn { padding: 16px 12px 32px; }
+  .hn-title { font-size: 21px; }
+  .hn-panel { padding: 16px 14px; border-radius: 16px; }
+  .hn-recent { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .hn-thumb { height: 84px; }
+  .hn-search .key { display: none; }
+  .hn-star { opacity: 1; }
+  .hn-h2 .hint { display: none; }
+  .hn-cap .t { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+}
+`;
 
-const searchContainerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12,
-  marginBottom: 28,
-  width: '100%',
-  maxWidth: 600,
-  position: 'relative',
-};
-
-const searchInputStyle = {
-  width: '100%',
-  padding: '14px 20px 14px 48px',
-  borderRadius: 14,
-  border: '1px solid #E5E7EB',
-  fontSize: 15,
-  background: '#FFFFFF',
-  outline: 'none',
-  transition: 'border-color 0.2s, box-shadow 0.2s',
-  boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-};
-
-const searchIconStyle = {
-  position: 'absolute',
-  left: 16,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  fontSize: 18,
-  color: '#9CA3AF',
-  pointerEvents: 'none',
-};
-
-const clearButtonStyle = {
-  position: 'absolute',
-  right: 12,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  border: 'none',
-  background: 'transparent',
-  color: '#9CA3AF',
-  fontSize: 18,
-  cursor: 'pointer',
-  padding: '4px',
-  borderRadius: '50%',
-  transition: 'background 0.2s, color 0.2s',
-};
-
-const getCardStyle = (isHovered, accentColor) => ({
-  position: 'relative',
-  width: '100%',
-  borderRadius: 16,
-  overflow: 'hidden',
-  boxShadow: isHovered
-    ? '0 20px 30px -10px rgba(0,0,0,0.12)'
-    : '0 4px 10px rgba(0,0,0,0.04)',
-  transition: 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2), box-shadow 0.3s ease',
-  transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
-  backgroundColor: '#FFFFFF',
-  textDecoration: 'none',
-  color: 'inherit',
-  display: 'block',
-  border: `1px solid ${isHovered ? accentColor : '#F3F4F6'}`,
-});
-
-const thumbnailStyle = {
-  backgroundColor: '#F9FAFB',
-  height: 150,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderBottom: '1px solid #F3F4F6',
-};
-
-const getCaptionStyle = (isHovered, accentColor) => ({
-  backgroundColor: isHovered ? accentColor : '#374151',
-  height: 50,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: '#FFFFFF',
-  fontSize: 16,
-  fontWeight: 600,
-  letterSpacing: '0.3px',
-  transition: 'background-color 0.3s ease',
-});
-
-const favoriteButtonStyle = (isFavorite, isHovered) => ({
-  position: 'absolute',
-  top: 10,
-  right: 10,
-  width: 32,
-  height: 32,
-  borderRadius: '50%',
-  border: 'none',
-  background: isFavorite ? '#FBBF24' : 'rgba(255,255,255,0.9)',
-  color: isFavorite ? '#FFFFFF' : '#9CA3AF',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: 16,
-  fontWeight: 700,
-  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-  transition: 'all 0.2s ease',
-  zIndex: 5,
-  opacity: isFavorite || isHovered ? 1 : 0,
-  transform: isFavorite || isHovered ? 'scale(1)' : 'scale(0.8)',
-});
-
-// ====== КОМПОНЕНТ КАРТОЧКИ ======
-function ReportCard({ to, imgSrc, caption, accentColor = '#2563EB', isFavorite, onToggleFavorite }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const cardStyle = getCardStyle(isHovered, accentColor);
-  const captionStyle = getCaptionStyle(isHovered, accentColor);
-
-  const isExternal = to.startsWith('http');
-
-  const content = (
-    <div style={thumbnailStyle}>
-      <img
-        src={imgSrc}
-        alt={caption}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          transition: 'transform 0.4s ease',
-          transform: isHovered ? 'scale(1.04)' : 'scale(1)',
-        }}
-      />
-    </div>
+// ---------------------------------------------------------------- части страницы
+function RecentBlock() {
+  const items = useMemo(() => recentPages()
+    .map((r) => ({ ...r, card: ALL_CARDS.find((c) => c.to === r.path) }))
+    .filter((r) => r.card)
+    .slice(0, 6), []);
+  if (!items.length) return null;
+  return (
+    <section className="hn-panel">
+      <h2 className="hn-h2">
+        <span className="ic" style={{ background: '#F3F4F6' }}>🕘</span>
+        Недавно открытые
+        <span className="hint">на этом компьютере</span>
+      </h2>
+      <div className="hn-recent">
+        {items.map(({ card, at }) => (
+          <Link key={card.to} to={card.to} className="hn-rc" style={{ '--accent': card.accent }} title={card.ru || card.caption}>
+            <img src={card.img} alt="" loading="lazy" />
+            <div className="tx">
+              <div className="nm">{card.caption}</div>
+              <div className="ago">{timeAgo(at)}</div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
+}
 
-  const captionBlock = <div style={captionStyle}>{caption}</div>;
-
-  const favoriteButton = (
-    <button
-      style={favoriteButtonStyle(isFavorite, isHovered)}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onToggleFavorite(to);
-      }}
-      title={isFavorite ? 'Убрать из избранного' : 'В избранное'}
-    >
-      ★
-    </button>
-  );
-
-  const innerContent = (
+function Card({ card, isFavorite, onToggleFavorite }) {
+  const external = card.to.startsWith('http');
+  const inner = (
     <>
-      {favoriteButton}
-      {content}
-      {captionBlock}
+      <button
+        className={`hn-star${isFavorite ? ' on' : ''}`}
+        title={isFavorite ? 'Убрать из избранного' : 'В избранное'}
+        onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleFavorite(favKeyOf(card)); }}
+      >★</button>
+      <div className="hn-thumb"><img src={card.img} alt="" loading="lazy" /></div>
+      <div className="hn-cap" title={card.ru ? `${card.caption} — ${card.ru}` : card.caption}>
+        <div className="row"><span className="t">{card.caption}</span>{external && <span className="hn-ext" title="Открывается в новой вкладке">↗</span>}</div>
+        {card.ru && <div className="ru">{card.ru}</div>}
+      </div>
     </>
   );
+  const style = { '--accent': card.accent };
+  return external
+    ? <a href={card.to} target="_blank" rel="noopener noreferrer" className="hn-card" style={style}>{inner}</a>
+    : <Link to={card.to} className="hn-card" style={style}>{inner}</Link>;
+}
 
-  if (isExternal) {
-    return (
-      <a
-        href={to}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={cardStyle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {innerContent}
-      </a>
-    );
-  }
-
+function Section({ title, icon, iconBg, cards, favorites, onToggleFavorite, hint }) {
   return (
-    <Link
-      to={to}
-      style={cardStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {innerContent}
-    </Link>
+    <section className="hn-panel">
+      <h2 className="hn-h2"><span className="ic" style={{ background: iconBg }}>{icon}</span>{title}{!hint && <span className="cnt">{cards.length}</span>}{hint && <span className="hint">{hint}</span>}</h2>
+      <div className="hn-grid">
+        {cards.map((c) => <Card key={c.to} card={c} isFavorite={favorites.includes(favKeyOf(c))} onToggleFavorite={onToggleFavorite} />)}
+      </div>
+    </section>
   );
 }
 
-// ====== АНИМИРОВАННАЯ СЕКЦИЯ ======
-function AnimatedSection({ title, icon, iconBg, iconColor, children, visible }) {
-  const [shouldRender, setShouldRender] = useState(visible);
-  const [isAnimating, setIsAnimating] = useState(visible);
-
-  useEffect(() => {
-    if (visible) {
-      setShouldRender(true);
-      const timer = setTimeout(() => {
-        setIsAnimating(true);
-      }, 50);
-      return () => clearTimeout(timer);
-    } else {
-      setIsAnimating(false);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [visible]);
-
-  if (!shouldRender) return null;
-
-  return (
-    <div style={{
-      ...sectionStyle,
-      opacity: isAnimating ? 1 : 0,
-      transform: isAnimating ? 'translateY(0)' : 'translateY(20px)',
-      maxHeight: isAnimating ? '3000px' : '0',
-      marginBottom: isAnimating ? 32 : 0,
-      padding: isAnimating ? 32 : '0 32px',
-    }}>
-      <h2 style={headingStyle}>
-        <span style={{
-          background: iconBg,
-          padding: '8px 14px',
-          borderRadius: 8,
-          color: iconColor,
-          fontSize: 18,
-        }}>
-          {icon}
-        </span>
-        {title}
-      </h2>
-      {children}
-    </div>
-  );
-}
-
-// ====== ОСНОВНОЙ КОМПОНЕНТ ======
+// ---------------------------------------------------------------- страница
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [tab, setTab] = useState('all');
+  const [search, setSearch] = useState('');
   const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem('home_favorites');
-    return saved ? JSON.parse(saved) : [];
+    try { return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]'); } catch { return []; }
   });
+  const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('home_favorites', JSON.stringify(favorites));
+    try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } catch { /* недоступно */ }
   }, [favorites]);
 
-  const toggleFavorite = (to) => {
-    setFavorites(prev => prev.includes(to) ? prev.filter(item => item !== to) : [...prev, to]);
-  };
+  // «/» — перейти к поиску; Esc — очистить поиск
+  useEffect(() => {
+    const onKey = (e) => {
+      const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement && document.activeElement.tagName);
+      if (e.key === '/' && !typing) { e.preventDefault(); searchRef.current && searchRef.current.focus(); }
+      if (e.key === 'Escape' && document.activeElement === searchRef.current) { setSearch(''); searchRef.current.blur(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
-  const showReports = activeTab === 'all' || activeTab === 'reports';
-  const showServices = activeTab === 'all' || activeTab === 'services';
-  const showDrr = activeTab === 'all' || activeTab === 'drr';
+  const toggleFavorite = useCallback((key) => {
+    setFavorites((prev) => (prev.includes(key) ? prev.filter((x) => x !== key) : [...prev, key]));
+  }, []);
 
-  const allReportCards = [
-    { to: "/report", imgSrc: tablePreview, caption: "Top DRR Board", accentColor: "#3B82F6" },
-    { to: "/daily-top", imgSrc: dailyTopPreview, caption: "Daily Top CP7/CP8", accentColor: "#8B5CF6" },
-    { to: "/model-status", imgSrc: modelStatusPreview, caption: "Model Status", accentColor: "#F59E0B" },
-    { to: "/mpp-weekly-top", imgSrc: mppWeeklyPreview, caption: "DRR Defects Top CP7/СP8", accentColor: "#10B981" },
-    { to: "/drr-report", imgSrc: drrReportPreview, caption: "DRR Report", accentColor: "#3B82F6" },
-    { to: "/daily-dashboard", imgSrc: dailyDashboardPreview, caption: "Daily Dashboard", accentColor: "#F59E0B" },
-    { to: "/tl-map", imgSrc: tlMapPreview, caption: "TL Map", accentColor: "#14B8A6" },
-    { to: "/drr-cp7-dashboard", imgSrc: DrrCp7DashboardPage, caption: "DRR CP7 Dashboard", accentColor: "#6366F1" },
-    { to: "/drr-cp7-history", imgSrc: cp7historyPreview, caption: "DRR CP7 History", accentColor: "#6366F1" },
-    //{ to: "/drr-cp8-dashboard", imgSrc: DrrCp8DashboardPage, caption: "DRR CPFinal Dashboard", accentColor: "#8B5CF6" },
-    { to: "/drr-tl-dashboard", imgSrc: drrTestlinePreview, caption: "DRR ADAS Dashboard", accentColor: "#0ea5e9" },
-    { to: "/drr-pip-dashboard", imgSrc: DrrPIPDashboardPage, caption: "DRR PIP Dashboard", accentColor: "#0EA5E9" },
-    { to: "/drr-cp7-tup", imgSrc: DrrCp7DashboardPage, caption: "DRR CP7 (Touch Up)", accentColor: "#F59E0B" },
-    { to: "/drr-wt-portal", imgSrc: drrWtPortalPreview, caption: "DRR CPFinal Dashboard", accentColor: "#0EA5E9" },//это новый спфинал
-    { to: "/defect-electronics-top", imgSrc: electronicsPreview, caption: "Electronics Defects Top", accentColor: "#8B5CF6" },
-    { to: "/remzone-work-status", imgSrc: RemPreview, caption: "Remzone Work Status", accentColor: "#8B5CF6" },
-    { to: "/vehicle-on-wheels", imgSrc: VehPreview, caption: "Vehicle on Wheels", accentColor: "#e22910" },
-    { to: "/drr-cp6", imgSrc: drrCp6Preview, caption: "DRR CP6 Dashboard", accentColor: "#0EA5E9" },
-    { to: "/drr-cp5", imgSrc: drrCp5Preview, caption: "DRR CP5 Dashboard", accentColor: "#8B5CF6" },
-    { to: "/drr-electronics-dashboard", imgSrc: drrElectronicsPreview, caption: "DRR Electronics Dashboard", accentColor: "#8B5CF6" },
-    { to: "/all-drr-dashboard", imgSrc: allDrrPreview, caption: "All DRR Dashboard", accentColor: "#0EA5E9" },
-    { to: "/drr-shift-dashboard", imgSrc: drrShiftPreview, caption: "DRR Shift Dashboard", accentColor: "#7C3AED" },
-    { to: "/repps-report", imgSrc: reppsPreview, caption: "REPPS Report", accentColor: "#EC4899" },
-    { to: "/voltage-spc", imgSrc: voltageSpcPreview, caption: "Voltage SPC Report", accentColor: "#F59E0B" },
-    { to: "/repelec-report", imgSrc: repelecPreview, caption: "REPELEC Report", accentColor: "#F59E0B" },
-  ];
-
-  const allServiceCards = [
-    { to: "/sgp-audit", imgSrc: sgpAuditPreview, caption: "СГП Audit", accentColor: "#10B981" },
-    { to: "/sgp-management", imgSrc: sgpManagementPreview, caption: "СГП Management", accentColor: "#10B981" },
-    { to: "/part-defect-search", imgSrc: partDefectPreview, caption: "Part/Defect Search", accentColor: "#3B82F6" },
-    { to: "http://10.27.195.25:5174/time-at-points", imgSrc: externalDReportPreview, caption: "Chekpoint Passage", accentColor: "#F59E0B" },
-    { to: "/warranty", imgSrc: warrantyPreview, caption: "Warranty", accentColor: "#10B981" },
-    { to: "/holds-sgp", imgSrc: HoldsSgpPage, caption: "Holds СГП", accentColor: "#EF4444" },
-    { to: "http://10.27.195.16/reports/024", imgSrc: externalReportPreview, caption: "DRR по заводу", accentColor: "#EF4444" },
-    { to: "/brigade-report", imgSrc: brigPreview, caption: "Brigade Report Service", accentColor: "#3B82F6" },
-    { to: "/vrt-report", imgSrc: vrtPreview, caption: "VRT Report Service", accentColor: "#7C3AED" },
-    { to: "http://10.27.195.25:30000/defect-capture", imgSrc: defectCapturePreview, caption: "Defect Capture", accentColor: "#10B981" },
-    { to: "http://10.27.195.25:30000/line-defects-archive", imgSrc: lineDefectsArchivePreview, caption: "Line Defects Archive", accentColor: "#10B981" }
-  ];
-
-  // DRR-отчёты выносим в отдельную вкладку
-  const DRR_ROUTES = [
-    '/drr-cp7-dashboard',
-    '/drr-wt-portal',
-    '/drr-tl-dashboard',
-    '/vehicle-on-wheels',
-    '/drr-pip-dashboard',
-    '/drr-cp6',
-    '/drr-cp5',
-    '/all-drr-dashboard',
-    '/drr-shift-dashboard',
-    '/drr-cp7-tup',
-    '/drr-electronics-dashboard'
-  ];
-
-  const allDrrCards = allReportCards.filter(card => DRR_ROUTES.includes(card.to));
-
-  const filterCards = (cards) => {
-    return cards.filter(card => card.caption.toLowerCase().includes(searchTerm.trim().toLowerCase()));
-  };
-
-  // Общие "Отчёты" без DRR-карточек (чтобы не было дублирования)
-  const filteredReportCards = filterCards(allReportCards)
-    .filter(card => !DRR_ROUTES.includes(card.to));
-  const filteredServiceCards = filterCards(allServiceCards);
-  const filteredDrrCards = filterCards(allDrrCards);
-
-  const favoriteReportCards = filteredReportCards.filter(card => favorites.includes(card.to));
-  const favoriteServiceCards = filteredServiceCards.filter(card => favorites.includes(card.to));
-  const favoriteDrrCards = filteredDrrCards.filter(card => favorites.includes(card.to));
+  const q = search.trim().toLowerCase();
+  const words = q.split(/\s+/).filter(Boolean);
+  const visibleSections = useMemo(
+    () => SECTIONS.filter((s) => tab === 'all' || tab === s.id).map((s) => ({ ...s, cards: s.cards.filter((c) => searchScore(c, words) > 0) })).filter((s) => s.cards.length > 0),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tab, q],
+  );
+  // При поиске — один общий список, лучшие совпадения первыми.
+  const searchResults = useMemo(
+    () => (words.length ? ALL_CARDS.map((c) => ({ c, s: searchScore(c, words) })).filter((x) => x.s > 0).sort((a, b) => b.s - a.s).map((x) => x.c) : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [q],
+  );
+  const favoriteCards = useMemo(
+    () => ALL_CARDS.filter((c) => favorites.includes(favKeyOf(c))),
+    [favorites],
+  );
+  const openCard = (c) => { if (c.to.startsWith('http')) window.open(c.to, '_blank', 'noopener'); else navigate(c.to); };
 
   return (
-    <div style={{ padding: 40, fontFamily: 'Inter, Segoe UI, Arial, sans-serif', maxWidth: 1300, margin: '0 auto' }}>
-
-      {/* Табы */}
-      <div style={tabBarStyle}>
-        <button onClick={() => setActiveTab('all')} style={tabStyle(activeTab === 'all')}>
-          Все
-        </button>
-        <button onClick={() => setActiveTab('reports')} style={tabStyle(activeTab === 'reports')}>
-          📊 Отчеты
-        </button>
-        <button onClick={() => setActiveTab('services')} style={tabStyle(activeTab === 'services')}>
-          🛠️ Сервисы
-        </button>
-        <button onClick={() => setActiveTab('drr')} style={tabStyle(activeTab === 'drr')}>
-          ⚙️ Отчеты DRR
-        </button>
+    <div className="hn">
+      <style>{CSS}</style>
+      <div className="hn-top">
+        <div>
+          <h1 className="hn-title">Панель качества</h1>
+          <div className="hn-sub">Отчёты, дашборды и сервисы MBS Quality</div>
+        </div>
       </div>
 
-      {/* Поиск */}
-      <div style={searchContainerStyle}>
-        <span style={searchIconStyle}>🔍</span>
-        <input
-          type="text"
-          placeholder="Поиск отчёта или сервиса..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={searchInputStyle}
-        />
-        {searchTerm && (
-          <button
-            style={clearButtonStyle}
-            onClick={() => setSearchTerm('')}
-          >
-            ✕
-          </button>
-        )}
+      {!q && <RecentBlock />}
+
+      <div className="hn-controls">
+        <div className="hn-tabs">
+          {TABS.map((t) => (
+            <button key={t.id} className={`hn-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>{t.label}</button>
+          ))}
+        </div>
+        <div className="hn-search">
+          <span className="lens">🔍</span>
+          <input
+            ref={searchRef} type="text" placeholder="Поиск: по-русски или по-английски, например «гарантия»" value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter' && searchResults[0]) openCard(searchResults[0]); }}
+          />
+          {search ? <button className="clr" onClick={() => setSearch('')} title="Очистить">✕</button> : <span className="key" title="Нажмите / для поиска">/</span>}
+        </div>
       </div>
 
-      {/* Избранное */}
-      {(favoriteReportCards.length > 0 || favoriteServiceCards.length > 0 || favoriteDrrCards.length > 0) && (
-        <AnimatedSection
-          title="Избранное"
-          icon="⭐"
-          iconBg="#FEF3C7"
-          iconColor="#D97706"
-          visible={true}
-        >
-          <div style={gridStyle}>
-            {favoriteDrrCards.map(card => (
-              <ReportCard
-                key={card.to}
-                {...card}
-                isFavorite={true}
-                onToggleFavorite={toggleFavorite}
-              />
-            ))}
-            {favoriteReportCards.map(card => (
-              <ReportCard
-                key={card.to}
-                {...card}
-                isFavorite={true}
-                onToggleFavorite={toggleFavorite}
-              />
-            ))}
-            {favoriteServiceCards.map(card => (
-              <ReportCard
-                key={card.to}
-                {...card}
-                isFavorite={true}
-                onToggleFavorite={toggleFavorite}
-              />
-            ))}
-          </div>
-        </AnimatedSection>
+      {words.length > 0 ? (
+        searchResults.length > 0
+          ? <Section title={`Найдено: ${searchResults.length}`} icon="🔍" iconBg="#EEF2FF" cards={searchResults} favorites={favorites} onToggleFavorite={toggleFavorite} hint="Enter — открыть первый" />
+          : <div className="hn-panel hn-empty">Ничего не найдено по запросу «{search}»</div>
+      ) : (
+        <>
+          {favoriteCards.length > 0 && (
+            <Section title="Избранное" icon="⭐" iconBg="#FEF3C7" cards={favoriteCards} favorites={favorites} onToggleFavorite={toggleFavorite} />
+          )}
+          {visibleSections.map((s) => (
+            <Section key={s.id} {...s} favorites={favorites} onToggleFavorite={toggleFavorite} />
+          ))}
+        </>
       )}
-
-      {/* Секция "Отчёты" (без DRR) */}
-      <AnimatedSection
-        title="Отчёты"
-        icon="📊"
-        iconBg="#EEF2FF"
-        iconColor="#2563EB"
-        visible={showReports && filteredReportCards.length > 0}
-      >
-        <div style={gridStyle}>
-          {filteredReportCards.map(card => (
-            <ReportCard
-              key={card.to}
-              {...card}
-              isFavorite={favorites.includes(card.to)}
-              onToggleFavorite={toggleFavorite}
-            />
-          ))}
-        </div>
-        {filteredReportCards.length === 0 && (
-          <p style={{ textAlign: 'center', color: '#6B7280', margin: '20px 0' }}>
-            Ничего не найдено
-          </p>
-        )}
-      </AnimatedSection>
-
-      {/* Секция "Отчеты DRR" */}
-      <AnimatedSection
-        title="Отчеты DRR"
-        icon="⚙️"
-        iconBg="#EDE9FE"
-        iconColor="#7C3AED"
-        visible={showDrr && filteredDrrCards.length > 0}
-      >
-        <div style={gridStyle}>
-          {filteredDrrCards.map(card => (
-            <ReportCard
-              key={card.to}
-              {...card}
-              isFavorite={favorites.includes(card.to)}
-              onToggleFavorite={toggleFavorite}
-            />
-          ))}
-        </div>
-        {filteredDrrCards.length === 0 && (
-          <p style={{ textAlign: 'center', color: '#6B7280', margin: '20px 0' }}>
-            Ничего не найдено
-          </p>
-        )}
-      </AnimatedSection>
-
-      {/* Секция "Сервисы" */}
-      <AnimatedSection
-        title="Сервисы"
-        icon="🛠️"
-        iconBg="#F0FDF4"
-        iconColor="#16A34A"
-        visible={showServices && filteredServiceCards.length > 0}
-      >
-        <div style={gridStyle}>
-          {filteredServiceCards.map(card => (
-            <ReportCard
-              key={card.to}
-              {...card}
-              isFavorite={favorites.includes(card.to)}
-              onToggleFavorite={toggleFavorite}
-            />
-          ))}
-        </div>
-        {filteredServiceCards.length === 0 && (
-          <p style={{ textAlign: 'center', color: '#6B7280', margin: '20px 0' }}>
-            Ничего не найдено
-          </p>
-        )}
-      </AnimatedSection>
     </div>
   );
 }

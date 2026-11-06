@@ -1,10 +1,9 @@
 import React, { lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layout';
 
 // Страницы загружаются, только когда их открывают (главная — сразу).
 import HomePage from './HomePage';
-const HomePageNew = lazy(() => import('./HomePageNew')); // предпросмотр новой главной
 const ReportPage = lazy(() => import('./ReportPage'));
 const DailyTopPage = lazy(() => import('./DailyTopPage'));
 const ModelStatusPage = lazy(() => import('./ModelStatusPage'));
@@ -52,7 +51,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/home-new" element={<HomePageNew />} />
+        <Route path="/home-new" element={<Navigate to="/" replace />} /> {/* старый адрес предпросмотра */}
         <Route path="/report" element={<ReportPage />} />
         <Route path="/daily-top" element={<DailyTopPage />} />
         <Route path="/model-status" element={<ModelStatusPage />} />
