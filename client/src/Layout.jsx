@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import logo from './assets/logo.png';
 import homeIcon from './assets/home.png';
+import PageErrorBoundary from './PageErrorBoundary';
 
 const headerStyle = {
   backgroundColor: '#35384F',
@@ -133,7 +134,12 @@ export default function Layout() {
         <span style={dateStyle}>{getCurrentDate()}</span>
       </header>
       <main style={isFullScreen ? mainFullScreen : mainDefault}>
-        <Outlet />
+        {/* Страница загружается по требованию; при ошибке — сообщение и автоперезагрузка */}
+        <PageErrorBoundary key={location.pathname}>
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
+        </PageErrorBoundary>
       </main>
     </>
   );
