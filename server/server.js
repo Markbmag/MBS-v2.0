@@ -60,4 +60,5 @@ require('./src/routes/bms');
 require('./src/routes/drr/electronics-bms');
 require('./src/routes/drr/electronics-bms-snapshots');
 require('./src/routes/inspection');
+require('./src/routes/check-password');
 require('./src/start');

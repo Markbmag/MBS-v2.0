@@ -4,6 +4,7 @@ import {
   ResponsiveContainer, LabelList
 } from 'recharts';
 import * as XLSX from 'xlsx';
+import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
 
 const API_BASE = '';
 
@@ -1040,7 +1041,7 @@ function VRTOwnersManager({ executeWithPassword, manageUnlocked, onRequestPasswo
     if (entries.length === 0) { alert('Нет данных'); return; }
     fetch(`${API_BASE}/api/vrt-report/import`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ entries, password: '4002' }),
+      body: JSON.stringify({ entries, password: sessionStorage.getItem('vrt_manage_password') || '' }),
     }).then(res => {
       if (!res.ok) return res.json().then(e => { throw new Error(e.error); });
       return res.json();
@@ -1323,7 +1324,7 @@ export default function VrtReportPage() {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [pendingAction, setPendingAction] = useState(null);
-  const [manageUnlocked, setManageUnlocked] = useState(sessionStorage.getItem('vrt_manage_unlocked') === 'true');
+  const [manageUnlocked, setManageUnlocked] = useState(sessionStorage.getItem('vrt_manage_unlocked') === 'true' && !!sessionStorage.getItem('vrt_manage_password'));
   const [showManagePasswordModal, setShowManagePasswordModal] = useState(false);
   const [managePasswordError, setManagePasswordError] = useState('');
 
@@ -1332,23 +1333,26 @@ export default function VrtReportPage() {
     else { setPendingAction(() => action); setShowPasswordModal(true); }
   };
 
-  const handlePasswordSubmit = (pwd) => {
-    if (pwd === '1234561') {
+  const handlePasswordSubmit = async (pwd) => {
+    const result = await checkPassword('main', pwd);
+    if (result === 'ok') {
       sessionStorage.setItem('vrt_password', pwd);
       setPassword(pwd);
       setShowPasswordModal(false);
       if (pendingAction) { pendingAction(pwd); setPendingAction(null); }
       setPasswordError('');
-    } else setPasswordError('Неверный пароль');
+    } else setPasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
   };
 
-  const handleManagePasswordSubmit = (pwd) => {
-    if (pwd === '4002') {
+  const handleManagePasswordSubmit = async (pwd) => {
+    const result = await checkPassword('import', pwd);
+    if (result === 'ok') {
       sessionStorage.setItem('vrt_manage_unlocked', 'true');
+      sessionStorage.setItem('vrt_manage_password', pwd);
       setManageUnlocked(true);
       setShowManagePasswordModal(false);
       setManagePasswordError('');
-    } else setManagePasswordError('Неверный пароль');
+    } else setManagePasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
   };
 
   const handleTabChange = (tab) => {

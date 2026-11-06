@@ -2210,7 +2210,7 @@
   "path": "/api/warranty/check-password",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -2218,7 +2218,7 @@
   "path": "/api/warranty/check-password",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -3988,7 +3988,7 @@
    "brigadeName": "brigadeName_v",
    "model": "M1",
    "part_name": "part_name_v",
-   "password": "1234561",
+   "password": "test-main-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4000,7 +4000,7 @@
    "brigadeName": "brigadeName_v",
    "model": "M1",
    "part_name": "part_name_v",
-   "password": "4002",
+   "password": "test-import-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4035,7 +4035,7 @@
    "brigadeName": "brigadeName_v",
    "model": "M1",
    "part_name": "part_name_v",
-   "password": "1234561",
+   "password": "test-main-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4047,7 +4047,7 @@
    "brigadeName": "brigadeName_v",
    "model": "M1",
    "part_name": "part_name_v",
-   "password": "4002",
+   "password": "test-import-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4074,7 +4074,7 @@
   "path": "/api/brigade-report/dictionary/1",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -4082,7 +4082,7 @@
   "path": "/api/brigade-report/dictionary/1",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -4121,7 +4121,7 @@
      "value": 1
     }
    ],
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -4141,7 +4141,7 @@
      "value": 1
     }
    ],
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -4177,7 +4177,7 @@
   "body": {
    "brigadeName": "brigadeName_v",
    "part_name": "part_name_v",
-   "password": "1234561",
+   "password": "test-main-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4188,7 +4188,7 @@
   "body": {
    "brigadeName": "brigadeName_v",
    "part_name": "part_name_v",
-   "password": "4002",
+   "password": "test-import-pw",
    "problem_type": "problem_type_v"
   }
  },
@@ -4215,7 +4215,7 @@
   "query": {},
   "body": {
    "name": "name_v",
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -4224,7 +4224,7 @@
   "query": {},
   "body": {
    "name": "name_v",
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -4247,7 +4247,7 @@
   "path": "/api/brigade-report/brigades/1",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -4255,7 +4255,7 @@
   "path": "/api/brigade-report/brigades/1",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -5473,7 +5473,7 @@
   "query": {},
   "body": {
    "name": "name_v",
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -5482,7 +5482,7 @@
   "query": {},
   "body": {
    "name": "name_v",
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -5505,7 +5505,7 @@
   "path": "/api/vrt-report/vrts/1",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -5513,7 +5513,7 @@
   "path": "/api/vrt-report/vrts/1",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -5843,7 +5843,7 @@
    "bom_name": "bom_name_v",
    "defect_name": "defect_name_v",
    "model": "M1",
-   "password": "1234561",
+   "password": "test-main-pw",
    "vrtName": "vrtName_v",
    "zone": "zone_v"
   }
@@ -5856,7 +5856,7 @@
    "bom_name": "bom_name_v",
    "defect_name": "defect_name_v",
    "model": "M1",
-   "password": "4002",
+   "password": "test-import-pw",
    "vrtName": "vrtName_v",
    "zone": "zone_v"
   }
@@ -5893,7 +5893,7 @@
    "bom_name": "bom_name_v",
    "defect_name": "defect_name_v",
    "model": "M1",
-   "password": "1234561",
+   "password": "test-main-pw",
    "vrtName": "vrtName_v",
    "zone": "zone_v"
   }
@@ -5906,7 +5906,7 @@
    "bom_name": "bom_name_v",
    "defect_name": "defect_name_v",
    "model": "M1",
-   "password": "4002",
+   "password": "test-import-pw",
    "vrtName": "vrtName_v",
    "zone": "zone_v"
   }
@@ -5935,7 +5935,7 @@
   "path": "/api/vrt-report/dictionary/1",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -5943,7 +5943,7 @@
   "path": "/api/vrt-report/dictionary/1",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -5977,7 +5977,7 @@
      "value": 1
     }
    ],
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -5997,7 +5997,7 @@
      "value": 1
     }
    ],
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {
@@ -6749,7 +6749,7 @@
   "path": "/api/line-defects/photo/1",
   "query": {},
   "body": {
-   "password": "1234561"
+   "password": "test-main-pw"
   }
  },
  {
@@ -6757,7 +6757,7 @@
   "path": "/api/line-defects/photo/1",
   "query": {},
   "body": {
-   "password": "4002"
+   "password": "test-import-pw"
   }
  },
  {

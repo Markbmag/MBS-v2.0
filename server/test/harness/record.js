@@ -22,7 +22,9 @@
  *
  * Usage:
  *   node test/harness/record.js --entry server.js --out rec.json \
- *        [--now 2026-11-05T10:30:00+03:00] [--rows empty|fake]
+ *        [--now 2026-11-05T10:30:00+03:00] [--rows empty|fake] [--requests file.json]
+ *   node test/harness/record.js --entry server.js --serve 40000 --rows fake
+ *        (no recording: keeps serving fake data, for trying pages in a browser)
  */
 'use strict';
 
@@ -40,7 +42,7 @@ const ENTRY = path.resolve(args.entry || path.join(__dirname, '..', '..', 'serve
 const OUT = path.resolve(args.out || 'recording.json');
 const ROWS_MODE = args.rows || 'empty';
 const NOW = new Date(args.now || '2026-11-05T10:30:00+03:00').getTime();
-const REQUESTS = require(path.join(__dirname, 'requests.json'));
+const REQUESTS = require(args.requests ? path.resolve(args.requests) : path.join(__dirname, 'requests.json'));
 
 // ---------------------------------------------------------------------------
 // Recording context
@@ -171,7 +173,7 @@ function expressWrapper(...a) {
   const app = realExpress(...a);
   app.listen = (...la) => {
     const cb = la.find((x) => typeof x === 'function');
-    const srv = http.createServer(app).listen(0, '127.0.0.1', () => { listening(srv); if (cb) cb(); });
+    const srv = http.createServer(app).listen(args.serve ? Number(args.serve) : 0, '127.0.0.1', () => { listening(srv); if (cb) cb(); });
     return srv;
   };
   if (!capturedApp) capturedApp = app;
@@ -222,7 +224,11 @@ Object.assign(process.env, {
   DB_NAME: 'main', NOTES_NAME: 'notes', MES_NAME: 'mes', LES_NAME: 'les', BMS_NAME: 'bms',
   DB_HOST: 'h', NOTES_HOST: 'h', MES_HOST: 'h', LES_HOST: 'h', BMS_HOST: 'h',
 });
-for (const k of ['PORT', 'BRIGADE_PASSWORD', 'IMPORT_PASSWORD', 'BRIGADE_MANAGE_PASSWORD',
+// Page passwords: test values only (the real ones live in server/.env and never in the repo).
+// requests.json sends these. HARNESS_NO_PASSWORDS=1 records with them unset instead.
+if (process.env.HARNESS_NO_PASSWORDS) { delete process.env.BRIGADE_PASSWORD; delete process.env.IMPORT_PASSWORD; }
+else Object.assign(process.env, { BRIGADE_PASSWORD: 'test-main-pw', IMPORT_PASSWORD: 'test-import-pw' });
+for (const k of ['PORT', 'BRIGADE_MANAGE_PASSWORD',
   'EXCHANGE_HOST', 'EXCHANGE_USER', 'EXCHANGE_PASS', 'EXCHANGE_FROM', 'EXCHANGE_FROM_NAME',
   'SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM', 'OPC_ENDPOINT', 'OPC_NODE_ID']) delete process.env[k];
 
@@ -246,6 +252,13 @@ async function main() {
   await settle();
   recording.startup = scrubPaths(startupCtx);
   const port = srv.address().port;
+
+  if (args.serve) {
+    // Manual testing: keep serving fake data (e.g. for the client's Vite dev server).
+    console.info = console.log = console.warn = console.error = () => {};
+    process.stdout.write(`serving fake data on http://127.0.0.1:${port} (Ctrl+C to stop)\n`);
+    return;
+  }
 
   for (const r of REQUESTS) {
     current = { queries: [], effects: [], logs: [] };

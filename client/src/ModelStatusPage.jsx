@@ -4,6 +4,7 @@ import {
   ReferenceLine, LabelList, ResponsiveContainer
 } from 'recharts';
 import * as XLSX from 'xlsx';
+import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -59,7 +60,6 @@ const EmailSenderButton = ({ targetRef, pageTitle }) => {
   });
   const [schedule, setSchedule] = useState({ days: [1, 2, 3, 4, 5], times: ['08:00', '12:00', '16:00'] });
   const [savedMessage, setSavedMessage] = useState('');
-  const correctPassword = '1234561';
 
   useEffect(() => {
     if (passwordModalOpen || settingsModalOpen) document.body.style.overflow = 'hidden';
@@ -99,10 +99,11 @@ const EmailSenderButton = ({ targetRef, pageTitle }) => {
     } catch (err) { console.error(err); alert('Ошибка сохранения'); }
   };
 
-  const handlePasswordSubmit = () => {
-    if (password === correctPassword) {
+  const handlePasswordSubmit = async () => {
+    const result = await checkPassword('main', password);
+    if (result === 'ok') {
       setPasswordModalOpen(false); setSettingsModalOpen(true); setPassword(''); setError(''); loadSettings();
-    } else setError('Неверный пароль');
+    } else setError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
   };
 
   const generatePdf = async () => {

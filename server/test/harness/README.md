@@ -37,6 +37,15 @@ npm run harness:verify     # after the change: must print "all conditions identi
 
 Recordings are written to `server/recordings/` (ignored by git).
 
+To try pages in a browser without the real databases (fake data; page
+passwords are the test values `test-main-pw` / `test-import-pw`):
+
+```bash
+node test/harness/record.js --entry server.js --serve 40000 --rows fake
+```
+
+and start the client as usual (`npm run dev` in `client/`).
+
 ## Notes
 
 * `requests.json` was generated from the original single-file `server.js` by

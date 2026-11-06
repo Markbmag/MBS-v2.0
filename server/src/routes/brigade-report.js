@@ -806,7 +806,7 @@ app.post('/api/brigade-report/import', async (req, res) => {
     if (!entries || !Array.isArray(entries) || entries.length === 0 || !password) {
       return res.status(400).json({ error: 'Не переданы данные или пароль' });
     }
-    // Пароль для импорта — 4002 (отдельный от основного)
+    // Пароль для импорта — IMPORT_PASSWORD из .env (отдельный от основного)
     if (password !== IMPORT_PASSWORD) {
       return res.status(403).json({ error: 'Неверный пароль для импорта' });
     }

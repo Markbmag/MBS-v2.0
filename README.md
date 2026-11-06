@@ -45,6 +45,8 @@ npm run dev
 ```
 
 Settings are read from `server/.env`. See `server/.env.example` for the full list.
+Page passwords (`BRIGADE_PASSWORD`, `IMPORT_PASSWORD`) exist only in `server/.env`;
+the pages check them through `POST /api/check-password`.
 The server stops at start if the main or LES database is unreachable; the notes and
 BMS databases are optional at start.
 

@@ -69,7 +69,7 @@ function baseValue(name) {
   if (n === 'models') return 'M1,M2';
   if (n === 'periods') return '2026-10,2026-09';
   if (/^(count|days|weeks|limit|limitbefore|limitafter|hour|offset|page)$/.test(n)) return '3';
-  if (n === 'password') return '1234561';
+  if (n === 'password') return 'test-main-pw';
   if (n === 'shift') return 'all';
   if (n === 'period') return 'week';
   if (n === 'periodtype') return 'week';
@@ -89,7 +89,7 @@ const BRANCHES = {
   timeFilter: ['all', 'day', 'evening', 'night'],
   filter: ['all', 'cp7', 'tup', 'body'],
   shiftLetter: ['ALL', 'A', 'B', 'C'],
-  password: ['1234561', '4002', 'wrong'],
+  password: ['test-main-pw', 'test-import-pw', 'wrong'],
 };
 function pathParamValue(name) {
   if (name === 'vin') return VIN1;
