@@ -5,6 +5,7 @@ require('dotenv').config();
 // запуска фоновых задач.
 require('./mailer'); // как и раньше, загружается первым (пишет в лог, если почта не настроена)
 require('./src/app');
+require('./src/middleware/password-guard'); // до маршрутов: ограничение попыток ввода пароля
 require('./src/config/passwords');
 require('./src/db');
 require('./src/services/opc');

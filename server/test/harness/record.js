@@ -228,6 +228,8 @@ Object.assign(process.env, {
 // requests.json sends these. HARNESS_NO_PASSWORDS=1 records with them unset instead.
 if (process.env.HARNESS_NO_PASSWORDS) { delete process.env.BRIGADE_PASSWORD; delete process.env.IMPORT_PASSWORD; }
 else Object.assign(process.env, { BRIGADE_PASSWORD: 'test-main-pw', IMPORT_PASSWORD: 'test-import-pw' });
+// The password-attempt limit is tested separately; recordings compare behaviour without it.
+if (!process.env.HARNESS_PASSWORD_GUARD) process.env.PASSWORD_GUARD = 'off';
 for (const k of ['PORT', 'BRIGADE_MANAGE_PASSWORD',
   'EXCHANGE_HOST', 'EXCHANGE_USER', 'EXCHANGE_PASS', 'EXCHANGE_FROM', 'EXCHANGE_FROM_NAME',
   'SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM', 'OPC_ENDPOINT', 'OPC_NODE_ID']) delete process.env[k];
@@ -265,7 +267,7 @@ async function main() {
     seed = 1;
     const qs = new URLSearchParams(r.query || {}).toString();
     const url = `http://127.0.0.1:${port}${r.path}${qs ? `?${qs}` : ''}`;
-    const init = { method: r.method, headers: {} };
+    const init = { method: r.method, headers: { ...(r.headers || {}) } };
     if (r.body !== undefined && r.method !== 'GET') {
       init.body = JSON.stringify(r.body);
       init.headers['content-type'] = 'application/json';

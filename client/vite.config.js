@@ -10,6 +10,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:40000',
         changeOrigin: true,
+        xfwd: true, // передаёт адрес компьютера серверу (для ограничения попыток ввода пароля)
       },
     },
   },

@@ -4,7 +4,7 @@ import {
   ResponsiveContainer, LabelList
 } from 'recharts';
 import * as XLSX from 'xlsx';
-import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
+import { checkPassword, passwordErrorText } from './checkPassword';
 
 const API_BASE = '';
 
@@ -1341,7 +1341,7 @@ export default function VrtReportPage() {
       setShowPasswordModal(false);
       if (pendingAction) { pendingAction(pwd); setPendingAction(null); }
       setPasswordError('');
-    } else setPasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+    } else setPasswordError(passwordErrorText(result));
   };
 
   const handleManagePasswordSubmit = async (pwd) => {
@@ -1352,7 +1352,7 @@ export default function VrtReportPage() {
       setManageUnlocked(true);
       setShowManagePasswordModal(false);
       setManagePasswordError('');
-    } else setManagePasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+    } else setManagePasswordError(passwordErrorText(result));
   };
 
   const handleTabChange = (tab) => {

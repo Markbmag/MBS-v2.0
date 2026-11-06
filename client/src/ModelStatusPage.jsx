@@ -4,7 +4,7 @@ import {
   ReferenceLine, LabelList, ResponsiveContainer
 } from 'recharts';
 import * as XLSX from 'xlsx';
-import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
+import { checkPassword, passwordErrorText } from './checkPassword';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -103,7 +103,7 @@ const EmailSenderButton = ({ targetRef, pageTitle }) => {
     const result = await checkPassword('main', password);
     if (result === 'ok') {
       setPasswordModalOpen(false); setSettingsModalOpen(true); setPassword(''); setError(''); loadSettings();
-    } else setError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+    } else setError(passwordErrorText(result));
   };
 
   const generatePdf = async () => {
