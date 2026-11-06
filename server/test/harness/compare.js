@@ -35,15 +35,30 @@ function compareCtx(label, x, y) {
 if (!same(a.meta, b.meta)) show('meta (recordings were made with different settings)', a.meta, b.meta);
 compareCtx('startup', a.startup, b.startup);
 if (a.requests.length !== b.requests.length) show('number of requests', a.requests.length, b.requests.length);
+// Routes removed on purpose: the request must now get 404 and touch nothing.
+const removed = require('./removed-routes.json').routes.map((s) => {
+  const [method, route] = s.split(' ');
+  return { method, re: new RegExp(`^${route.replace(/:[A-Za-z_]+/g, '[^/?]+')}(\\?|$| )`) };
+});
+const isRemoved = (req) => {
+  const [method, rest] = [req.slice(0, req.indexOf(' ')), req.slice(req.indexOf(' ') + 1)];
+  return removed.some((r) => r.method === method && r.re.test(rest));
+};
+let removedChecked = 0;
 const byReq = new Map(b.requests.map((r) => [r.request, r]));
 for (const r of a.requests) {
   const o = byReq.get(r.request);
   if (!o) { show(`missing in after: ${r.request}`, r.status, undefined); continue; }
+  if (isRemoved(r.request)) {
+    removedChecked++;
+    if (o.status !== 404 || o.queries.length || o.effects.length) show(`${r.request} — removed route should be 404 with no effects`, r.status, { status: o.status, queries: o.queries.length, effects: o.effects.length });
+    continue;
+  }
   compareCtx(r.request, r, o);
 }
 const total = a.requests.length;
 if (diffs === 0) {
-  console.log(`✓ identical: startup + ${total} requests (${a.requests.reduce((s, r) => s + r.queries.length, 0)} queries)`);
+  console.log(`✓ identical: startup + ${total - removedChecked} requests${removedChecked ? ` (+${removedChecked} to removed routes now 404)` : ''} (${a.requests.reduce((s, r) => s + r.queries.length, 0)} queries)`);
   process.exit(0);
 }
 console.log(`\n${diffs} difference(s)${diffs > MAX_SHOWN ? ` (first ${MAX_SHOWN} shown)` : ''}`);
