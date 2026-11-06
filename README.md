@@ -58,6 +58,15 @@ npm install
 npm run dev
 ```
 
+## Monitoring and backup
+
+* `GET /api/health` — state of every database, the PLC (OPC UA) link, when each DRR
+  snapshot was last saved, and the last backup. HTTP 200 when the main and LES
+  databases work, 503 otherwise.
+* Nightly backup of the notes database and `server/uploads` — set `BACKUP_DIR` in
+  `server/.env` (see `server/.env.example`). Files: `mbs_YYYY-MM-DD_HHMM.sql`
+  (restore with any MySQL client, e.g. HeidiSQL "Load SQL file") and `uploads/`.
+
 ## Changing server code safely
 
 `server/test/harness` records what the server does for 823 requests covering

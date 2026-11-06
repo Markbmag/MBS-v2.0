@@ -62,4 +62,8 @@ require('./src/routes/drr/electronics-bms');
 require('./src/routes/drr/electronics-bms-snapshots');
 require('./src/routes/inspection');
 require('./src/routes/check-password');
+require('./src/routes/health');
+
+// Ночное резервное копирование (включается настройкой BACKUP_DIR в .env)
+require('./src/jobs/backup').start();
 require('./src/start');
