@@ -63,7 +63,7 @@ async function snapshotStatus(table) {
   }
 }
 
-app.get('/api/health', async (req, res) => {
+async function collectHealth() {
   const [main, les, mes, notes, bms] = await Promise.all([pool, lesPool, mesPool, notesPool, bmsPool].map(pingDb));
   const snapshots = {};
   if (notes.ok) {
@@ -80,7 +80,7 @@ app.get('/api/health', async (req, res) => {
   const critical = main.ok && les.ok;
   const allOk = critical && mes.ok && notes.ok && bms.ok && opc.ok && Object.values(snapshots).every((s) => s.ok);
 
-  res.status(critical ? 200 : 503).json({
+  return {
     status: allOk ? 'ok' : critical ? 'degraded' : 'down',
     time: new Date().toISOString(),
     uptimeMinutes: Math.round((Date.now() - STARTED_AT) / 60000),
@@ -89,5 +89,12 @@ app.get('/api/health', async (req, res) => {
     opc,
     snapshots,
     backup: backup.status(),
-  });
+  };
+}
+
+app.get('/api/health', async (req, res) => {
+  const h = await collectHealth();
+  res.status(h.status === 'down' ? 503 : 200).json(h);
 });
+
+module.exports = { collectHealth };

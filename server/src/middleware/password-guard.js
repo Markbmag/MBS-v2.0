@@ -10,6 +10,7 @@
 //   PASSWORD_GUARD=off         — выключить защиту
 
 const { app } = require('../app');
+const { clientAddress } = require('../lib/client-address');
 
 const MAX_FAILS = Number(process.env.PASSWORD_MAX_ATTEMPTS) || 10;
 const WINDOW_MS = 10 * 60 * 1000;
@@ -17,20 +18,6 @@ const LOCK_MS = 10 * 60 * 1000;
 const MAX_TRACKED = 5000;
 
 const failures = new Map(); // ip -> { times: number[], lockedUntil: number }
-
-function isLoopback(addr) {
-  return addr === '127.0.0.1' || addr === '::1' || addr === '::ffff:127.0.0.1';
-}
-
-// Адрес компьютера. Если запрос пришёл через прокси клиента на этом же сервере
-// (Vite или client/serve.js), настоящий адрес передаётся в X-Forwarded-For.
-// Берётся последний адрес: его добавил наш прокси (первые может подставить сам браузер).
-function clientAddress(req) {
-  const remote = req.socket.remoteAddress || 'unknown';
-  const fwd = req.headers['x-forwarded-for'];
-  if (fwd && isLoopback(remote)) return String(fwd).split(',').pop().trim();
-  return remote;
-}
 
 function prune(now) {
   if (failures.size < MAX_TRACKED) return;
@@ -70,3 +57,13 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+// Компьютеры, которым сейчас запрещён ввод пароля (для страницы администратора).
+function lockedComputers() {
+  const now = Date.now();
+  return [...failures.entries()]
+    .filter(([, s]) => s.lockedUntil > now)
+    .map(([computer, s]) => ({ computer, until: new Date(s.lockedUntil).toISOString() }));
+}
+
+module.exports = { lockedComputers };
