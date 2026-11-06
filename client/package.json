@@ -27,7 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "vite"
+    "dev": "vite",
+    "prod:build": "vite build",
+    "prod:serve": "node serve.js"
   },
   "eslintConfig": {
     "extends": [

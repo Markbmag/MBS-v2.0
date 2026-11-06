@@ -4,7 +4,7 @@ import {
   ResponsiveContainer, LabelList
 } from 'recharts';
 import * as XLSX from 'xlsx';
-import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
+import { checkPassword, passwordErrorText } from './checkPassword';
 
 const API_BASE = '';
 
@@ -2766,7 +2766,7 @@ function DictionaryPanel({
               setShowImportModal(true);
               setImportError('');
             } else {
-              setImportError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+              setImportError(passwordErrorText(result));
             }
           }}
           error={importError}
@@ -2913,7 +2913,7 @@ function DefectOwnersManager({ brigades, password, executeWithPassword }) {
       setShowBrigadePasswordModal(false);
       setBrigadePasswordError('');
     } else {
-      setBrigadePasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+      setBrigadePasswordError(passwordErrorText(result));
     }
   };
 
@@ -3035,7 +3035,7 @@ export default function BrigadeReportPage() {
       }
       setPasswordError('');
     } else {
-      setPasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
+      setPasswordError(passwordErrorText(result));
     }
   };
 

@@ -3,8 +3,11 @@ require('dotenv').config();
 // Модули загружаются строго в том порядке, в котором код шёл в прежнем
 // едином server.js: от этого зависят порядок маршрутов Express и порядок
 // запуска фоновых задач.
+require('./src/lib/log-buffer'); // последние ошибки/предупреждения — для страницы администратора
 require('./mailer'); // как и раньше, загружается первым (пишет в лог, если почта не настроена)
 require('./src/app');
+require('./src/middleware/password-guard'); // до маршрутов: ограничение попыток ввода пароля
+require('./src/middleware/request-stats'); // до маршрутов: время ответа, медленные запросы
 require('./src/config/passwords');
 require('./src/db');
 require('./src/services/opc');
@@ -61,4 +64,10 @@ require('./src/routes/drr/electronics-bms');
 require('./src/routes/drr/electronics-bms-snapshots');
 require('./src/routes/inspection');
 require('./src/routes/check-password');
+require('./src/routes/health');
+require('./src/routes/usage');
+require('./src/routes/admin');
+
+// Ночное резервное копирование (включается настройкой BACKUP_DIR в .env)
+require('./src/jobs/backup').start();
 require('./src/start');

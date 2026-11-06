@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import logo from './assets/logo.png';
 import homeIcon from './assets/home.png';
+import PageErrorBoundary from './PageErrorBoundary';
+import { rememberPage } from './recentPages';
+import { sendPageView } from './pageViews';
 
 const headerStyle = {
   backgroundColor: '#35384F',
@@ -77,6 +80,10 @@ function useIsMobile() {
 export default function Layout() {
   const location = useLocation();
   const isMobile = useIsMobile();
+
+  // Запоминает открытые страницы для блока «Недавно открытые» на главной (только в этом браузере)
+  // и отмечает открытие для статистики использования (страница администратора).
+  useEffect(() => { rememberPage(location.pathname); sendPageView(location.pathname); }, [location.pathname]);
   const isCapturePage = location.pathname === '/defect-capture';
 
   const isFullScreen =
@@ -133,7 +140,12 @@ export default function Layout() {
         <span style={dateStyle}>{getCurrentDate()}</span>
       </header>
       <main style={isFullScreen ? mainFullScreen : mainDefault}>
-        <Outlet />
+        {/* Страница загружается по требованию; при ошибке — сообщение и автоперезагрузка */}
+        <PageErrorBoundary key={location.pathname}>
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
+        </PageErrorBoundary>
       </main>
     </>
   );

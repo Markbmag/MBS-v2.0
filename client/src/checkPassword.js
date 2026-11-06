@@ -1,7 +1,8 @@
 // Проверка пароля на сервере. Сами пароли хранятся только в server/.env.
 //   kind: 'main'   — основной пароль
 //         'import' — специальный пароль (импорт справочников, управление)
-// Возвращает 'ok', 'wrong' (пароль неверный) или 'error' (сервер недоступен).
+// Возвращает 'ok', 'wrong' (пароль неверный), 'locked' (слишком много неверных
+// попыток — сервер временно не принимает пароль) или 'error' (сервер недоступен).
 const API_BASE = '';
 
 export async function checkPassword(kind, password) {
@@ -13,10 +14,16 @@ export async function checkPassword(kind, password) {
     });
     if (res.ok) return 'ok';
     if (res.status === 403) return 'wrong';
+    if (res.status === 429) return 'locked';
     return 'error';
   } catch {
     return 'error';
   }
 }
 
-export const PASSWORD_CHECK_ERROR = 'Не удалось проверить пароль';
+// Текст ошибки для окна пароля по результату checkPassword.
+export function passwordErrorText(result) {
+  if (result === 'wrong') return 'Неверный пароль';
+  if (result === 'locked') return 'Слишком много неверных паролей. Попробуйте через 10 мин.';
+  return 'Не удалось проверить пароль';
+}

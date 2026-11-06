@@ -1,47 +1,50 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layout';
+
+// Страницы загружаются, только когда их открывают (главная — сразу).
 import HomePage from './HomePage';
-import ReportPage from './ReportPage';
-import DailyTopPage from './DailyTopPage';
-import ModelStatusPage from './ModelStatusPage';
-import CheckpointMapPage from './CheckpointMapPage';
-import SgpAuditPage from './SgpAuditPage';
-import MppWeeklyTopPage from './MppWeeklyTopPage';
-import PartDefectSearchPage from './PartDefectSearchPage';
-import DrrReportPage from './DrrReportPage';
-import DailyDashboardPage from './DailyDashboardPage';
-import WarrantyPage from './WarrantyPage';
-import TLMapPage from './TLMapPage';
-import HoldsSgpPage from './HoldsSgpPage';
-import SgpManagementPage from './SgpManagementPage';
-import DrrCp7DashboardPage from './DrrCp7DashboardPage';
+const AdminPage = lazy(() => import('./AdminPage')); // /admin — по специальному паролю
+const ReportPage = lazy(() => import('./ReportPage'));
+const DailyTopPage = lazy(() => import('./DailyTopPage'));
+const ModelStatusPage = lazy(() => import('./ModelStatusPage'));
+const CheckpointMapPage = lazy(() => import('./CheckpointMapPage'));
+const SgpAuditPage = lazy(() => import('./SgpAuditPage'));
+const MppWeeklyTopPage = lazy(() => import('./MppWeeklyTopPage'));
+const PartDefectSearchPage = lazy(() => import('./PartDefectSearchPage'));
+const DrrReportPage = lazy(() => import('./DrrReportPage'));
+const DailyDashboardPage = lazy(() => import('./DailyDashboardPage'));
+const WarrantyPage = lazy(() => import('./WarrantyPage'));
+const TLMapPage = lazy(() => import('./TLMapPage'));
+const HoldsSgpPage = lazy(() => import('./HoldsSgpPage'));
+const SgpManagementPage = lazy(() => import('./SgpManagementPage'));
+const DrrCp7DashboardPage = lazy(() => import('./DrrCp7DashboardPage'));
 import favicon from './assets/weblog.png';
-import DrrCp7HistoryPage from './DrrCp7HistoryPage';
-import DrrCp8DashboardPage from './DrrCp8DashboardPage';
-import DrrTLDashboardPage from './DrrTLDashboardPage';
-import DrrPipDashboardPage from './DrrPipDashboardPage';
-import DefectElectronicsTopPage from './DefectElectronicsTopPage';
-import BrigadeReportPage from './BrigadeReportPage';
-import RemzoneWorkStatusPage from './RemzoneWorkStatusPage';
-import VehicleOnWheelsPage from './VehicleOnWheelsPage';
-import DrrWtPortalPage from './DrrWtPortalPage';
-import DrrCpFinalPage from './DrrCpFinalPage';
-import DrrCp6Page from './DrrCp6Page';
-import DrrCp5Page from './DrrCp5Page';
-import AllDrrDashboardPage from './AllDrrDashboardPage';
-import VrtReportPage from './VrtReportPage';
-import DrrShiftDashboardPage from './DrrShiftDashboardPage';
-import LineDefectCapturePage from './LineDefectCapturePage';
-import LineDefectsArchivePage from './LineDefectsArchivePage';
-import ReppsReportPage from './ReppsReportPage';
-import VoltageSpcPage from './VoltageSpcPage';
-import DrrCp7TupDashboardPage from './DrrCp7TupDashboardPage';
-import RepelecReportPage from './RepelecReportPage';
-import DrrElectronicsDashboardPage from './DrrElectronicsDashboardPage';
+const DrrCp7HistoryPage = lazy(() => import('./DrrCp7HistoryPage'));
+const DrrCp8DashboardPage = lazy(() => import('./DrrCp8DashboardPage'));
+const DrrTLDashboardPage = lazy(() => import('./DrrTLDashboardPage'));
+const DrrPipDashboardPage = lazy(() => import('./DrrPipDashboardPage'));
+const DefectElectronicsTopPage = lazy(() => import('./DefectElectronicsTopPage'));
+const BrigadeReportPage = lazy(() => import('./BrigadeReportPage'));
+const RemzoneWorkStatusPage = lazy(() => import('./RemzoneWorkStatusPage'));
+const VehicleOnWheelsPage = lazy(() => import('./VehicleOnWheelsPage'));
+const DrrWtPortalPage = lazy(() => import('./DrrWtPortalPage'));
+const DrrCpFinalPage = lazy(() => import('./DrrCpFinalPage'));
+const DrrCp6Page = lazy(() => import('./DrrCp6Page'));
+const DrrCp5Page = lazy(() => import('./DrrCp5Page'));
+const AllDrrDashboardPage = lazy(() => import('./AllDrrDashboardPage'));
+const VrtReportPage = lazy(() => import('./VrtReportPage'));
+const DrrShiftDashboardPage = lazy(() => import('./DrrShiftDashboardPage'));
+const LineDefectCapturePage = lazy(() => import('./LineDefectCapturePage'));
+const LineDefectsArchivePage = lazy(() => import('./LineDefectsArchivePage'));
+const ReppsReportPage = lazy(() => import('./ReppsReportPage'));
+const VoltageSpcPage = lazy(() => import('./VoltageSpcPage'));
+const DrrCp7TupDashboardPage = lazy(() => import('./DrrCp7TupDashboardPage'));
+const RepelecReportPage = lazy(() => import('./RepelecReportPage'));
+const DrrElectronicsDashboardPage = lazy(() => import('./DrrElectronicsDashboardPage'));
 
 
-import InspectionPage from './InspectionPage';
+const InspectionPage = lazy(() => import('./InspectionPage'));
 
 
 export default function App() {
@@ -49,6 +52,8 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/home-new" element={<Navigate to="/" replace />} /> {/* старый адрес предпросмотра */}
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/report" element={<ReportPage />} />
         <Route path="/daily-top" element={<DailyTopPage />} />
         <Route path="/model-status" element={<ModelStatusPage />} />

@@ -36,6 +36,10 @@ from a PLC over OPC UA, and sends e-mail through Exchange/SMTP.
 
 ## Running
 
+For everyday use on the Windows server (built pages, automatic restart, log files,
+auto-start) see **[docs/DEPLOY.md](docs/DEPLOY.md)** — in short: `start-mbs.bat`.
+The development way below keeps working.
+
 Server:
 
 ```bash
@@ -57,6 +61,17 @@ cd client
 npm install
 npm run dev
 ```
+
+## Monitoring and backup
+
+* `GET /api/health` — state of every database, the PLC (OPC UA) link, when each DRR
+  snapshot was last saved, and the last backup. HTTP 200 when the main and LES
+  databases work, 503 otherwise.
+* `/admin` page (special password): system state, backups, page usage statistics,
+  slow requests, recent server errors, password lockouts. See `docs/DEPLOY.md`.
+* Nightly backup of the notes database and `server/uploads` — set `BACKUP_DIR` in
+  `server/.env` (see `server/.env.example`). Files: `mbs_YYYY-MM-DD_HHMM.sql`
+  (restore with any MySQL client, e.g. HeidiSQL "Load SQL file") and `uploads/`.
 
 ## Changing server code safely
 
