@@ -4,6 +4,7 @@ import Layout from './Layout';
 
 // Страницы загружаются, только когда их открывают (главная — сразу).
 import HomePage from './HomePage';
+const AdminPage = lazy(() => import('./AdminPage')); // /admin — по специальному паролю
 const ReportPage = lazy(() => import('./ReportPage'));
 const DailyTopPage = lazy(() => import('./DailyTopPage'));
 const ModelStatusPage = lazy(() => import('./ModelStatusPage'));
@@ -52,6 +53,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/home-new" element={<Navigate to="/" replace />} /> {/* старый адрес предпросмотра */}
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/report" element={<ReportPage />} />
         <Route path="/daily-top" element={<DailyTopPage />} />
         <Route path="/model-status" element={<ModelStatusPage />} />
