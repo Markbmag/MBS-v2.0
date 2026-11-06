@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "harness:baseline": "node test/harness/run-all.js --out recordings/baseline",
+    "harness:verify": "node test/harness/run-all.js --out recordings/current --compare recordings/baseline"
   },
   "keywords": [],
   "author": "",
