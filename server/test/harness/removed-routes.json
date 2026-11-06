@@ -1,0 +1,15 @@
+{
+  "_comment": "Routes deleted on purpose. compare.js expects 404 for requests to them; everything else must stay identical.",
+  "routes": [
+    "GET /api/tables",
+    "GET /api/defects",
+    "GET /api/sgp-audit-vins-detail",
+    "POST /api/audit-results/upload",
+    "GET /api/audit-results",
+    "GET /api/mpp-remzone-duration",
+    "GET /api/vehicle-on-wheels/details/cp72-remzone",
+    "GET /api/drr-cp6-debug-vin/:vin",
+    "GET /api/drr-cp6-classify-debug",
+    "DELETE /api/defect-notes/:mpp"
+  ]
+}

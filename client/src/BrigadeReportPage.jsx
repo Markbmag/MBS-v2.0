@@ -4,6 +4,7 @@ import {
   ResponsiveContainer, LabelList
 } from 'recharts';
 import * as XLSX from 'xlsx';
+import { checkPassword, PASSWORD_CHECK_ERROR } from './checkPassword';
 
 const API_BASE = '';
 
@@ -2200,6 +2201,7 @@ function DictionaryPanel({
   const [importText, setImportText] = useState('');
   const [importFile, setImportFile] = useState(null);
   const [importPasswordModal, setImportPasswordModal] = useState(false);
+  const [importPassword, setImportPassword] = useState('');
   const [importError, setImportError] = useState('');
   const [activeSection, setActiveSection] = useState('defects');
   const [newBrigadeName, setNewBrigadeName] = useState('');
@@ -2377,7 +2379,7 @@ function DictionaryPanel({
     fetch(`${API_BASE}/api/brigade-report/import`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ entries, password: '4002' }),
+      body: JSON.stringify({ entries, password: importPassword }),
     })
       .then(res => {
         if (!res.ok) return res.json().then(err => { throw new Error(err.error || 'Ошибка импорта'); });
@@ -2756,13 +2758,15 @@ function DictionaryPanel({
         <PasswordModal
           isOpen={importPasswordModal}
           onClose={() => setImportPasswordModal(false)}
-          onSubmit={(pwd) => {
-            if (pwd === '4002') {
+          onSubmit={async (pwd) => {
+            const result = await checkPassword('import', pwd);
+            if (result === 'ok') {
+              setImportPassword(pwd);
               setImportPasswordModal(false);
               setShowImportModal(true);
               setImportError('');
             } else {
-              setImportError('Неверный пароль');
+              setImportError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
             }
           }}
           error={importError}
@@ -2901,14 +2905,15 @@ function DefectOwnersManager({ brigades, password, executeWithPassword }) {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  const handleBrigadePasswordSubmit = (pwd) => {
-    if (pwd === '4002') {
+  const handleBrigadePasswordSubmit = async (pwd) => {
+    const result = await checkPassword('import', pwd);
+    if (result === 'ok') {
       sessionStorage.setItem('brigade_manage_unlocked', 'true');
       setBrigadeManageUnlocked(true);
       setShowBrigadePasswordModal(false);
       setBrigadePasswordError('');
     } else {
-      setBrigadePasswordError('Неверный пароль');
+      setBrigadePasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
     }
   };
 
@@ -3018,8 +3023,9 @@ export default function BrigadeReportPage() {
     }
   };
 
-  const handlePasswordSubmit = (pwd) => {
-    if (pwd === '1234561') {
+  const handlePasswordSubmit = async (pwd) => {
+    const result = await checkPassword('main', pwd);
+    if (result === 'ok') {
       sessionStorage.setItem('brigade_password', pwd);
       setPassword(pwd);
       setShowPasswordModal(false);
@@ -3029,7 +3035,7 @@ export default function BrigadeReportPage() {
       }
       setPasswordError('');
     } else {
-      setPasswordError('Неверный пароль');
+      setPasswordError(result === 'wrong' ? 'Неверный пароль' : PASSWORD_CHECK_ERROR);
     }
   };
 

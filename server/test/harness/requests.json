@@ -1,0 +1,7657 @@
+[
+ {
+  "method": "GET",
+  "path": "/api/opc-value",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tables",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/cars-count",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/cars-count",
+  "query": {
+   "date": "2026-10-05",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "CP7",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "CP8",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "PIP",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "TL",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "Inbound",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "offline",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "all",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/defects-dashboard",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "CP7",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "CP8",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "PIP",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "TL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "Inbound",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "offline",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "all",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "day",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "month",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/report-page-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v",
+   "searchDefect": "searchDefect_v",
+   "searchPart": "searchPart_v",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "CP7",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "CP8",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "PIP",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "TL",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "Inbound",
+   "defectType": "online",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "offline",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "all",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "CP7",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "CP8",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "PIP",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "TL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "Inbound",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "offline",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "all",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-top-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "defectType": "online",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "week"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "month"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "year"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr",
+  "query": {
+   "count": "3",
+   "period": "custom"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "week"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "month"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "year"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8",
+  "query": {
+   "count": "3",
+   "period": "custom"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "week"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "month"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "year"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7",
+  "query": {
+   "count": "3",
+   "period": "custom"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "week"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "month"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "year"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7",
+  "query": {
+   "count": "3",
+   "period": "custom"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "week",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "day",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "month",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "week",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "day",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp7-details",
+  "query": {
+   "model": "M1",
+   "periodType": "month",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "week",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "day",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-dpu-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "month",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp8-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "week",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "day",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-drr-cp8-details",
+  "query": {
+   "model": "M1",
+   "periodType": "month",
+   "periods": "2026-10,2026-09"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/model-status-complectations-daily",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/cpa-scores",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/cpa-scores",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/cpa-scores",
+  "query": {},
+  "body": {
+   "model": "M1",
+   "score": 5
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-stats",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-stats",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-stats",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-stats",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/checkpoint-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-stats",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-stats",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-tl-stats",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-tl-stats",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-storage",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-storage",
+  "query": {
+   "vin": "LVTDB21B0RD000001",
+   "vins": "LVTDB21B0RD000001,LVTDB21B0RD000002"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-audit-vins-detail",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/audit-results/upload",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/audit-results/upload",
+  "query": {},
+  "body": {
+   "rows": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ]
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/audit-results",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/audit-results",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "result": "result_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-weekly-top",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "mpp": "mpp_v",
+   "partName": "partName_v",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-remzone-duration",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-drr-analytics",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "CP7",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "CP8",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "PIP",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "TL",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "Inbound",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "day",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/mpp-defect-trend",
+  "query": {
+   "checkpoint": "ALL",
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "month",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/part-defect-search",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/part-defect-search",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defect": "defect_v",
+   "model": "M1",
+   "part": "part_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vin-defect-search",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vin-defect-search",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/problem-grades",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/dpu-off-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "all",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "day",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "evening",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "night",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "A",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "B",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week",
+  "query": {
+   "shift": "C",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-top3",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-top3",
+  "query": {
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-top5",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-top5",
+  "query": {
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "grades": "grades_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/daily-dashboard-week-top3",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/check-password",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/check-password",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/check-password",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/check-password",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/upload",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/warranty/upload",
+  "query": {},
+  "body": {
+   "rows": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ]
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/upload-times",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/claims",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/claims",
+  "query": {
+   "uploadedAt": "2026-10-05"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics",
+  "query": {
+   "uploadedAt": "2026-10-05"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics-by-model",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics-by-model",
+  "query": {
+   "uploadedAt": "2026-10-05"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics-by-sales-date",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/analytics-by-sales-date",
+  "query": {
+   "uploadedAt": "2026-10-05"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/categories-summary",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/warranty/categories-summary",
+  "query": {
+   "model": "M1",
+   "uploadedAt": "2026-10-05"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-passed-today",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-passed-today-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-passed-today-details",
+  "query": {
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-analytics",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-analytics",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-vin-history",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/tl-map-vin-history",
+  "query": {
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-all-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-all-vins",
+  "query": {
+   "models": "M1,M2"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective",
+  "query": {
+   "models": "M1,M2"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective-vins",
+  "query": {
+   "date": "2026-10-05",
+   "issue_desc": "issue_desc_v",
+   "issue_descs": "issue_descs_v",
+   "model": "M1",
+   "reason": "reason_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective-all-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-retrospective-all-vins",
+  "query": {
+   "date": "2026-10-05",
+   "models": "M1,M2"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/holds-sgp-history",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "model": "M1",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/part-defect-shop-mapping",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/part-defect-shop-mapping",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/part-defect-shop-mapping",
+  "query": {},
+  "body": {
+   "mappings": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ]
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-by-shop",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-by-shop",
+  "query": {
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/shop-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/shop-top-defects",
+  "query": {
+   "model": "M1",
+   "shop": "shop_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-management",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/sgp-management-reasons",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-points",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-points",
+  "query": {
+   "batchNum": "batchNum_v",
+   "colour": "colour_v",
+   "cp5From": "cp5From_v",
+   "cp5To": "cp5To_v",
+   "cp6From": "cp6From_v",
+   "cp6To": "cp6To_v",
+   "cp72From": "cp72From_v",
+   "cp72To": "cp72To_v",
+   "cp7From": "cp7From_v",
+   "cp7To": "cp7To_v",
+   "cp8From": "cp8From_v",
+   "cp8To": "cp8To_v",
+   "cpFinalFrom": "cpFinalFrom_v",
+   "cpFinalTo": "cpFinalTo_v",
+   "currentLocations": "currentLocations_v",
+   "excludeLocations": "excludeLocations_v",
+   "inboundFrom": "inboundFrom_v",
+   "inboundTo": "inboundTo_v",
+   "kdMaterialNo": "kdMaterialNo_v",
+   "materialCode": "materialCode_v",
+   "materialDesc": "materialDesc_v",
+   "model": "M1",
+   "outboundFrom": "outboundFrom_v",
+   "outboundTo": "outboundTo_v",
+   "partNo": "partNo_v",
+   "seqFrom": "seqFrom_v",
+   "seqTo": "seqTo_v",
+   "tladasFrom": "tladasFrom_v",
+   "tladasTo": "tladasTo_v",
+   "tlrtFrom": "tlrtFrom_v",
+   "tlrtTo": "tlrtTo_v",
+   "tlttFrom": "tlttFrom_v",
+   "tlttTo": "tlttTo_v",
+   "tlwaFrom": "tlwaFrom_v",
+   "tlwaTo": "tlwaTo_v",
+   "trimInFrom": "trimInFrom_v",
+   "trimInTo": "trimInTo_v",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-points/LVTDB21B0RD000001/components",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-points/LVTDB21B0RD000001/components",
+  "query": {
+   "materialCode": "materialCode_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/filters/kd-material-nos",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/filters/vehicle-types",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/filters/material-descs",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/filters/colours",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "ALL",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "CP7",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "CP8",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "PIP",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "TL",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/time-point-neighbors",
+  "query": {
+   "checkpoint": "Inbound",
+   "limitAfter": "3",
+   "limitBefore": "3",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-current-location",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-current-location",
+  "query": {
+   "vins": "LVTDB21B0RD000001,LVTDB21B0RD000002"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-models",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-models",
+  "query": {
+   "vins": "LVTDB21B0RD000001,LVTDB21B0RD000002"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-model-complect",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicles-model-complect",
+  "query": {
+   "vins": "LVTDB21B0RD000001,LVTDB21B0RD000002"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "cp7"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "tup"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "body"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "cp7",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "tup",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "body",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history",
+  "query": {
+   "count": "3",
+   "filter": "all",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history-top-mpp",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-history-top-mpp",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "grades": "grades_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "cp7"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "tup"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshots",
+  "query": {
+   "days": "3",
+   "filter": "body"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp7-tup-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/email-settings",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/email-settings",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/email-settings",
+  "query": {},
+  "body": {
+   "body": "body_v",
+   "cc": "cc_v",
+   "schedule": "schedule_v",
+   "sender_name": "sender_name_v",
+   "signature_image": "signature_image_v",
+   "signature_text": "signature_text_v",
+   "subject": "subject_v",
+   "to": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp8-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-snapshots",
+  "query": {
+   "days": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-tl-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-snapshots",
+  "query": {
+   "days": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-pip-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-top-defects",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "grades": "grades_v",
+   "model": "M1",
+   "posts": "posts_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-vins-top-mpp",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-vins-top-mpp",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "partName": "partName_v",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "typeCode": "typeCode_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-vin-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-vin-defects",
+  "query": {
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-defect-trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-defect-trend",
+  "query": {
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "week",
+   "postName": "postName_v",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-defect-trend",
+  "query": {
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "day",
+   "postName": "postName_v",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-defect-trend",
+  "query": {
+   "model": "M1",
+   "partName": "partName_v",
+   "periodType": "month",
+   "postName": "postName_v",
+   "problemType": "problemType_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-top-elec-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-top-elec-defects",
+  "query": {
+   "categories": "categories_v",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "models": "M1,M2"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-defect-trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-defect-trend",
+  "query": {
+   "model": "M1",
+   "periodType": "week",
+   "typeCode": "typeCode_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-defect-trend",
+  "query": {
+   "model": "M1",
+   "periodType": "day",
+   "typeCode": "typeCode_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-elec-defect-trend",
+  "query": {
+   "model": "M1",
+   "periodType": "month",
+   "typeCode": "typeCode_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/brigades",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "metric": "metric_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-owner",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-owner",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "test-main-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-owner",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "test-import-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-owner",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "wrong",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/dictionary",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/dictionary",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/dictionary",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "test-main-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/dictionary",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "test-import-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/dictionary",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "password": "wrong",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/dictionary/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/models",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/import",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-all-models",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-all-models",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "part_name": "part_name_v",
+   "password": "test-main-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-all-models",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "part_name": "part_name_v",
+   "password": "test-import-pw",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/assign-all-models",
+  "query": {},
+  "body": {
+   "brigadeName": "brigadeName_v",
+   "part_name": "part_name_v",
+   "password": "wrong",
+   "problem_type": "problem_type_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/brigades",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/brigades",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/brigades",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/brigade-report/brigades",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/brigades/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/brigades/1",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/brigades/1",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/brigade-report/brigades/1",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "day",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "evening",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "night",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "A",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "B",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/trend",
+  "query": {
+   "brigades": "brigades_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "metric": "metric_v",
+   "shift": "C",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "day",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "evening",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "night",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "A",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "B",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp",
+  "query": {
+   "brigade": "brigade_v",
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "endTime": "2026-10-02 08:00:00",
+   "shift": "C",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "CP7",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "CP8",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "PIP",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "TL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "Inbound",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/brigade-report/top-mpp-vins",
+  "query": {
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/daily",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/daily",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "withPartNumber": "withPartNumber_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/hourly",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/hourly",
+  "query": {
+   "date": "2026-10-05",
+   "withPartNumber": "withPartNumber_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/remzone-work-status/details",
+  "query": {
+   "date": "2026-10-05",
+   "hour": "3",
+   "repair_person": "repair_person_v",
+   "withPartNumber": "withPartNumber_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/cpa",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/cpa",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/rep",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/rep",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/cp72-remzone",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vehicle-on-wheels/details/cp72-remzone",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-wt-portal-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "model": "M1",
+   "part_name": "part_name_v",
+   "problem_description": "problem_description_v",
+   "problem_type": "problem_type_v",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-snapshots",
+  "query": {
+   "days": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cpfinal-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-spot-repaint-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-spot-repaint-vins",
+  "query": {
+   "category": "category_v",
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-transit-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-debug-vin/LVTDB21B0RD000001",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-classify-debug",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-classify-debug",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-snapshots",
+  "query": {
+   "days": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp6-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-spot-repaint-vins",
+  "query": {
+   "category": "category_v",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "all",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "cp7",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "tup",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-cp5-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "filter": "body",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/email/test",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/vrts",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/vrts",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/vrts",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/vrts",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/vrts",
+  "query": {},
+  "body": {
+   "name": "name_v",
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/vrts/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/vrts/1",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/vrts/1",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/vrts/1",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/zones",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/models",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "metric": "metric_v",
+   "shift": "all",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "day",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "evening",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "night",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "A",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "B",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/data",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "C",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/unassigned-defects",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/assign-owner",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/assign-owner",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "test-main-pw",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/assign-owner",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "test-import-pw",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/assign-owner",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "wrong",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/dictionary",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/dictionary",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/dictionary",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "test-main-pw",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/dictionary",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "test-import-pw",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/dictionary",
+  "query": {},
+  "body": {
+   "bom_name": "bom_name_v",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "password": "wrong",
+   "vrtName": "vrtName_v",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/dictionary/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/vrt-report/dictionary/1",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/import",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/vrt-report/import",
+  "query": {},
+  "body": {
+   "entries": [
+    {
+     "model": "M1",
+     "part_name": "P1",
+     "problem_type": "T1",
+     "vin": "LVTDB21B0RD000001",
+     "name": "N1",
+     "zone": "Z1",
+     "defect_name": "D1",
+     "value": 1
+    }
+   ],
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "metric": "metric_v",
+   "shift": "all",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "day",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "evening",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "night",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "A",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "B",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/trend",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "metric": "metric_v",
+   "shift": "C",
+   "vrts": "vrts_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "CP7",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "CP8",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "PIP",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "TL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "Inbound",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "shift": "all",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "day",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "evening",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "night",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "A",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "B",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp",
+  "query": {
+   "checkpoint": "ALL",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "shift": "C",
+   "vrt": "vrt_v",
+   "zones": "zones_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "CP7",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "CP8",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "PIP",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "TL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "Inbound",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "offline",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "all",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "all",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "day",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "evening",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "night",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "A",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "B",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/vrt-report/top-mpp-vins",
+  "query": {
+   "bom_name": "bom_name_v",
+   "checkpoint": "ALL",
+   "date": "2026-10-05",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "defectType": "online",
+   "defect_name": "defect_name_v",
+   "model": "M1",
+   "shift": "C",
+   "zone": "zone_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/line-defects/lookup-vin",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/suggest-parts",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/suggest-parts",
+  "query": {
+   "model": "M1",
+   "q": "q_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/suggest-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/suggest-defects",
+  "query": {
+   "model": "M1",
+   "part": "part_v",
+   "q": "q_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/filters",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/photos-by-session/client_id_v",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/line-defects/photo",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/line-defects/photo",
+  "query": {},
+  "body": {
+   "client_id": "client_id_v",
+   "data": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ=="
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/line-defects/photo/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/line-defects/photo/1",
+  "query": {},
+  "body": {
+   "password": "test-main-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/line-defects/photo/1",
+  "query": {},
+  "body": {
+   "password": "test-import-pw"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/line-defects/photo/1",
+  "query": {},
+  "body": {
+   "password": "wrong"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/line-defects",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/line-defects",
+  "query": {},
+  "body": {
+   "barcode_raw": "barcode_raw_v",
+   "capture_location": "capture_location_v",
+   "client_id": "client_id_v",
+   "comment": "comment_v",
+   "entry_mode": "entry_mode_v",
+   "part_name": "part_name_v",
+   "photo_ids": "photo_ids_v",
+   "problem_type": "problem_type_v",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/file/nofile_123.jpg",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects",
+  "query": {
+   "capture_location": "capture_location_v",
+   "from": "2026-10-01",
+   "limit": "3",
+   "model": "M1",
+   "offset": "3",
+   "part_name": "part_name_v",
+   "problem_type": "problem_type_v",
+   "search": "search_v",
+   "to": "2026-10-07",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/line-defects/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/defect-notes",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/defect-notes",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/defect-notes",
+  "query": {},
+  "body": {
+   "action": "action_v",
+   "mpp": "mpp_v",
+   "responsible": "responsible_v"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/defect-notes/mpp_v",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-retrospective",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "hideAssembly": "hideAssembly_v",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-vins-details",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repps-vins-details",
+  "query": {
+   "category": "category_v",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "hideAssembly": "hideAssembly_v",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-shift-photos/file/nofile_123.jpg",
+  "query": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/drr-shift-photos/upload",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/drr-shift-photos/upload",
+  "query": {},
+  "body": {
+   "data": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==",
+   "mime": "image/jpeg",
+   "photo_key": "photo_key_v",
+   "uploaded_by": "uploaded_by_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-shift-photos/all",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-shift-photos/all",
+  "query": {
+   "prefix": "prefix_v"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/drr-shift-photos/1",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-shift-marks",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-shift-marks",
+  "query": {
+   "prefix": "prefix_v"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/drr-shift-marks/toggle",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/drr-shift-marks/toggle",
+  "query": {},
+  "body": {
+   "mark_key": "mark_key_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cp7",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cp7",
+  "query": {
+   "shiftLetter": "A",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cp7",
+  "query": {
+   "shiftLetter": "ALL",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cp7",
+  "query": {
+   "shiftLetter": "B",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cp7",
+  "query": {
+   "shiftLetter": "C",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/adas",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/adas",
+  "query": {
+   "shiftLetter": "A",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/adas",
+  "query": {
+   "shiftLetter": "ALL",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/adas",
+  "query": {
+   "shiftLetter": "B",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/adas",
+  "query": {
+   "shiftLetter": "C",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cpfinal",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cpfinal",
+  "query": {
+   "shiftLetter": "A",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cpfinal",
+  "query": {
+   "shiftLetter": "ALL",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cpfinal",
+  "query": {
+   "shiftLetter": "B",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/cpfinal",
+  "query": {
+   "shiftLetter": "C",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/pip",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/pip",
+  "query": {
+   "shiftLetter": "A",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/pip",
+  "query": {
+   "shiftLetter": "ALL",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/pip",
+  "query": {
+   "shiftLetter": "B",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/pip",
+  "query": {
+   "shiftLetter": "C",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/bad",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/bad",
+  "query": {
+   "shiftLetter": "A",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/bad",
+  "query": {
+   "shiftLetter": "ALL",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/bad",
+  "query": {
+   "shiftLetter": "B",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-analytics/bad",
+  "query": {
+   "shiftLetter": "C",
+   "weeks": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "ALL",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "CP7",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "CP8",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "PIP",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "TL",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "Key_Uloc_Type_TRIMIN",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-weekly-photos",
+  "query": {
+   "checkpoint": "Inbound",
+   "limit": "3",
+   "weekEnd": "2026-10-07",
+   "weekStart": "2026-10-01"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc",
+  "query": {
+   "cp8End": "2026-10-07",
+   "cp8Start": "2026-10-01",
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-after-cp7",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-after-cp7",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-checkpoints-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-checkpoints-dashboard",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-vin-history",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/voltage-spc-vin-history",
+  "query": {
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-report",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "all"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "day"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "evening"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "night"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "A"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "B"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/repelec-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1",
+   "shift": "C"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/repelec-bms-notes",
+  "query": {},
+  "body": {}
+ },
+ {
+  "method": "POST",
+  "path": "/api/repelec-bms-notes",
+  "query": {},
+  "body": {
+   "fault_content": "fault_content_v",
+   "module_name": "module_name_v",
+   "note": "note_v",
+   "test_station": "test_station_v",
+   "vin": "LVTDB21B0RD000001"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "week",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "day",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "month",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "year",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "all",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-dynamics-chart",
+  "query": {
+   "count": "3",
+   "fromDate": "2026-10-01",
+   "period": "custom",
+   "toDate": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-cp7-nok-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-cp7-nok-vins",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "model": "M1"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-top-errors",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/bms-top-errors",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-dashboard",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-dashboard",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-top-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-top-defects",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-mpp-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-mpp-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "module_name": "module_name_v",
+   "startTime": "2026-10-01 08:00:00",
+   "test_station": "test_station_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-vins",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-bms-vins",
+  "query": {
+   "endTime": "2026-10-02 08:00:00",
+   "startTime": "2026-10-01 08:00:00",
+   "status": "status_v"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-snapshots",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-snapshots",
+  "query": {
+   "days": "3"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/drr-electronics-snapshot/1",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/inspection-defects",
+  "query": {}
+ },
+ {
+  "method": "GET",
+  "path": "/api/inspection-defects",
+  "query": {
+   "dateFrom": "2026-10-01",
+   "dateTo": "2026-10-07",
+   "limit": "3",
+   "recheckPerson": "recheckPerson_v",
+   "vin": "LVTDB21B0RD000001"
+  }
+ }
+]
