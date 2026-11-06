@@ -36,6 +36,10 @@ from a PLC over OPC UA, and sends e-mail through Exchange/SMTP.
 
 ## Running
 
+For everyday use on the Windows server (built pages, automatic restart, log files,
+auto-start) see **[docs/DEPLOY.md](docs/DEPLOY.md)** — in short: `start-mbs.bat`.
+The development way below keeps working.
+
 Server:
 
 ```bash
