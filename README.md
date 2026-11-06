@@ -13,6 +13,24 @@ SGP, warranty, brigades, VRT, voltage SPC, line defect capture, and more).
 The Vite dev server forwards `/api` requests to `http://localhost:40000`
 (`client/vite.config.js`).
 
+Server layout:
+
+```
+server/
+  server.js        entry point: loads .env, then every module below in a fixed order
+  mailer.js        e-mail sending
+  src/app.js       Express app and middleware
+  src/db.js        database pools and connection checks
+  src/config/      page passwords
+  src/services/    OPC UA polling
+  src/routes/      API routes by page/topic (DRR checkpoints under routes/drr/)
+  src/lib/         helpers shared by several modules
+  uploads/         stored photos (created at start)
+```
+
+The order of `require` lines in `server/server.js` matters: it fixes the order of
+Express routes and of background jobs.
+
 The server uses five MySQL databases (main, LES, MES, notes, BMS), reads one value
 from a PLC over OPC UA, and sends e-mail through Exchange/SMTP.
 

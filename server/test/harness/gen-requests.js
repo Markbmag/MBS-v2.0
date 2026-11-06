@@ -2,7 +2,7 @@
 /*
  * Builds test/harness/requests.json: the list of HTTP requests the recorder sends.
  *
- * It reads a server source file (by default the original monolithic server.js),
+ * It reads the server source (server.js and src/**, or one given file),
  * finds every route, collects the query/body parameter names each handler reads,
  * and creates several request variants per route (no params, typical params, and
  * one variant per value of the parameters that switch code paths).
@@ -14,7 +14,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const src = fs.readFileSync(process.argv[2] || path.join(__dirname, '..', '..', 'server.js'), 'utf8');
+// Source: the given file, or server.js plus every module under src/ (routes live there now).
+function listJs(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+    const p = path.join(dir, e.name);
+    return e.isDirectory() ? listJs(p) : e.name.endsWith('.js') ? [p] : [];
+  }).sort();
+}
+const serverDir = path.join(__dirname, '..', '..');
+const src = process.argv[2]
+  ? fs.readFileSync(process.argv[2], 'utf8')
+  : [path.join(serverDir, 'server.js'), ...listJs(path.join(serverDir, 'src'))].map((f) => fs.readFileSync(f, 'utf8')).join('\n');
 const lines = src.split('\n');
 
 // ---- locate routes and the text of their handlers --------------------------

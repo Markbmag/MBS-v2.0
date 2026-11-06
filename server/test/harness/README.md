@@ -41,6 +41,12 @@ Recordings are written to `server/recordings/` (ignored by git).
 
 * `requests.json` was generated from the original single-file `server.js` by
   `gen-requests.js` and is committed, so every comparison uses the same input.
-  Regenerate it only on purpose (for example after a new route is added).
+  Regenerate it only on purpose (for example after a new route is added);
+  the generator now reads `server.js` and everything under `src/`.
+* Routes deleted on purpose are listed in `removed-routes.json`; for those the
+  comparison expects a 404 instead of the old answer.
+* `check-names.js` finds names that are used but defined nowhere (a missing
+  `require` after moving code). Run it on every changed file:
+  `node --expose-internals test/harness/check-names.js server.js $(find src -name '*.js')`
 * A difference is not automatically a bug, but every difference must be
   explained and agreed before it is accepted.
