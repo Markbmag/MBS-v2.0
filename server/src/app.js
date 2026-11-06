@@ -1,6 +1,7 @@
 // Express-приложение и общие middleware (CORS, разбор JSON/форм).
 // Код перенесён из server.js без изменений.
 
+
 const express = require('express');
 const cors = require('cors');
 
