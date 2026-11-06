@@ -1,0 +1,53 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "@zxing/browser": "^0.2.1",
+    "@zxing/library": "^0.23.0",
+    "axios": "^1.18.1",
+    "file-saver": "^2.0.5",
+    "html-docx-js": "^0.3.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "multer": "^2.2.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^9.0.5",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
+    "react-scripts": "5.0.1",
+    "recharts": "^3.10.1",
+    "vite": "^5.1.0",
+    "xlsx": "^0.18.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "vite"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.2.0"
+  }
+}

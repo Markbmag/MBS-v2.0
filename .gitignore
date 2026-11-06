@@ -1,24 +1,9 @@
-# Secrets - never commit
-.env
-.env.*
-!.env.example
-
-# Ncode's own users/audit database
-backend/data/
-
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.pytest_cache/
-
-# Node
-node_modules/
-dist/
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
+/.idea
+/.vscode
+/server/node_modules
+/client/node_modules
+/server/.env
+/server/package-lock.json
+/client/package-lock.json
+*.log
+/server/.idea

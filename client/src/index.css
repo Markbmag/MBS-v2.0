@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Кастомизация скроллбара */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;                /* ширина вертикальной полосы */
+  height: 8px;               /* высота горизонтальной полосы */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #1F2937;       /* фон трека (дорожки) */
+  border-radius: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #4B5563;       /* цвет самого ползунка */
+  border-radius: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;       /* при наведении */
+}
+
+/* Для Firefox */
+.custom-scroll {
+  scrollbar-color: #4B5563 #1F2937;
+  scrollbar-width: thin;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
